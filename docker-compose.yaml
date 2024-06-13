@@ -1,13 +1,28 @@
 version: '3.8'
 services:
 
-  api:
+  front_holly_finance:
     image: ghcr.io/aumatiza/front_holly_finance:latest
+    command: uvicorn main:app  --host 0.0.0.0 --port 8051 --workers 6
+    environment:
+      - BACNKEND_BASE_URL=http://0.0.0.0:8050
+      - ELASTIC_SERVICE_NAME="front_holly_finance"
+      - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+    ports:
+      - 8051:8051
+    networks:
+      network_default:
+        aliases:
+          - api_acesso
+  api_holly_finance:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
     command: uvicorn main:app  --host 0.0.0.0 --port 8050 --workers 6
     environment:
       - DATABASE_URL="postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm"
       - BACKUP_FILE="./"
-      - ELASTIC_SERVICE_NAME="front_holly_finance"
+      - ELASTIC_SERVICE_NAME="api_holly_finance"
       - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=ApiMy@CrM132@
