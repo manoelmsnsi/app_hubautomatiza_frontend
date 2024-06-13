@@ -22,6 +22,7 @@ from src.app.pessoa.route import frontend as pessoa_route
 from src.app.status.route import frontend as status_route
 from src.app.contato.route import frontend as contato_route
 from src.app.empresa.route import frontend as empresa_route
+from src.app.endereco.route import frontend as endereco_route
 from src.app.categoria.route import frontend as categoria_route
 from src.app.conta_tipo.route import frontend as conta_tipo_route
 from src.app.pessoa_tipo.route import frontend as pessoa_tipo_route
@@ -42,6 +43,7 @@ app.include_router(pessoa_route)
 app.include_router(status_route)
 app.include_router(contato_route)
 app.include_router(empresa_route)
+app.include_router(endereco_route)
 app.include_router(categoria_route)
 app.include_router(conta_tipo_route)
 app.include_router(pessoa_tipo_route)

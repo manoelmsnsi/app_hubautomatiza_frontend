@@ -30,7 +30,7 @@
                             <label>#</label>
                             <input type="text" disabled name="id" value="{{ pessoa_data['id'] }}" maxlength="255" class="form-control">
                         </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-12">
+                        <div class="form-group col-sm-12  col-md-12 col-lg-11">
                             <label>NOME</label>
                             <input type="text" disabled name="name" value="{{ pessoa_data['name'] }}" maxlength="255" class="form-control">
                         </div>
@@ -133,7 +133,7 @@
                                     </td>  
                                     <td>{{ endereco["create_at"]}}</td>
                                     <td>
-                                        <a href="/endereco/form?id={{endereco.id}}" class="btn btn-light">Editar</a>
+                                        <a href="/endereco/form?id={{endereco.id}}&pessoa_id={{pessoa_data['id']}}" class="btn btn-light">Editar</a>
                                         <a href="#" class="btn btn-danger">Deletar</a>
                                     </td>
                                 </tr>
