@@ -3,7 +3,7 @@
 <div class="section-header">
     
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="/caixa">CAIXA</a></div>
+      <div class="breadcrumb-item active"><a href="/caixa_historico">HISTORISCO CAIXA</a></div>
       <div class="breadcrumb-item">LISTAGEM</div>
     </div>
   </div>
@@ -11,9 +11,9 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-            <h4>CAIXA</h4>
+            <h4>HISTORISCO CAIXA</h4>
             <div class="card-header-form">
-                <form method="get" action="/caixa">
+                <form method="get" action="/caixa_historico">
                     <div class="input-group">      
                         <!-- <div class=" d-inline mr-2">
                             <select class="btn btn-primary"name="param_search" >
@@ -26,7 +26,7 @@
                         <div class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                         </div>
-                        <a  class="btn btn-primary" href="/caixa/form"><i class="fas fa-plus"></i></a>
+                        <a  class="btn btn-primary" href="/caixa_historico/form"><i class="fas fa-plus"></i></a>
                     </div>
                 </form>
           </div>
@@ -37,25 +37,41 @@
                     <tr>
                         <th>#</th>
                         <th>DESCRIÇÃO</th>
+                        <th>CAIXA</th>
+                        <th>PAGAMENTO</th>
+                        <th>DOCUMENTO</th>
+                        <th>VALOR PARCELA</th>
+                        <th>VALOR PAGO</th>
+                        <th>VALOR TROCO</th>
+                        <th>CONTA ID</th>
+                        <th>DATA PAGAMENTO</th>
+                        <th>DATA VENCIMENTO</th>
                         <th>EMPRESA</th>
                         <th>STATUS</th>
                         <th>CRIADO EM</th>
                         <th>AÇÃO</th>
                     </tr>           
-                    {% for caixa in data['items'] %}
+                    {% for caixa_historico in data['items'] %}
                     <tr>                
-                        <td>{{ caixa["id"] }}</td>
-                        <td>{{ caixa["description"] }}</td>         
-                        <td>{{ caixa["empresa"]["name_fantasy"] }}</td>         
+                        <td>{{ caixa_historico["id"] }}</td>
+                        <td>{{ caixa_historico["caixa"]["description"] }}</td>
+                        <td>{{ caixa_historico["caixa"]["description"] }}</td>
+                        <td>{{ caixa_historico["conta"]["pagamento_tipo"]["description"] }}</td>
+                        <td>{{ caixa_historico["conta"]["documento_tipo"]["description"] }}</td>
+                        <td>{{ caixa_historico["conta"]["valor_parcela"] }}</td>
+                        <td>{{ caixa_historico["conta"]["valor_pago"] }}</td>
+                        <td>{{ caixa_historico["conta"]["valor_troco"] }}</td>
+                        <td>{{ caixa_historico["conta"]["id"] }}</td>
+                        <td>{{ caixa_historico["conta"]["data_vencimento"] }}</td>
+                        <td>{{ caixa_historico["conta"]["data_pagamento"] }}</td>
+                        <td>{{ caixa_historico["empresa"]["name_fantasy"] }}</td>
                         <td>
                             <div class="badge badge-warning">
-                                {{ caixa["status"]["description"] }}
+                                {{ caixa_historico["status"]["description"] }}
                             </div>
                         </td>         
-                        <td>{{ caixa["create_at"]}}</td>
+                        <td>{{ caixa_historico["create_at"]}}</td>
                         <td>
-                            <a href="/caixa_historico?id={{caixa.id}}" class="btn btn-primary">Historico</a>
-                            <a href="/caixa/form?id={{caixa.id}}" class="btn btn-light">Editar</a>
                             <a href="#" class="btn btn-danger">Deletar</a>
                         </td>
                     </tr>

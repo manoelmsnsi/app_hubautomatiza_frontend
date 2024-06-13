@@ -29,6 +29,7 @@ from src.app.pessoa_tipo.route import frontend as pessoa_tipo_route
 from src.app.contato_tipo.route import frontend as contato_tipo_route
 from src.app.documento_tipo.route import frontend as documento_tipo_route
 from src.app.pagamento_tipo.route import frontend as pagamento_tipo_route
+from src.app.caixa_historico.route import frontend as caixa_historico_route
 
 middleware = [
     Middleware(SessionMiddleware, secret_key='super-secret')
@@ -50,6 +51,7 @@ app.include_router(pessoa_tipo_route)
 app.include_router(contato_tipo_route)
 app.include_router(documento_tipo_route)
 app.include_router(pagamento_tipo_route)
+app.include_router(caixa_historico_route)
 
 
 app.mount("/static", StaticFiles(directory="src/system/static", html=True), name="static")

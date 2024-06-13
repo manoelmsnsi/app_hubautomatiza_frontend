@@ -119,6 +119,19 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_caixa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_caixa','error':error})   
+       
+    def get_caixa_historico(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/caixa_historico/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_caixa_historico -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_caixa_historico','error':error})   
 
     def get_conta(self,filters:dict):
         try:
