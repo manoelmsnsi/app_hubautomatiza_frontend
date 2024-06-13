@@ -36,9 +36,11 @@
                 <table class="table table-striped">                
                     <tr>
                         <th>#</th>
+                        <th>DESCRIÇÃO</th>
                         <th>NOME</th>
                         <th>CPF/CNPJ</th>
                         <th>TIPO</th>
+                        <th>CONTROLE</th>
                         <th>DOCUMENTO</th>
                         <th>PAGAMENTO</th>
                         <th>VALOR TOTAL</th>
@@ -53,6 +55,7 @@
                     {% for conta in data['items'] %}
                     <tr>                
                         <td>{{ conta["id"] }}</td>
+                        <td>{{ conta["descricao"] }}</td>
                         <td>{{ conta["pessoa"]["name"] }}</td>
                         <td>{{ conta["pessoa"]["cpf_cnpj"] }}</td>
                         <td> 
@@ -66,6 +69,7 @@
                                 </div>
                             {% endif %}
                         </td>
+                        <td>{{ conta["controle"]}}</td>
                         <td>{{ conta["documento_tipo"]["description"] }}</td>
                         <td>{{ conta["pagamento_tipo"]["description"] }}</td>
                         <td>{{ conta["valor_total"]}}</td>
