@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+  <section class="section">
+    
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+          
+          <div class="card-icon shadow-primary bg-primary">          
+            <i class="fas fa-arrow-circle-up	"></i>
+          </div>
+          <div class="card-wrap">
+            <div class="card-header">
+              <h4 class="text-success">ENTRADAS</h4>
+            </div>
+            <div class="card-body text-success">
+              R$ 59,00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+         
+          <div class="card-icon shadow-primary bg-primary">
+            <i class="fas fa-arrow-circle-down	"></i>
+          </div>
+          <div class="card-wrap">
+            <div class="card-header ">
+              <h4 class="text-danger">SAIDAS</h4>
+            </div>
+            <div class="card-body text-danger">
+              R$ 187,13
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card card-statistic-2">
+          <div class="card-icon shadow-primary bg-primary">
+            <i class="fas fa-dollar-sign"></i>
+          </div>
+          <div class="card-wrap">
+            <div class="card-header">
+              <h4>CAIXA</h4>
+            </div>
+            <div class="card-body text-primary">
+              R$ 473,2
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="section-body">
+      <h2 class="section-title">MEUS ROBÔS</h2>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i> ERRO</div>
+              </div>
+            </div>
+            <div class="article-details">
+              <div class="article-title">
+                <h2><a href="#">Banco Olé - Higienização</a></h2>
+              </div>
+              <p>LICENÇA:XXXXXXXXXXXXXXXXXXXXXXX1 </p>
+              <div class="article-cta">
+                <a href="#">Veja Mais <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img15.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-warning"><i class="fas fa-fire"></i> LENTIDÃO</div>
+              </div>
+            </div>
+            <div class="article-details">
+              <div class="article-title">
+                <h2><a href="#">Banco Bradesco</a></h2>
+              </div>
+              <p>LICENÇA:XXXXXXXXXXXXXXXXXXXXXXX2 </p>
+              <div class="article-cta">
+                <a href="#">Veja Mais <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img07.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-info"><i class="fas fa-fire"></i> EM MANUTENÇÃO</div>
+              </div>
+              
+            </div>
+            <div class="article-details">
+              <div class="article-title">
+                <h2><a href="#">Banco Bradesco</a></h2>
+              </div>
+              <p>LICENÇA:XXXXXXXXXXXXXXXXXXXXXXX3 </p>
+              <div class="article-cta">
+                <a href="#">Veja Mais <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img15.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-success"><i class="fas fa-fire"></i> NORMAL</div>
+              </div>
+            </div>
+            <div class="article-details">
+              <div class="article-title">
+                <h2><a href="#">Banco Pan</a></h2>
+              </div>
+              <p>LICENÇA:XXXXXXXXXXXXXXXXXXXXXXX4 </p>
+              <div class="article-cta">
+                <a href="#">Veja Mais <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div> 
+      <h2 class="section-title">DISPONÍVEIS PARA CONTRATAÇÃO</h2>     
+      <h4>Refinanciamento</h4>
+      <div class="row">
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> PAN</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> C6</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> OLÉ</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> BRADESCO</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i>DAYCOVAL</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> ITAÚ</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+      </div> 
+      <h4>Acessos</h4>
+      <div class="row">
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> PAN</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> C6</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> OLÉ</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> BRADESCO</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i>DAYCOVAL</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+          <article class="article article-style-b">
+            <div class="article-header">
+              <div class="article-image" data-background="{{ url_for('static', path='img/news/img13.jpg') }}">
+              </div>
+              <div class="article-badge">
+                <div class="article-badge-item bg-dark"><i class="fas fa-star"></i> ITAÚ</div>
+              </div>
+            </div>            
+          </article>
+        </div>
+        
+      </div> 
+
+    </div> -->
+    
+  </section>
+
+{% endblock %}

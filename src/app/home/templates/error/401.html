@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}  
+<div class="section-header">
+    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/home">home</a></div>
+      <div class="breadcrumb-item "><a href="#">erro</a></div>
+    </div>
+  </div>
+    <section class="section">
+        <div class="container mt-5">
+            <div class="page-error ">
+                <div class="page-inner">
+                <h1>401</h1>
+                <div class="page-description">
+                    VOCE NÃO TEM PERMISSÃO PARA ACESSAR ESSA PÁGINA.
+                </div>
+                <p style="font-size: 9px;color:brown">
+                    {{data}}
+                </p>
+                </div>
+            </div>        
+        </div>
+    </section>  
+{% endblock %}

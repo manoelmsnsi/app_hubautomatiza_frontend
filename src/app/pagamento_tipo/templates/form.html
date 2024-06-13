@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="section-header">    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/pagamento_tipo">PAGAMENTO TIPO</a></div>
+      <div class="breadcrumb-item">FORMULÁRIO</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h4>CADASTRO DE TIPOS DE PAGAMENTO</h4>
+          </div>
+          <div class="card-body"> 
+            {% if pagamento_tipo_data %}
+            {% set pagamento_tipo_data = pagamento_tipo_data[0] %}
+              <form method="PATCH" action="/pagamento_tipo/update/{{ pagamento_tipo_data['id'] }}"> 
+            {% else %}
+              <form method="POST" action="/pagamento_tipo/insert"> 
+            {% endif %}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-12">
+                        </div>                                    
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                            <label>DESCRIÇÃO</label>
+                            <input type="text" name="description" value="{{ pagamento_tipo_data['description'] }}" maxlength="255" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-2">
+                            <label>JUROS</label>
+                            <input type="text" name="fees" value="{{ pagamento_tipo_data['fees'] }}" maxlength="255" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>Entrada</label>
+                          <select name="entrada" class="form-control select ">
+                            {% if pagamento_tipo_data["entrada"] == True %}                                                                         
+                              <option selected value="True">SIM</option>
+                              <option value="False">NÃO</option>
+                            {% else %}  
+                              <option selected value="False">NÃO</option>
+                              <option value="True">SIM</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-2">
+                            <label>PARCELAS</label>
+                            <input type="text" name="fees" value="{{ pagamento_tipo_data['amout'] }}" maxlength="255" class="form-control">
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-2">
+                          <label>STATUS</label>
+                          <select name="status_id" class="form-control select2 ">
+                              {% for status in status_data %}
+                                {% if(pagamento_tipo_data["status_id"]) == status['id'] %}                                                                         
+                                    <option selected value="{{status['id']}}">{{status['description']}}</option>
+                                {% else %}  
+                                  <option  value="{{status['id']}}">{{status['description']}}</option>
+                                {% endif %}
+                              {% endfor %}
+                          </select>
+                        </div>
+                        
+                    </div>
+                </div>
+                {% if pagamento_tipo_data %}
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <a href="/pagamento_tipo" class="btn btn-danger" type="reset">Cancelar</a>
+                  </div>
+                {% else %}
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
+                    <a href="/pagamento_tipo" class="btn btn-danger" type="reset">Cancelar</a>
+                  </div>
+                {% endif %}
+              </div>
+            </form>                    
+          </div>
+      </div> 
+    </div>
+  </div>
+{% endblock %}

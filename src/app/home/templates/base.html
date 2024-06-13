@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>HOLLY &mdash; FINANCE</title>
+
+  <!-- General CSS Files -->
+  <link rel="shortcut icon" href="{{ url_for('static', path='img/favicon_16px.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/fontawesome/css/all.min.css')}}">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/jqvmap/dist/jqvmap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/select2/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
+  
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ url_for('static',path='css/style.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='css/components.css')}}">
+<!-- Start GA -->
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">      
+      {% include "menu_superior.html"%}   
+      {% include "menu.html"%}   
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          {% for message in get_flashed_messages(request) %}
+          <div class=""></div>
+          <div class="alert {{ message.category }} alert-dismissible show fade">
+            <div class="alert-body">
+              <button class="close" data-dismiss="alert">
+                <span>×</span>
+              </button>
+              {{ message.message }}
+              </div>
+            </div>
+        {% endfor %}
+          
+            
+          {% block content %}
+
+          {% endblock %}
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2023 <div class="bullet"></div><a target="_blank" href="https://hubautomatiza.com.br/">HubAutomatiza</a>
+        </div>
+        <div class="footer-right">
+          
+        </div>
+      </footer>
+    </div>
+  </div>
+  
+
+  <!-- General JS Scripts -->
+  <script type="text/javascript" src="{{ url_for('static',path='modules/jquery.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/popper.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/tooltip.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/bootstrap/js/bootstrap.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/nicescroll/jquery.nicescroll.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/moment.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='js/stisla.js') }}" ></script>
+  
+  <!-- JS Libraies -->
+  <script type="text/javascript" src="{{ url_for('static',path='modules/jquery.sparkline.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/chart.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/owlcarousel2/dist/owl.carousel.min.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/summernote/summernote-bs4.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='modules/select2/dist/js/select2.full.min.js')}}"></script>
+  
+  <!-- Page Specific JS File -->
+  <script type="text/javascript" src="{{ url_for('static',path='js/page/index.js') }}" ></script>
+  
+  <!-- Template JS File -->
+  <script type="text/javascript" src="{{ url_for('static',path='js/scripts.js') }}" ></script>
+  <script type="text/javascript" src="{{ url_for('static',path='js/custom.js') }}" ></script>
+</body>
+</html>

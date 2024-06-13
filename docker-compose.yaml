@@ -1,0 +1,96 @@
+version: '3.8'
+services:
+
+  api:
+    image: ghcr.io/aumatiza/front_holly_finance:latest
+    command: uvicorn main:app  --host 0.0.0.0 --port 8050 --workers 6
+    environment:
+      - DATABASE_URL="postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm"
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME="front_holly_finance"
+      - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+    ports:
+      - 8050:8050
+    networks:
+      network_default:
+        aliases:
+          - api_acesso
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.21
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+    volumes:
+      - data_elastic:/usr/share/elasticsearch/data
+    networks:
+      - network_default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "100"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.21
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=ApiMy@CrM132@
+      - xpack.security.enabled=true
+      - xpack.encryptedSavedObjects.encryptionKey=779199a2fa2a25a0a31f28b40dac00f7
+    networks:
+      - network_default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "100"
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:7.17.21
+    ports:
+      - "8200:8200"
+    depends_on:
+      - elasticsearch
+      - kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=ApiMy@CrM132@
+      - KIBANA_HOST=http://kibana:5601
+      - KIBANA_USERNAME=elastic
+      - KIBANA_PASSWORD=ApiMy@CrM132@
+    command: >
+      apm-server -e
+      -E apm-server.host=0.0.0.0:8200
+      -E output.elasticsearch.hosts=["http://elasticsearch:9200"]
+      -E output.elasticsearch.username=elastic
+      -E output.elasticsearch.password=ApiMy@CrM132@
+      -E setup.kibana.host=http://kibana:5601
+      -E setup.kibana.username=elastic
+      -E setup.kibana.password=ApiMy@CrM132@
+    networks:
+      - network_default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "100"
+      
+volumes:
+  data_elastic:
+    driver: local
+networks:
+  network_default:
+    name: ${NETWORK_DEFAULT:-network_default}

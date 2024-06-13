@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Hub &mdash;Automatiza</title>
+
+  <!-- General CSS Files -->
+  <link rel="shortcut icon" href="{{ url_for('static', path='img/favicon_16px.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/fontawesome/css/all.min.css')}}">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/jqvmap/dist/jqvmap.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/select2/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
+  
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ url_for('static',path='css/style.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='css/components.css')}}">
+<body>
+    <div id="app">
+      <section class="section">
+        <div class="iziToast-wrapper iziToast-wrapper-topRight"></div>
+        <div class="container mt-5">
+          {% if mensagem %}
+          <div class="alert alert-danger alert-dismissible show fade">
+            <div class="alert-body">
+              <button class="close" data-dismiss="alert">
+                <span>×</span>
+              </button>
+                {{mensagem}}
+              </div>
+            </div>
+            {% endif %}
+          <div class="row">
+            <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+              <button  style="height: 150px;" class="btn btn-dark btn-lg btn-block" tabindex="4">
+                <h2 >HubAutomatiza <div class=" text-muted " style="font-size: 8px;">v0.1</div>   </h2>
+                    
+              </button>
+              <!-- <img src="{{ url_for('static', path='img/robot.png') }}" alt="logo" width="300" height="160" class=" "> -->
+              
+              
+              <div class="card ">
+                <div class="card-header"><h4>Login</h4></div>
+  
+                <div class="card-body">
+                  <form method="POST" action="/auth" class="needs-validation" novalidate="">
+                    <div class="form-group">
+                      <label for="email">E-mail</label>
+                      <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
+                      <div class="invalid-feedback">
+                        Digite seu usuário
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="d-block">
+                          <label for="password" class="control-label">Senha</label>
+                        <div class="float-right">
+                          <a href="/password/recovery" class="text-small">
+                            Esqueceu a Senha?
+                          </a>
+                        </div>
+                      </div>
+                      <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                      <div class="invalid-feedback">
+                        Digite sua senha
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                        <label class="custom-control-label" for="remember-me">Lembrar senha</label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
+                        Login
+                      </button>
+                    </div>
+                  </form>                 
+  
+                </div>
+              </div>
+              <div class="mt-5 text-muted text-center">
+                Não possui acesso? <a href="#">Crie Agora</a><br>
+                Copyright &copy; Boteria 2023
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+<!-- General JS Scripts -->
+<script type="text/javascript" src="{{ url_for('static',path='modules/jquery.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/popper.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/tooltip.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/bootstrap/js/bootstrap.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/nicescroll/jquery.nicescroll.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/moment.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='js/stisla.js') }}" ></script>
+
+<!-- JS Libraies -->
+<script type="text/javascript" src="{{ url_for('static',path='modules/jquery.sparkline.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/chart.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/owlcarousel2/dist/owl.carousel.min.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/summernote/summernote-bs4.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='modules/select2/dist/js/select2.full.min.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',path='/modules/izitoast/js/iziToast.min.js')}}"></script>
+
+<!-- Page Specific JS File -->
+<script type="text/javascript" src="{{ url_for('static',path='js/page/index.js') }}" ></script>
+
+<!-- Template JS File -->
+<script type="text/javascript" src="{{ url_for('static',path='js/scripts.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',path='js/custom.js') }}" ></script>
+
+<div id="ascrail2000" class="nicescroll-rails nicescroll-rails-vr" style="width: 8px; z-index: 892; cursor: default; position: fixed; top: 0px; left: 242px; height: 951px; opacity: 0;"><div class="nicescroll-cursors" style="position: relative; top: 0px; float: right; width: 6px; height: 637px; background-color: rgb(66, 66, 66); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px;"></div></div>
+<div id="ascrail2000-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 8px; z-index: 892; top: 943px; left: 0px; position: fixed; cursor: default; display: none; width: 242px; opacity: 0;"><div class="nicescroll-cursors" style="position: absolute; top: 0px; height: 6px; width: 250px; background-color: rgb(66, 66, 66); border: 1px solid rgb(255, 255, 255); background-clip: padding-box; border-radius: 5px; left: 0px;"></div></div>
+<div class="iziToast-wrapper iziToast-wrapper-topRight"></div>
+</body>
+</html>

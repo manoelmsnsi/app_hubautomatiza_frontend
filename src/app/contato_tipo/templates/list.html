@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-header">
+    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/contato_tipo">CONTATO TIPO</a></div>
+      <div class="breadcrumb-item">LISTAGEM</div>
+    </div>
+  </div>
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4>TIPOS DE CONTATO</h4>
+            <div class="card-header-form">
+                <form method="get" action="/contato_tipo">
+                    <div class="input-group">      
+                        <!-- <div class=" d-inline mr-2">
+                            <select class="btn btn-dark"name="param_search" >
+                                <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
+                                <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
+                            </select>                            
+                        </div>            
+                              -->
+                        <input name="name" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a  class="btn btn-primary" href="/contato_tipo/form"><i class="fas fa-plus"></i></a>
+                    </div>
+                </form>
+          </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped">                
+                    <tr>
+                        <th>#</th>
+                        <th>DESCRIÇÃO</th>
+                        <th>STATUS</th>
+                        <th>CRIADO EM</th>
+                        <th>AÇÃO</th>
+                    </tr>           
+                    {% for contato_tipo in data['items'] %}
+                    <tr>                
+                        <td>{{ contato_tipo["id"] }}</td>
+                        <td> {{  contato_tipo["description"] }}</td>                     
+                        <td>
+                            <div class="badge badge-warning">
+                                {{ contato_tipo["status"]["description"] }}
+                            </div>
+                        </td>  
+                        <td>{{ contato_tipo["create_at"]}}</td>
+                        <td>
+                            <a href="/contato_tipo/form?id={{contato_tipo.id}}" class="btn btn-light">Editar</a>
+                            <a href="#" class="btn btn-danger">Deletar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}              
+                </table>              
+                <div class="card-footer text-right">
+                    <nav class="d-inline-block">
+                      <ul class="pagination mb-0">
+                        <li class="page-item">
+                            {% if data['page'] > 1 %}
+                                <a class="page-link" href="?page={{ data['page']-1 }}" ><i class="fas fa-chevron-left"></i></a>
+                            {% endif %}
+                          </li>
+                          <li class="page-item active"><a class="page-link" href="#">{{ data['page'] }}/{{ data['pages'] }}<span class="sr-only">(current)</span></a></li> 
+                          <li class="page-item">
+                            {% if data['page'] < data['pages'] %}
+                                <a class="page-link" href="?page={{ data['page']+1 }}"><i class="fas fa-chevron-right"></i></a>
+                            {% endif %}
+                          </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

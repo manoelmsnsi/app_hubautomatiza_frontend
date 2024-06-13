@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-header">
+    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/conta">CONTA</a></div>
+      <div class="breadcrumb-item">LISTAGEM</div>
+    </div>
+  </div>
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4>CONTA</h4>
+            <div class="card-header-form">
+                <form method="get" action="/conta">
+                    <div class="input-group">      
+                        <!-- <div class=" d-inline mr-2">
+                            <select class="btn btn-dark"name="param_search" >
+                                <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
+                                <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
+                            </select>                            
+                        </div>            
+                              -->
+                        <input name="name" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <a  class="btn btn-primary" href="/conta/form"><i class="fas fa-plus"></i></a>
+                    </div>
+                </form>
+          </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped">                
+                    <tr>
+                        <th>#</th>
+                        <th>NOME</th>
+                        <th>CPF/CNPJ</th>
+                        <th>TIPO</th>
+                        <th>DOCUMENTO</th>
+                        <th>PAGAMENTO</th>
+                        <th>VALOR TOTAL</th>
+                        <th>VALOR PARCELA</th>
+                        <th>PARCELA</th>
+                        <th>EMPRESA</th>
+                        <th>STATUS</th>
+                        <th>VENCIMENTO</th>
+                        <th>CRIADO EM</th>
+                        <th>AÇÃO</th>
+                    </tr>           
+                    {% for conta in data['items'] %}
+                    <tr>                
+                        <td>{{ conta["id"] }}</td>
+                        <td>{{ conta["pessoa"]["name"] }}</td>
+                        <td>{{ conta["pessoa"]["cpf_cnpj"] }}</td>
+                        <td> 
+                            {% if conta['conta_tipo_id'] == 1 %}
+                                <div class="badge badge-primary">
+                                    {{ conta["conta_tipo"]["description"] }}
+                                </div>
+                            {% elif conta['conta_tipo_id'] == 2 %}
+                                <div class="badge badge-danger">
+                                    {{ conta["conta_tipo"]["description"] }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>{{ conta["documento_tipo"]["description"] }}</td>
+                        <td>{{ conta["pagamento_tipo"]["description"] }}</td>
+                        <td>{{ conta["valor_total"]}}</td>
+                        <td>{{ conta["valor_parcela"]}}</td>
+                        <td>{{ conta["pagamento_tipo"]["amout"] }} / {{ conta["parcela"]}}</td>
+                        <td>{{ conta["empresa"]["name_fantasy"] }}</td>
+                        <td>
+                            <div class="badge badge-warning">
+                                {{ conta["status"]["description"] }}
+                            </div>
+                        </td>
+                        <td>{{ conta["data_vencimento"]}}</td>
+                        <td>{{ conta["create_at"]}}</td>
+                        <td>
+                            <a href="/conta/visualizar?id={{conta.id}}" class="btn btn-primary">Visualizar</a>
+                            <!-- <a href="/conta/form?id={{conta.id}}" class="btn btn-light">Editar</a> -->
+                            <a href="#" class="btn btn-danger">Deletar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}              
+                </table>              
+                <div class="card-footer text-right">
+                    <nav class="d-inline-block">
+                      <ul class="pagination mb-0">
+                          <li class="page-item">
+                            {% if data['page'] > 1 %}
+                                <a class="page-link" href="?page={{ data['page']-1 }}" ><i class="fas fa-chevron-left"></i></a>
+                            {% endif %}
+                          </li>
+                          <li class="page-item active"><a class="page-link" href="#">{{ data['page'] }}/{{ data['pages'] }}<span class="sr-only">(current)</span></a></li> 
+                          <li class="page-item">
+                            {% if data['page'] < data['pages'] %}
+                                <a class="page-link" href="?page={{ data['page']+1 }}"><i class="fas fa-chevron-right"></i></a>
+                            {% endif %}
+                          </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
