@@ -93,7 +93,7 @@
                                 {% if(conta_data["pagamento_tipo_id"]) == pagamento_tipo['id'] %}                                                                         
                                     <option selected value="{{ pagamento_tipo['id'] }}">{{pagamento_tipo['description']}}</option>
                                 {% else %}  
-                                  <option  value="{{ pagamento_tipo['id'] }}">{{pagamento_tipo['name_fantasy']}}</option>
+                                  <option  value="{{ pagamento_tipo['id'] }}">{{pagamento_tipo['description']}}</option>
                                 {% endif %}description
                               {% endfor %}
                           </select>
