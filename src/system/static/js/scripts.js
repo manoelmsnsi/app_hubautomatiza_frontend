@@ -301,7 +301,12 @@ $(function() {
   if(jQuery().select2) {
     $(".select2").select2();
   }
+  if(jQuery().select2) {
+      $('.js-example-basic-multiple').select2();
+  };
+  
 
+  
   // Selectric
   if(jQuery().selectric) {
     $(".selectric").selectric({
