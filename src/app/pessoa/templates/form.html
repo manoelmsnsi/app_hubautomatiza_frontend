@@ -13,9 +13,9 @@
             <h4>CADASTRO DE PESSOA</h4>
           </div>
           <div class="card-body">
-            {% if pessoa_data %}
-            {% set pessoa_data = pessoa_data[0] %}
-              <form method="PATCH" action="/pessoa/update/{{ pessoa_data['id'] }}"> 
+            {% if pessoa_data[0] %}
+              {% set pessoa_data = pessoa_data[0] %}
+              <form method="POST" action="/pessoa/update/{{ pessoa_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/pessoa/insert"> 
             {% endif %}
@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                           <label>TIPO</label>
-                          <select name="tipo_pessoa_id" class="form-control select2 ">
+                          <select name="pesso_tipo_id" class="form-control select2 ">
                               {% for pessoa_tipo in pessoa_tipo_data %}
                                 {% if(pessoa_data["tipo_id"]) == pessoa_tipo['id'] %}                                                                         
                                     <option selected value="{{ pessoa_tipo['id'] }}">{{ pessoa_tipo['description'] }}</option>

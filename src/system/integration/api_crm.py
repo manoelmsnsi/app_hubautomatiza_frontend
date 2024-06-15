@@ -51,6 +51,35 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_pessoa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_pessoa','error':error})   
+    def post_pessoa(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pessoa/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_pessoa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_pessoa','error':error})   
+        
+    def patch_pessoa(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pessoa?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_pessoa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_pessoa','error':error})   
    
     def get_pessoa_tipo(self,filters:dict):
         try:
