@@ -13,21 +13,21 @@
             <h4>CADASTRO DE CATEGORIA DE CONTA</h4>
           </div>
           <div class="card-body">
-            {% if categoria_data %}
+            {% if categoria_data[0] %}
             {% set categoria_data = categoria_data[0] %}
-              <form method="PATCH" action="/categoria/update/{{ categoria_data['id'] }}"> 
+              <form method="POST" action="/categoria/update/{{ categoria_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/categoria/insert"> 
             {% endif %}
                 <div class="card-body">
                     <div class="row">                               
-                        <div class="form-group col-sm-12  col-md-12 col-lg-6">
+                        <div class="form-group col-sm-12  col-md-12 col-lg-12">
                             <label>DESCRIÇÃO</label>
                             <input type="text" name="description" value="{{ categoria_data['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-6">
                           <label>EMPRESA</label>
-                          <select name="status_id" class="form-control select2 ">
+                          <select name="empresa_id" class="form-control select2 ">
                               {% for empresa in empresa_data %}
                                 {% if(categoria_data["empresa_id"]) == empresa['id'] %}                                                                         
                                     <option selected value="{{empresa['id']}}">{{empresa['name_fantasy']}}</option>
@@ -52,17 +52,10 @@
                         
                     </div>
                 </div>
-                {% if categoria_data %}
                   <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/categoria" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
-                {% else %}
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                    <a href="/categoria" class="btn btn-danger" type="reset">Cancelar</a>
-                  </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

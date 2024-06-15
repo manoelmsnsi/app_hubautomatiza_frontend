@@ -18,12 +18,12 @@
                     <form method="get" action="/contato">
                         <div class="input-group">  
                             <a  class="btn btn-primary" href="/pessoa/form?id={{pessoa_data['id']}}"><i class="fas fa-edit"></i></a>
+                            <a  class="btn btn-danger" href="/pessoa"><i class="fas fa-reply"></i></a>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="/pessoa/insert"> 
                     <div class="row">                     
                         <div class="form-group col-sm-12  col-md-12 col-lg-1">
                             <label>#</label>
@@ -74,7 +74,7 @@
                         </select>
                         </div>                
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>
@@ -162,7 +162,7 @@
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
-                                    <a  class="btn btn-primary" href="/contato/form?id=0&pessoa_id={{ pessoa_data['id'] }}"><i class="fas fa-plus"></i></a>
+                                    <a  class="btn btn-primary" href="/contato/form?pessoa_id={{ pessoa_data['id'] }}"><i class="fas fa-plus"></i></a>
                                 </div>
                             </form>
                         </div>

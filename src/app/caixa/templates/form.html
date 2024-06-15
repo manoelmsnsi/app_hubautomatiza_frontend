@@ -13,9 +13,9 @@
             <h4>CADASTRO DE CAIXA</h4>
           </div>
           <div class="card-body">
-            {% if caixa_data %}
+            {% if caixa_data[0] %}
             {% set caixa_data = caixa_data[0] %}
-            <form method="PATCH" action="/caixa/update/{{ caixa_data['id'] }}"> 
+            <form method="POST" action="/caixa/update/{{ caixa_data['id'] }}"> 
             {% else %}
             <form method="POST" action="/caixa/insert"> 
             {% endif %}
@@ -54,18 +54,11 @@
                         
                     </div>
                 </div>
-                {% if caixa_data %}
+                
                 <div class="card-footer text-right">
-                  <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                  <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                   <a href="/caixa" class="btn btn-danger" type="reset">Cancelar</a>
                 </div>
-                {% else %}
-                <div class="card-footer text-right">
-                  <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                  <a href="/caixa" class="btn btn-danger" type="reset">Cancelar</a>
-                </div>
-                 
-                {% endif %}
               </div>
             </form>                    
           </div>

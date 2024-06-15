@@ -94,6 +94,36 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_pessoa_tipo -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_pessoa_tipo','error':error})   
+        
+    def post_pessoa_tipo(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pessoa_tipo/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_pessoa_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_pessoa_tipo','error':error})   
+        
+    def patch_pessoa_tipo(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pessoa_tipo?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_pessoa_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_pessoa_tipo','error':error})   
    
             
     def get_endereco(self,filters:dict):
@@ -108,6 +138,35 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_endereco -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_endereco','error':error})   
+    def post_endereco(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/endereco/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_endereco -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_endereco','error':error})   
+        
+    def patch_endereco(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/endereco?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_endereco -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_endereco','error':error})   
 
     def get_contato(self,filters:dict):
         try:
@@ -120,7 +179,36 @@ class ApiBackend():
             return response.json()
         except Exception as error:
             print(f"backend -> get_contato -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_contato','error':error})   
+            raise Exception({'integration':'backend','function':'get_contato','error':error}) 
+    def post_contato(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/contato/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_contato -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_contato','error':error})   
+        
+    def patch_contato(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/contato?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_contato -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_contato','error':error})     
     
     def get_contato_tipo(self,filters:dict):
         try:
@@ -134,7 +222,35 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_contato -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_contato_tipo','error':error})   
-
+    def post_contato_tipo(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/contato_tipo/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_contato_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_contato_tipo','error':error})   
+        
+    def patch_contato_tipo(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/contato_tipo?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_contato_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_contato_tipo','error':error})   
        
     def get_caixa(self,filters:dict):
         try:
@@ -148,6 +264,49 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_caixa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_caixa','error':error})   
+    
+    def post_caixa(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/caixa/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_caixa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_caixa','error':error})   
+        
+    def patch_caixa(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/caixa?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_caixa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_caixa','error':error})   
+    def post_processar_caixa(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/caixa_processar_pagamento"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_processar_caixa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_processar_caixa','error':error})   
        
     def get_caixa_historico(self,filters:dict):
         try:
@@ -174,6 +333,36 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_conta -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_conta','error':error})   
+    def post_conta(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/conta/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_conta -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_conta','error':error})   
+        
+    def patch_conta(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/conta?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_conta -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_conta','error':error})   
+        
     def get_conta_tipo(self,filters:dict):
         try:
             url = f"{self.BASE_URL}/conta_tipo/"
@@ -187,6 +376,36 @@ class ApiBackend():
             print(f"backend -> get_conta_tipo -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_conta_tipo','error':error})   
     
+    def post_conta_tipo(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/conta_tipo/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_conta_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_conta_tipo','error':error})   
+        
+    def patch_conta_tipo(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/conta_tipo?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_conta_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_conta_tipo','error':error})   
+    
     def get_documento_tipo(self,filters:dict):
         try:
             url = f"{self.BASE_URL}/documento_tipo/"
@@ -199,6 +418,36 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> get_documento_tipo -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_documento_tipo','error':error})   
+        
+    def post_documento_tipo(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/documento_tipo/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_documento_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_documento_tipo','error':error})   
+        
+    def patch_documento_tipo(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/documento_tipo?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_documento_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_documento_tipo','error':error})   
 
     def get_pagamento_tipo(self,filters:dict):
         try:
@@ -214,7 +463,37 @@ class ApiBackend():
             return response.json()
         except Exception as error:
             print(f"backend -> get_pagamento_tipo -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_pagamento_tipo','error':error})   
+            raise Exception({'integration':'backend','function':'get_pagamento_tipo','error':error})  
+
+    def post_pagamento_tipo(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pagamento_tipo/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_pagamento_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_pagamento_tipo','error':error})   
+        
+    def patch_pagamento_tipo(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/pagamento_tipo?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_pagamento_tipo -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_pagamento_tipo','error':error})    
 
        
     def get_categoria(self,filters:dict):
@@ -228,8 +507,37 @@ class ApiBackend():
             return response.json()
         except Exception as error:
             print(f"backend -> get_categoria -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_categoria','error':error})   
-
+            raise Exception({'integration':'backend','function':'get_categoria','error':error})
+        
+    def post_categoria(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/categoria/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_categoria -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_categoria','error':error})   
+        
+    def patch_categoria(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/categoria?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_categoria -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_categoria','error':error})   
        
     def get_status(self,filters:dict):
         try:
@@ -242,7 +550,37 @@ class ApiBackend():
             return response.json()
         except Exception as error:
             print(f"backend -> get_status -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_status','error':error})   
+            raise Exception({'integration':'backend','function':'get_status','error':error})
+    
+    def post_status(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/status/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_status -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_status','error':error})   
+        
+    def patch_status(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/status?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_status -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_status','error':error})   
 
        
     def get_empresa(self,filters:dict):
@@ -256,7 +594,37 @@ class ApiBackend():
             return response.json()
         except Exception as error:
             print(f"backend -> get_empresa -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_empresa','error':error})   
+            raise Exception({'integration':'backend','function':'get_empresa','error':error})
+    
+    def post_empresa(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/empresa/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_empresa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_empresa','error':error})   
+        
+    def patch_empresa(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/empresa?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_empresa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_empresa','error':error})   
 
        
 

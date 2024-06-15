@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, status
 
 from src.system.core.flash import get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
@@ -45,18 +45,23 @@ async def conta_tipo_form(request: Request):
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_form"},"error":error}})
     
-# @frontend.post("/status/insert")
-# async def status_insert(request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await status_controller.insert(data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
-
-# @frontend.post("/status/update/{id}")
-# async def status_update(id:int,request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await status_controller.update(id=id,data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
-
-# @frontend.get("/status/delete/")
-# async def status_delete(id:int,request: Request):
-#     await status_controller.delete(id=id,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
+@frontend.post("/conta_tipo/insert")
+async def conta_tipo_insert(request: Request):
+    try:
+        data = dict(await request.form())
+        conta_tipo_data = api_backend.post_conta_tipo(data=data)
+        return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"conta_tipo_insert"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_insert"},"error":error}})
     
+
+@frontend.post("/conta_tipo/update/{id}")
+async def conta_tipo_update(request: Request,id:int):
+    try:
+        data = dict(await request.form())
+        api_backend.patch_conta_tipo(id=id,data=data)
+        return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"conta_tipo_update"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_update"},"error":error}})

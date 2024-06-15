@@ -2,20 +2,20 @@
 {% block content %}
   <div class="section-header">    
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="/pessoa_tipo">Pessoa</a></div>
-      <div class="breadcrumb-item">Formulário</div>
+      <div class="breadcrumb-item active"><a href="/pessoa_tipo">PESSOA TIPO</a></div>
+      <div class="breadcrumb-item">FORMULÁRIO</div>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
       <div class="card">
           <div class="card-header">
-            <h4>CADASTRO DE PESSOA</h4>
+            <h4>CADASTRO DE TIPO DE PESSOA</h4>
           </div>
           <div class="card-body">
-            {% if pessoa_tipo_data %}
+            {% if pessoa_tipo_data[0] %}
             {% set pessoa_tipo_data = pessoa_tipo_data[0] %}
-              <form method="PATCH" action="/pessoa_tipo/update/{{ pessoa_tipo_data['id'] }}"> 
+              <form method="POST" action="/pessoa_tipo/update/{{ pessoa_tipo_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/pessoa_tipo/insert"> 
             {% endif %}
@@ -40,17 +40,10 @@
                         
                     </div>
                 </div>
-                {% if pessoa_tipo_data %}
                   <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/pessoa_tipo" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
-                {% else %}
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                    <a href="/pessoa_tipo" class="btn btn-danger" type="reset">Cancelar</a>
-                  </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

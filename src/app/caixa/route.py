@@ -1,11 +1,11 @@
+from datetime import datetime
 from fastapi.staticfiles import StaticFiles
-from fastapi.encoders import jsonable_encoder
 from fastapi.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request,status
 
-from src.system.core.flash import get_flashed_messages
+from src.system.core.flash import flash, get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
 
 
@@ -46,18 +46,56 @@ async def caixa_form(request: Request):
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_form"},"error":error}})
     
-# @frontend.post("/caixa/insert")
-# async def caixa_insert(request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await caixa_controller.insert(data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/caixa', caixa_code=caixa.HTTP_303_SEE_OTHER)
-
-# @frontend.post("/caixa/update/{id}")
-# async def caixa_update(id:int,request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await caixa_controller.update(id=id,data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/caixa', caixa_code=caixa.HTTP_303_SEE_OTHER)
-
-# @frontend.get("/caixa/delete/")
-# async def caixa_delete(id:int,request: Request):
-#     await caixa_controller.delete(id=id,token = request.cookies.get("token"))
-#     return RedirectResponse('/caixa', caixa_code=caixa.HTTP_303_SEE_OTHER)
+@frontend.post("/caixa/insert")
+async def caixa_insert(request: Request):
+    try:
+        data = dict(await request.form())
+        caixa_data = api_backend.post_caixa(data=data)
+        return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"caixa_insert"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_insert"},"error":error}})
     
+
+@frontend.post("/caixa/update/")
+async def caixa_update(request: Request):
+    try:
+        data = dict(await request.form())
+        api_backend.patch_caixa(id=id,data=data)
+        return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"caixa_insert"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_update"},"error":error}})
+    
+
+@frontend.get("/caixa/form_processar",)
+async def caixa_form(request: Request):
+    try:
+        conta_id = request.query_params["conta_id"]
+        caixa_data = api_backend.get_caixa(filters={})
+        conta_data = api_backend.get_conta(filters={"id":conta_id})        
+        status_data=api_backend.get_status(filters={})
+        empresa_data=api_backend.get_empresa(filters={})
+        data_current = datetime.now().strftime('%Y-%m-%d')
+                 
+        return templates.TemplateResponse("form_processar.html",{
+                                                                    "request": request,
+                                                                    "caixa_data":caixa_data["items"],
+                                                                    "status_data":status_data["items"],
+                                                                    "empresa_data":empresa_data["items"],
+                                                                    "conta_data":conta_data["items"],
+                                                                    "data_current":data_current
+                                                                }
+                                        )
+    except Exception as error:
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_form"},"error":error}})
+@frontend.post("/caixa/processar")
+async def caixa_processar(request: Request):
+    try:
+        data = dict(await request.form())
+        api_backend.post_processar_caixa(data=data)
+        flash(request, "CONTA PAGA COM SUCESSO!", "alert-sucess")
+        return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"caixa_processar"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_processar"},"error":error}})

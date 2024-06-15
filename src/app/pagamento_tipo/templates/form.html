@@ -13,9 +13,9 @@
             <h4>CADASTRO DE TIPOS DE PAGAMENTO</h4>
           </div>
           <div class="card-body"> 
-            {% if pagamento_tipo_data %}
+            {% if pagamento_tipo_data[0] %}
             {% set pagamento_tipo_data = pagamento_tipo_data[0] %}
-              <form method="PATCH" action="/pagamento_tipo/update/{{ pagamento_tipo_data['id'] }}"> 
+              <form method="POST" action="/pagamento_tipo/update/{{ pagamento_tipo_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/pagamento_tipo/insert"> 
             {% endif %}
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                             <label>PARCELAS</label>
-                            <input type="text" name="fees" value="{{ pagamento_tipo_data['amout'] }}" maxlength="255" class="form-control">
+                            <input type="int" name="amout" value="{{ pagamento_tipo_data['amout'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>STATUS</label>
@@ -62,17 +62,10 @@
                         
                     </div>
                 </div>
-                {% if pagamento_tipo_data %}
                   <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/pagamento_tipo" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
-                {% else %}
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                    <a href="/pagamento_tipo" class="btn btn-danger" type="reset">Cancelar</a>
-                  </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

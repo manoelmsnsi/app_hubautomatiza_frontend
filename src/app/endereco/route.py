@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, status
 
 from src.system.core.flash import get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
@@ -38,26 +38,31 @@ async def endereco_form(request: Request):
     try:
         endereco_data={"items":[{}]}
         status_data=api_backend.get_status(filters={})
-        if(len(request.query_params) !=0 ):
-            pessoa_id = request.query_params["pessoa_id"]
+        pessoa_id = request.query_params["pessoa_id"]
+        if(len(request.query_params) >1 ):
             endereco_data = api_backend.get_endereco(filters={"id":request.query_params["id"]})
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"endereco_data":endereco_data["items"],"pessoa_id":pessoa_id})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"endereco_form"},"error":error}})
     
-# @frontend.post("/status/insert")
-# async def status_insert(request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await status_controller.insert(data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
-
-# @frontend.post("/status/update/{id}")
-# async def status_update(id:int,request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await status_controller.update(id=id,data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
-
-# @frontend.get("/status/delete/")
-# async def status_delete(id:int,request: Request):
-#     await status_controller.delete(id=id,token = request.cookies.get("token"))
-#     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
+@frontend.post("/endereco/insert")
+async def endereco_insert(request: Request):
+    try:
+        data = dict(await request.form())
+        endereco_data = api_backend.post_endereco(data=data)
+        return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"endereco_insert"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"endereco_insert"},"error":error}})
     
+
+@frontend.post("/endereco/update/{id}")
+async def endereco_update(request: Request,id:int):
+    try:
+        data = dict(await request.form())
+        api_backend.patch_endereco(id=id,data=data)
+        return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"endereco_update"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"endereco_update"},"error":error}})

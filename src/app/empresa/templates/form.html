@@ -13,9 +13,9 @@
             <h4>CADASTRO DE PESSOA</h4>
           </div>
           <div class="card-body">
-            {% if empresa_data %}
+            {% if empresa_data[0] %}
               {% set empresa_data = empresa_data[0] %}
-              <form method="PATCH" action="/empresa/update/{{ empresa_data['id'] }}"> 
+              <form method="POST" action="/empresa/update/{{ empresa_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/empresa/insert"> 
             {% endif %}
@@ -56,17 +56,10 @@
                         
                     </div>
                 </div>
-                {% if empresa_data %}
                   <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/empresa" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
-                {% else %}
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                    <a href="/empresa" class="btn btn-danger" type="reset">Cancelar</a>
-                  </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

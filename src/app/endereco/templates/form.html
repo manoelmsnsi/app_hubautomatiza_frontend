@@ -13,9 +13,9 @@
             <h4>CADASTRO DE ENDEREÇO</h4>
           </div>
           <div class="card-body">
-            {% if endereco_data %}
-            {% set endereco_data = endereco_data[0] %}
-              <form method="PATCH" action="/endereco/update/{{ endereco_data['id'] }}"> 
+            {% if endereco_data[0] %}
+              {% set endereco_data = endereco_data[0] %}
+              <form method="POST" action="/endereco/update/{{ endereco_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/endereco/insert"> 
             {% endif %}
@@ -57,17 +57,10 @@
                         
                     </div>
                 </div>
-                {% if endereco_data %}
                 <div class="card-footer text-right">
-                  <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                  <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                   <a href="/pessoa/visualizar?id={{pessoa_id}}" class="btn btn-danger" type="reset">Cancelar</a>
                 </div>
-                {% else %}
-                <div class="card-footer text-right">
-                  <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                  <a href="/pessoa/visualizar?id={{pessoa_id}}" class="btn btn-danger" type="reset">Cancelar</a>
-                </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

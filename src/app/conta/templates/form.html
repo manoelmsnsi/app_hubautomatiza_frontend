@@ -13,9 +13,9 @@
             <h4>CADASTRO DE CONTA</h4>
           </div>
           <div class="card-body">
-            {% if conta_data %}
+            {% if conta_data[0] %}
             {% set conta_data = conta_data[0] %}
-              <form method="PATCH" action="/conta/update/{{ conta_data['id'] }}"> 
+              <form method="POST" action="/conta/update/{{ conta_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/conta/insert"> 
             {% endif %}
@@ -33,7 +33,7 @@
                           <label>PESSOA</label>
                           <select name="pessoa_id" class="form-control select2 ">
                               {% for pessoa in pessoa_data %}
-                                {% if(conta_data["tipo_id"]) == pessoa['id'] %}                                                                         
+                                {% if(conta_data["pessoa_id"]) == pessoa['id'] %}                                                                         
                                     <option selected value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
                                 {% else %}  
                                   <option  value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
@@ -45,7 +45,7 @@
                           <label>CATEGORIA</label>
                           <select name="categoria_id" class="form-control select2 ">
                               {% for categoria in categoria_data %}
-                                {% if(conta_data["tipo_id"]) == categoria['id'] %}                                                                         
+                                {% if(conta_data["categoria_id"]) == categoria['id'] %}                                                                         
                                     <option selected value="{{ categoria['id'] }}">{{ categoria['description'] }}</option>
                                 {% else %}  
                                   <option  value="{{ categoria['id'] }}">{{ categoria['description'] }}</option>
@@ -65,7 +65,7 @@
                           <label>TIPO</label>
                           <select name="conta_tipo_id" class="form-control select2">
                               {% for conta_tipo in conta_tipo_data %}
-                                {% if(conta_data["tipo_id"]) == conta_tipo['id'] %}                                                                         
+                                {% if(conta_data["conta_tipo_id"]) == conta_tipo['id'] %}                                                                         
                                     <option selected value="{{ conta_tipo['id'] }}">{{ conta_tipo['description'] }}</option>
                                 {% else %}  
                                   <option  value="{{ conta_tipo['id'] }}">{{ conta_tipo['description'] }}</option>
@@ -129,17 +129,10 @@
                         
                     </div>
                 </div>
-                {% if conta_data %}
                   <div class="card-footer text-right ">
-                    <button class="btn btn-primary mr-1" type="submit">Alterar</button>
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/pessoa" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
-                {% else %}
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="submit">Cadastrar</button>
-                    <a href="/pessoa" class="btn btn-danger" type="reset">Cancelar</a>
-                  </div>
-                {% endif %}
               </div>
             </form>                    
           </div>

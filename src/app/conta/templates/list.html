@@ -84,7 +84,7 @@
                         <td>{{ conta["data_vencimento"]}}</td>
                         <td>{{ conta["create_at"]}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Processar</a>
+                            <a href="/caixa/form_processar?conta_id={{conta['id']}}" class="btn btn-primary">Processar</a>
                             <!-- <a href="/conta/form?id={{conta.id}}" class="btn btn-light">Editar</a> -->
                             <a href="#" class="btn btn-danger">Deletar</a>
                         </td>
