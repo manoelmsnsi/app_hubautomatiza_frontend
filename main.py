@@ -76,7 +76,7 @@ app.add_middleware(
 
 # Configure o Elastic APM
 ELASTIC_APM_CONFIG = { 
-    'SERVICE_NAME': os.environ.get("ELASTIC_SERVICE_NAME", "front_holli_finance"),
+    'SERVICE_NAME': os.environ.get("ELASTIC_SERVICE_NAME", "front_holly_finance"),
     'SECRET_TOKEN': os.environ.get("ELASTIC_SECRET_TOKEN", ''),  # Se necessário
     'SERVER_URL': os.environ.get("ELASTIC_SERVER_URL","http://localhost:8200"),  # URL do seu servidor APM
     'SERVER_USER': os.environ.get("ELASTIC_USER", "elastic"),

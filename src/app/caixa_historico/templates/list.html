@@ -1,102 +1,88 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="section-header">
-    
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="/caixa_historico">HISTORICO CAIXA</a></div>
-      <div class="breadcrumb-item">LISTAGEM</div>
+        <div class="breadcrumb-item active"><a href="/caixa_historico">HISTORICO CAIXA</a></div>
+        <div class="breadcrumb-item">LISTAGEM</div>
     </div>
-  </div>
+</div>
+{% for geral in [1] %}
+
+{% set total_entrada = 0 %}
+{% set total_saida = 0 %}
 <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-            <h4>HISTORICO CAIXA</h4>
-            <div class="card-header-form">
-                <form method="get" action="/caixa_historico">
-                    <div class="input-group">      
-                        <!-- <div class=" d-inline mr-2">
-                            <select class="btn btn-primary"name="param_search" >
-                                <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
-                                <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
-                            </select>                            
-                        </div>            
-                              -->
-                        <!-- <input name="name" type="text" class="form-control" placeholder="Search">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                        </div>
-                        <a  class="btn btn-primary" href="/caixa_historico/form"><i class="fas fa-plus"></i></a> -->
-                    </div>
-                </form>
-          </div>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped">                
-                    <tr>
-                        <th>#</th>
-                        <th>DESCRIÇÃO</th>
-                        <th>CAIXA</th>
-                        <th>PAGAMENTO</th>
-                        <th>DOCUMENTO</th>
-                        <th>VALOR PARCELA</th>
-                        <th>VALOR PAGO</th>
-                        <th>VALOR TROCO</th>
-                        <th>CONTA ID</th>
-                        <th>DATA PAGAMENTO</th>
-                        <th>DATA VENCIMENTO</th>
-                        <th>EMPRESA</th>
-                        <th>STATUS</th>
-                        <th>CRIADO EM</th>
-                        <th>AÇÃO</th>
-                    </tr>           
-                    {% for caixa_historico in data['items'] %}
-                    <tr>                
-                        <td>{{ caixa_historico["id"] }}</td>
-                        <td>{{ caixa_historico["caixa"]["description"] }}</td>
-                        <td>{{ caixa_historico["caixa"]["description"] }}</td>
-                        <td>{{ caixa_historico["conta"]["pagamento_tipo"]["description"] }}</td>
-                        <td>{{ caixa_historico["conta"]["documento_tipo"]["description"] }}</td>
-                        <td>{{ caixa_historico["conta"]["valor_parcela"] }}</td>
-                        <td>{{ caixa_historico["conta"]["valor_pago"] }}</td>
-                        <td>{{ caixa_historico["conta"]["valor_troco"] }}</td>
-                        <td>{{ caixa_historico["conta"]["id"] }}</td>
-                        <td>{{ caixa_historico["conta"]["data_vencimento"] }}</td>
-                        <td>{{ caixa_historico["conta"]["data_pagamento"] }}</td>
-                        <td>{{ caixa_historico["empresa"]["name_fantasy"] }}</td>
-                        <td>
-                            <div class="badge badge-warning">
-                                {{ caixa_historico["status"]["description"] }}
-                            </div>
-                        </td>         
-                        <td>{{ caixa_historico["create_at"]}}</td>
-                        <td>
-                            <a href="#" class="btn btn-primary">Detalhar</a>
-                        </td>
-                    </tr>
-                    {% endfor %}              
-                </table>              
-                <div class="card-footer text-right">
-                    <nav class="d-inline-block">
-                      <ul class="pagination mb-0">
-                        <li class="page-item">
-                            {% if data['page'] > 1 %}
-                                <a class="page-link" href="?page={{ data['page']-1 }}" ><i class="fas fa-chevron-left"></i></a>
-                            {% endif %}
-                          </li>
-                          <li class="page-item active"><a class="page-link" href="#">{{ data['page'] }}/{{ data['pages'] }}<span class="sr-only">(current)</span></a></li> 
-                          <li class="page-item">
-                            {% if data['page'] < data['pages'] %}
-                                <a class="page-link" href="?page={{ data['page']+1 }}"><i class="fas fa-chevron-right"></i></a>
-                            {% endif %}
-                          </li>
-                      </ul>
-                    </nav>
-                  </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>HISTORICO CAIXA</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>#</th>
+                            <th>DESCRIÇÃO</th>
+                            <th>CAIXA</th>
+                            <th>PAGAMENTO</th>
+                            <th>DOCUMENTO</th>
+                            <th>VALOR PARCELA</th>
+                            <th>VALOR PAGO</th>
+                            <th>VALOR TROCO</th>
+                            <th>TIPO</th>
+                            <th>CONTA ID</th>
+                            <th>DATA PAGAMENTO</th>
+                            <th>DATA VENCIMENTO</th>
+                            <th>EMPRESA</th>
+                            <th>STATUS</th>
+                            <th>CRIADO EM</th>
+                            <th>AÇÃO</th>
+                        </tr>
+                        {% set valor_pago = 1 %}
+                        {% for caixa_historico in data["items"] %}
+                        {% set total_saida =  valor_pago %}
+                        {% set valor_pago = caixa_historico.conta.valor_pago %}
+                        <tr>
+                            <td>{{ caixa_historico.id }}</td>
+                            <td>{{ caixa_historico.caixa.description }}</td>
+                            <td>{{ caixa_historico.caixa.description }}</td>
+                            <td>{{ caixa_historico.conta.pagamento_tipo.description }}</td>
+                            <td>{{ caixa_historico.conta.documento_tipo.description }}</td>
+                            <td>{{ caixa_historico.conta.valor_parcela }}</td>
+                            <td>{{ caixa_historico.conta.valor_pago }}</td>
+                            <td>{{ caixa_historico.conta.valor_troco }}</td>
+                            <td>
+                                {% if caixa_historico.conta.conta_tipo_id == 1 %}
+                                <div class="badge badge-primary">
+                                    {{ caixa_historico.conta.conta_tipo.description }}
+                                    {% set total_entrada =  valor_pago %}
+                                </div>
+                                {% elif caixa_historico.conta.conta_tipo_id == 2 %}
+                                <div class="badge badge-danger">
+                                    {{ caixa_historico.conta.conta_tipo.description }}
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td>{{ caixa_historico.conta.id }}</td>
+                            <td>{{ caixa_historico.conta.data_vencimento }}</td>
+                            <td>{{ caixa_historico.conta.data_pagamento }}</td>
+                            <td>{{ caixa_historico.empresa.name_fantasy }}</td>
+                            <td>
+                                <div class="badge badge-warning">
+                                    {{ caixa_historico.status.description }}
+                                </div>
+                            </td>
+                            <td>{{ caixa_historico.create_at }}</td>
+                            <td>
+                                <a href="#" class="btn btn-primary">Detalhar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{% endfor %}
 {% endblock %}
