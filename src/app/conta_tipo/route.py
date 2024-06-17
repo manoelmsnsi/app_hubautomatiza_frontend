@@ -62,8 +62,8 @@ async def conta_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_conta_tipo(id=id,data=data)
-        flash(request, "TIUPO DE CONTA ALTERADA COM SUCESSO!", "alert-success")
+        flash(request, "TIPO DE CONTA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"conta_tipo_update"},"error":error}}, "alert-danger")
-        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_update"},"error":error}})flash(request, "CATEGORIA INSERIDA COM SUCESSO!", "alert-success")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_update"},"error":error}})
