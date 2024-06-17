@@ -69,6 +69,7 @@ async def pessoa_insert(request: Request):
     try:
         data = dict(await request.form())
         pessoa_data = api_backend.post_pessoa(data=data)
+        flash(request, "PESSOA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={pessoa_data["id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"pessoa_insert"},"error":error}}, "alert-danger")
@@ -80,6 +81,7 @@ async def pessoa_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_pessoa(id=id,data=data)
+        flash(request, "PESSOA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={id}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"pessoa_insert"},"error":error}}, "alert-danger")

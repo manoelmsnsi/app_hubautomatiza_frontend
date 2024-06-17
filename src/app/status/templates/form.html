@@ -15,7 +15,7 @@
           <div class="card-body">
             {% if status_data[0] %}
               {% set status_data = status_data[0] %}
-              <form method="PATCH" action="/status/update/{{ status_data['id'] }}"> 
+              <form method="POST" action="/status/update/{{ status_data['id'] }}"> 
             {% else %}
               <form method="POST" action="/status/insert"> 
             {% endif %}

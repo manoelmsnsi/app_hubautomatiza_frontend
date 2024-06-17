@@ -5,7 +5,7 @@ from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import APIRouter, Request, status
 
-from src.system.core.flash import get_flashed_messages
+from src.system.core.flash import flash, get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
 
 
@@ -50,6 +50,7 @@ async def empresa_insert(request: Request):
     try:
         data = dict(await request.form())
         empresa_data = api_backend.post_empresa(data=data)
+        flash(request, "EMPRESA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"empresa_insert"},"error":error}}, "alert-danger")
@@ -61,6 +62,7 @@ async def empresa_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_empresa(id=id,data=data)
+        flash(request, "EMPRESA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"empresa_update"},"error":error}}, "alert-danger")

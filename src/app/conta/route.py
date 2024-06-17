@@ -78,6 +78,7 @@ async def conta_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_conta(id=id,data=data)
+        flash(request, "CATEGORIA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"conta_insert"},"error":error}}, "alert-danger")

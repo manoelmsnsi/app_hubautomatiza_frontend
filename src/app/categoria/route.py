@@ -63,6 +63,7 @@ async def categoria_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_categoria(id=id,data=data)
+        flash(request, "CATEGORIA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/categoria', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"categoria_insert"},"error":error}}, "alert-danger")

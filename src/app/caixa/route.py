@@ -57,8 +57,8 @@ async def caixa_insert(request: Request):
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_insert"},"error":error}})
     
 
-@frontend.post("/caixa/update/")
-async def caixa_update(request: Request):
+@frontend.post("/caixa/update/{id}")
+async def caixa_update(request: Request,id: int):
     try:
         data = dict(await request.form())
         api_backend.patch_caixa(id=id,data=data)
@@ -94,7 +94,7 @@ async def caixa_processar(request: Request):
     try:
         data = dict(await request.form())
         api_backend.post_processar_caixa(data=data)
-        flash(request, "CONTA PAGA COM SUCESSO!", "alert-sucess")
+        flash(request, "CONTA PROCESSADA COM SUCESSO!", "alert-sucess")
         return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"caixa_processar"},"error":error}}, "alert-danger")

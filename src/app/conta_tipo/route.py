@@ -5,7 +5,7 @@ from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import APIRouter, Request, status
 
-from src.system.core.flash import get_flashed_messages
+from src.system.core.flash import flash, get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
 
 
@@ -50,6 +50,7 @@ async def conta_tipo_insert(request: Request):
     try:
         data = dict(await request.form())
         conta_tipo_data = api_backend.post_conta_tipo(data=data)
+        flash(request, "TIPO DE CONTA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"conta_tipo_insert"},"error":error}}, "alert-danger")
@@ -61,7 +62,8 @@ async def conta_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_conta_tipo(id=id,data=data)
+        flash(request, "TIUPO DE CONTA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"conta_tipo_update"},"error":error}}, "alert-danger")
-        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_update"},"error":error}})
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_update"},"error":error}})flash(request, "CATEGORIA INSERIDA COM SUCESSO!", "alert-success")

@@ -6,10 +6,9 @@
         <div class="breadcrumb-item">LISTAGEM</div>
     </div>
 </div>
-{% for geral in [1] %}
+{% set list = namespace(receita_total=0, despesa_total=0) %}
 
-{% set total_entrada = 0 %}
-{% set total_saida = 0 %}
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -37,10 +36,7 @@
                             <th>CRIADO EM</th>
                             <th>AÇÃO</th>
                         </tr>
-                        {% set valor_pago = 1 %}
                         {% for caixa_historico in data["items"] %}
-                        {% set total_saida =  valor_pago %}
-                        {% set valor_pago = caixa_historico.conta.valor_pago %}
                         <tr>
                             <td>{{ caixa_historico.id }}</td>
                             <td>{{ caixa_historico.caixa.description }}</td>
@@ -54,11 +50,15 @@
                                 {% if caixa_historico.conta.conta_tipo_id == 1 %}
                                 <div class="badge badge-primary">
                                     {{ caixa_historico.conta.conta_tipo.description }}
-                                    {% set total_entrada =  valor_pago %}
+                                    {% set list.receita_total = list.receita_total + caixa_historico.conta.valor_pago  %}
+                                    
+                                    
                                 </div>
                                 {% elif caixa_historico.conta.conta_tipo_id == 2 %}
                                 <div class="badge badge-danger">
                                     {{ caixa_historico.conta.conta_tipo.description }}
+                                    {% set list.despesa_total = list.despesa_total + caixa_historico.conta.valor_pago  %}
+                                    
                                 </div>
                                 {% endif %}
                             </td>
@@ -77,12 +77,70 @@
                             </td>
                         </tr>
                         {% endfor %}
-                    </table>
-                </div>
+                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card card-statistic-2">
+                                        
+                                        <div class="card-icon shadow-primary bg-primary">          
+                                        <i class="fas fa-arrow-circle-up	"></i>
+                                        </div>
+                                        <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4 class="text-success">ENTRADAS</h4>
+                                        </div>
+                                        <div class="card-body text-success">
+                                            R$ {{ list.receita_total }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card card-statistic-2">
+                                    
+                                        <div class="card-icon shadow-primary bg-primary">
+                                        <i class="fas fa-arrow-circle-down	"></i>
+                                        </div>
+                                        <div class="card-wrap">
+                                        <div class="card-header ">
+                                            <h4 class="text-danger">SAIDAS</h4>
+                                        </div>
+                                        <div class="card-body text-danger">
+                                            R$ {{ list.despesa_total }}
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div class="card card-statistic-2">
+                                        <div class="card-icon shadow-primary bg-primary">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        </div>
+                                        <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4>CAIXA</h4>
+                                        </div>
+                                        {% if list.receita_total < list.despesa_total %}
+                                                <div class="card-body text-danger">
+                                                    R$ {{ list.receita_total - list.despesa_total }}
+                                                </div>
+                                            {% else %}
+                                                <div class="card-body text-primary">
+                                                    R$ {{ list.receita_total - list.despesa_total }}
+                                                </div>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </table>                    
+                </div>                     
             </div>
         </div>
     </div>
 </div>
+    
 
-{% endfor %}
 {% endblock %}
+
+
