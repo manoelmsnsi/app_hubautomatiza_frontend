@@ -25,10 +25,20 @@ api_backend = ApiBackend()
 
 
 #FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED#
+@frontend.get("/",)
+async def status_list(request: Request):
+    # data = await api_backend.read()
+    return templates.TemplateResponse("home.html",{"request": request})
+
 @frontend.get("/home",)
 async def status_list(request: Request):
     # data = await api_backend.read()
     return templates.TemplateResponse("home.html",{"request": request})
+
+@frontend.get("/em_contrucao",)
+async def status_list(request: Request):
+    # data = await api_backend.read()
+    return templates.TemplateResponse("em_contrucao.html",{"request": request})
 
 # async def status_insert(request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
 #     await status_controller.insert(data=data_form,token = request.cookies.get("token"))

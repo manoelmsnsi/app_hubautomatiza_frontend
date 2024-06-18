@@ -2346,12 +2346,12 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #0069d9;
-  border-color: #0062cc;
+  background-color: #6cabad;
+  border-color: #6cabad;
 }
 
 .btn-primary:focus, .btn-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(108, 171, 173, 0.5);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {

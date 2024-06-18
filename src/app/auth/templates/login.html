@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>APP &mdash; DATACRED</title>
+  <title>HOLLYFINANCE</title>
 
   <!-- General CSS Files -->
   <link rel="shortcut icon" href="{{ url_for('static', path='img/favicon_16px.png') }}">
@@ -42,16 +42,16 @@
             </div>
             {% endif %}
           <div class="row">
+            <!-- <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> -->
             <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-              <button  style="height: 150px;" class="btn btn-dark btn-lg btn-block" tabindex="4">
-                <h2 >DATACRED <div class=" text-muted " style="font-size: 8px;">v0.1</div>   </h2>
+              <button  style="height: 150px;" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                <h2 >HOLLY FINANCE <div class="  text-danger " style="font-size: 8px;">v0.1</div>   </h2>
                     
               </button>
               <!-- <img src="{{ url_for('static', path='img/robot.png') }}" alt="logo" width="300" height="160" class=" "> -->
               
               
               <div class="card ">
-                <div class="card-header"><h4>Login</h4></div>
   
                 <div class="card-body">
                   <form method="POST" action="/auth" class="needs-validation" novalidate="">
@@ -67,7 +67,7 @@
                       <div class="d-block">
                           <label for="password" class="control-label">Senha</label>
                         <div class="float-right">
-                          <a href="/password/recovery" class="text-small">
+                          <a href="/auth/recuperar_senha" class="text-small">
                             Esqueceu a Senha?
                           </a>
                         </div>
@@ -86,17 +86,19 @@
                     </div>
   
                     <div class="form-group">
-                      <button type="submit" class="btn btn-dark btn-lg btn-block" tabindex="4">
+                      <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                         Login
                       </button>
                     </div>
                   </form>                 
   
+                  <div class="mt-5 text-muted text-center">
+                    Não possui acesso? <a href="/em_construcao">Crie Agora</a><br>
+                  </div>
                 </div>
               </div>
               <div class="mt-5 text-muted text-center">
-                Não possui acesso? <a href="#">Crie Agora</a><br>
-                Copyright &copy; Boteria 2023
+                Copyright &copy; Boteria 2024
               </div>
             </div>
           </div>

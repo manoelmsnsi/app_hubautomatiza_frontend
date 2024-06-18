@@ -16,6 +16,7 @@ from elasticapm.contrib.starlette import make_apm_client, ElasticAPM
 from src.system.core.flash import get_flashed_messages
 
 from src.app.home.route import frontend as home_route
+from src.app.auth.route import frontend as auth_route
 from src.app.conta.route import frontend as conta_route
 from src.app.caixa.route import frontend as caixa_route
 from src.app.acesso.route import frontend as acesso_route
@@ -39,6 +40,7 @@ app = FastAPI(docs_url=None, redoc_url=None,middleware=middleware)
 
 
 app.include_router(home_route)
+app.include_router(auth_route)
 app.include_router(conta_route)
 app.include_router(caixa_route)
 app.include_router(acesso_route)
