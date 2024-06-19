@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                           <label>TIPO</label>
-                          <select name="pesso_tipo_id" class="form-control select2 ">
+                          <select name="pessoa_tipo_id" class="form-control select2 ">
                               {% for pessoa_tipo in pessoa_tipo_data %}
                                 {% if(pessoa_data["tipo_id"]) == pessoa_tipo['id'] %}                                                                         
                                     <option selected value="{{ pessoa_tipo['id'] }}">{{ pessoa_tipo['description'] }}</option>
