@@ -1,42 +1,79 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-
 <section class="section">
-
     <div class="section-header">
-
-      <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-        <div class="breadcrumb-item"><a href="#">Modules</a></div>
-        <div class="breadcrumb-item">Calendar</div>
-      </div>
-    </div>
-
-  
-      
-
-      <div class="section-body">
-
-        <!-- <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h4>AGENDA</h4>
-              </div>
-              <div class="card-body">
-                <div class="fc-overflow">                            
-                  <div id="myEvent"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">HOME</a></div>
+            <div class="breadcrumb-item">AGENDA</div>
         </div>
-      </div> -->
+    </div>
   
-
-  
-
+    <div class="section-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>AGENDA</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="fc-overflow">                            
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                    {% include "modal.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            locale: 'pt-br',
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+                {% for calendar in data_calendar %}
+                    {
+                        id: '{{ calendar["id"] }}',
+                        title: '{{ calendar["summary"] }}',
+                        start: '{{ calendar["start"]["dateTime"] }}',
+                        end: '{{ calendar["end"]["dateTime"] }}',
+                        description: '{{ calendar["description"] }}',
+                        hangoutLink: '{{ calendar["hangoutLink"] }}',
+                        attendees:'{{ calendar["attendees"] }}', // Use a string de todos os participantes
+                        color: '#A4C5C6',
+                        backgroundColor: '#A4C5C6',
+                        borderColor: '#A4C5C6',
+                        textColor: '#ffffff',
+                        editable: true,
+                        startEditable: true,
+                        durationEditable: true
+                    },
+                {% endfor %}
+            ],
+            eventClick: function(event) {
+                $('#eventoModal .modal-title').text(event.title);
+                $('#eventoModal .modal-body').html('<p><strong>Início:</strong> ' + event.start.format('DD/MM/YYYY HH:mm:ss')  + '</p>' +
+                '<p><strong>Fim:</strong> ' + event.end.format('DD/MM/YYYY HH:mm:ss') + '</p>' +
+                '<p><strong>Participantes:</strong> ' + event.attendees + '</p>'+
+                '<p><strong>Descrição:</strong> ' + event.description + '</p>'
+                );
+                
+                $('#eventoModal').modal({
+                    backdrop: false
+                }).modal('show');
+            }
+        });
+    });
+</script>
 {% endblock %}

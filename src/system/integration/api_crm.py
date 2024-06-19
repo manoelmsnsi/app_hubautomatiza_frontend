@@ -626,7 +626,25 @@ class ApiBackend():
             print(f"backend -> patch_empresa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'patch_empresa','error':error})   
 
-       
+    
+    def get_google_calendar(self,filters:dict):
+        """
+            filter:{
+                    calendar_id:str,
+                    size:int
+                }
+        """
+        try:
+            url = f"{self.BASE_URL}/google_calendar/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_empresa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_empresa','error':error})
 
 # teste = ApiBackend()
 # response=teste.get_pessoa(filters={})

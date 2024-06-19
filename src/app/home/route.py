@@ -32,8 +32,28 @@ async def status_list(request: Request):
 
 @frontend.get("/home",)
 async def status_list(request: Request):
-    # data = await api_backend.read()
-    return templates.TemplateResponse("home.html",{"request": request})
+    # data_calendar = api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
+    data_calendar = [
+                        {
+                            "id":"1",
+                            "summary":"teste - 1",
+                            "start":{"dateTime":"2024-06-19T13:00:00-03:00"},
+                            "end":{"dateTime":"2024-06-19T14:00:00-03:00"},
+                            "description":"Olá, isso é um teste.",
+                            "hangoutLink":"http://meet.teste.com",
+                            "attendees":"participante1, participante 2",
+                        },
+                        {
+                            "id":"2",
+                            "summary":"teste - 2",
+                            "start":{"dateTime":"2024-06-20T15:00:00-03:00"},
+                            "end":{"dateTime":"2024-06-20T16:00:00-03:00"},
+                            "description":"Olá, isso é um teste.",
+                            "hangoutLink":"http://meet.teste.com",
+                            "attendees":"participante1, participante 2",
+                        },
+                    ]
+    return templates.TemplateResponse("home.html",{"request": request,"data_calendar":data_calendar})
 
 @frontend.get("/em_contrucao",)
 async def status_list(request: Request):
