@@ -42,6 +42,7 @@ async def conta_form(request: Request):
         empresa_data=api_backend.get_empresa(filters={})
         categoria_data=api_backend.get_categoria(filters={})
         conta_tipo_data=api_backend.get_conta_tipo(filters={})
+        caixa_data=api_backend.get_caixa(filters={})
         pagamento_tipo_data=api_backend.get_pagamento_tipo(filters={})
         documento_tipo_data=api_backend.get_documento_tipo(filters={})
         if(len(request.query_params) !=0 ):
@@ -55,6 +56,7 @@ async def conta_form(request: Request):
                                                         "empresa_data":empresa_data["items"],
                                                         "categoria_data":categoria_data["items"],
                                                         "conta_tipo_data":conta_tipo_data["items"],
+                                                        "caixa_data":caixa_data["items"],
                                                         "pagamento_tipo_data":pagamento_tipo_data["items"],
                                                         "documento_tipo_data":documento_tipo_data["items"]
                                                         }

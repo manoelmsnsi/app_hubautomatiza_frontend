@@ -41,7 +41,7 @@
                               {% endfor %}
                           </select>
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
                           <label>CATEGORIA</label>
                           <select name="categoria_id" class="form-control select2 ">
                               {% for categoria in categoria_data %}
@@ -53,15 +53,19 @@
                               {% endfor %}
                           </select>
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
                           <label>CONTROLE</label>
                           <input type="text" name="controle" value="{{ conta_data['controle'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group  col-sm-12  col-md-12 col-lg-2">
                           <label>VALOR TOTAL</label>
-                          <input type="double" name="valor_total" value="{{ conta_data['valor_total'] }}" maxlength="255" class="form-control">
+                          <input type="double" name="valor_total" value="{{ conta_data['valor_total'] }}" maxlength="10" class="form-control">
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2">
+                          <label>VALOR PAGO</label>
+                          <input type="double" name="valor_pago" value="{{ conta_data['valor_pago'] }}" maxlength="10" class="form-control">
+                        </div>
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
                           <label>TIPO</label>
                           <select name="conta_tipo_id" class="form-control select2">
                               {% for conta_tipo in conta_tipo_data %}
@@ -75,6 +79,19 @@
                         </div>
                         
                         <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                          <label>CAIXA</label>
+                          <select name="caixa_id" class="form-control select2">
+                              {% for caixa in caixa_data %}
+                                {% if(conta_data["caixa_id"]) == caixa['id'] %}                                                                         
+                                    <option selected value="{{ caixa['id'] }}">{{ caixa['description'] }}</option>
+                                {% else %}  
+                                  <option  value="{{ caixa['id'] }}">{{ caixa['description'] }}</option>
+                                {% endif %}
+                              {% endfor %}
+                          </select>
+                        </div>
+                        
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
                           <label>DOCUMENTO</label>
                           <select name="documento_tipo_id" class="form-control select2 ">
                               {% for documento_tipo in documento_tipo_data %}
@@ -86,7 +103,7 @@
                               {% endfor %}
                           </select>
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
                           <label>PAGAMENTO</label>
                           <select name="pagamento_tipo_id" class="form-control select2 ">
                               {% for pagamento_tipo in pagamento_tipo_data %}
