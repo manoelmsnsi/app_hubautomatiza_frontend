@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="section-header">    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/grupo_acesso">GRUPO ACESSO</a></div>
+      <div class="breadcrumb-item">FORMULÁRIO</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h4>CADASTRO DE GRUPOS DE ACESSOS</h4>
+          </div>
+          <div class="card-body">
+            {% if grupo_acesso_data[0] %}
+              {% set grupo_acesso_data = grupo_acesso_data[0] %}
+              <form method="POST" action="/grupo_acesso/update/{{ grupo_acesso_data['id'] }}"> 
+            {% else %}
+              <form method="POST" action="/grupo_acesso/insert"> 
+            {% endif %}
+                <div class="card-body">
+                    <div class="row">                             
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label>DESCRIÇÃO</label>
+                            <input type="text" name="description" value="{{ grupo_acesso_data['description'] }}" maxlength="255" class="form-control">
+                        </div>                        
+                    </div>
+                </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
+                    <a href="/grupo_acesso" class="btn btn-danger" type="reset">Cancelar</a>
+                  </div>
+              </div>
+            </form>                    
+          </div>
+      </div> 
+    </div>
+  </div>
+{% endblock %}

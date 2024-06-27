@@ -10,13 +10,13 @@
     <div class="col-12">
       <div class="card">
           <div class="card-header">
-            <h4>CADASTRO DE CAIXA</h4>
+            <h4>PROCESSAR CONTA</h4>
           </div>
           <div class="card-body">
             {% set conta_data = conta_data[0] %}
             
             
-            <form method="POST" action="/caixa/processar"> 
+            <form method="POST" action="/conta/processar"> 
                 <div class="card-body">
                     <div class="row">                        
                         <input type="hidden" name="conta_id" value="{{ conta_data['id'] }}" maxlength="255" class="form-control">
@@ -110,7 +110,7 @@
                 
                 <div class="card-footer text-right">
                   <button class="btn btn-primary mr-1" type="submit">Salvar</button>
-                  <a href="/caixa" class="btn btn-danger" type="reset">Cancelar</a>
+                  <a href="/conta" class="btn btn-danger" type="reset">Cancelar</a>
                 </div>
               </div>
             </form>                    

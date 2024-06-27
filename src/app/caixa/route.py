@@ -89,13 +89,3 @@ async def caixa_form(request: Request):
                                         )
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_form"},"error":error}})
-@frontend.post("/caixa/processar")
-async def caixa_processar(request: Request):
-    try:
-        data = dict(await request.form())
-        api_backend.post_processar_caixa(data=data)
-        flash(request, "CONTA PROCESSADA COM SUCESSO!", "alert-sucess")
-        return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
-    except Exception as error:
-        # flash(request, {"data":{"frontend":{"function":"caixa_processar"},"error":error}}, "alert-danger")
-        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_processar"},"error":error}})

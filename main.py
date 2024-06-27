@@ -17,11 +17,13 @@ from src.system.core.flash import get_flashed_messages
 
 from src.app.home.route import frontend as home_route
 from src.app.auth.route import frontend as auth_route
+from src.app.rota.route import frontend as rota_route
 from src.app.conta.route import frontend as conta_route
 from src.app.caixa.route import frontend as caixa_route
 from src.app.acesso.route import frontend as acesso_route
 from src.app.pessoa.route import frontend as pessoa_route
 from src.app.status.route import frontend as status_route
+from src.app.usuario.route import frontend as usuario_route
 from src.app.contato.route import frontend as contato_route
 from src.app.empresa.route import frontend as empresa_route
 from src.app.endereco.route import frontend as endereco_route
@@ -29,9 +31,13 @@ from src.app.categoria.route import frontend as categoria_route
 from src.app.conta_tipo.route import frontend as conta_tipo_route
 from src.app.pessoa_tipo.route import frontend as pessoa_tipo_route
 from src.app.contato_tipo.route import frontend as contato_tipo_route
+from src.app.grupo_acesso.route import frontend as grupo_acesso_route
 from src.app.documento_tipo.route import frontend as documento_tipo_route
 from src.app.pagamento_tipo.route import frontend as pagamento_tipo_route
 from src.app.caixa_historico.route import frontend as caixa_historico_route
+from src.app.grupo_acesso_usuario.route import frontend as grupo_acesso_usuario
+from src.app.grupo_acesso_rota.route import frontend as grupo_acesso_rota_route
+
 
 middleware = [
     Middleware(SessionMiddleware, secret_key='super-secret')
@@ -40,22 +46,28 @@ app = FastAPI(docs_url=None, redoc_url=None,middleware=middleware)
 
 
 app.include_router(home_route)
+app.include_router(rota_route) #app_acesso
 app.include_router(auth_route)
 app.include_router(conta_route)
 app.include_router(caixa_route)
 app.include_router(acesso_route)
 app.include_router(pessoa_route)
 app.include_router(status_route)
+app.include_router(usuario_route) #app_acesso
 app.include_router(contato_route)
 app.include_router(empresa_route)
 app.include_router(endereco_route)
 app.include_router(categoria_route)
 app.include_router(conta_tipo_route)
 app.include_router(pessoa_tipo_route)
+app.include_router(grupo_acesso_route) #app_acesso
 app.include_router(contato_tipo_route)
+app.include_router(grupo_acesso_usuario) #app_acesso
 app.include_router(documento_tipo_route)
 app.include_router(pagamento_tipo_route)
 app.include_router(caixa_historico_route)
+app.include_router(grupo_acesso_rota_route) #app_acesso
+
 
 
 app.mount("/static", StaticFiles(directory="src/system/static", html=True), name="static")

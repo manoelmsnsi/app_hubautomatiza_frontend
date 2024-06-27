@@ -85,3 +85,15 @@ async def conta_update(request: Request,id:int):
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"conta_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_update"},"error":error}})
+    
+
+@frontend.post("/conta/processar")
+async def conta_processar(request: Request):
+    try:
+        data = dict(await request.form())
+        api_backend.post_processar_conta(data=data)
+        flash(request, "CONTA PROCESSADA COM SUCESSO!", "alert-sucess")
+        return RedirectResponse(f'/conta', status_code=status.HTTP_303_SEE_OTHER)
+    except Exception as error:
+        # flash(request, {"data":{"frontend":{"function":"conta_processar"},"error":error}}, "alert-danger")
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_processar"},"error":error}})

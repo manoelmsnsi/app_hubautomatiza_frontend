@@ -294,9 +294,9 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> patch_caixa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'patch_caixa','error':error})   
-    def post_processar_caixa(self,data:dict):
+    def post_processar_conta(self,data:dict):
         try:
-            url = f"{self.BASE_URL}/caixa_processar_pagamento"
+            url = f"{self.BASE_URL}/conta_processar_pagamento"
             headers={"Content-Type": "application/json"}
             payload=data
             
@@ -305,8 +305,8 @@ class ApiBackend():
             return response.json()
         
         except Exception as error:
-            print(f"backend -> post_processar_caixa -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'post_processar_caixa','error':error})   
+            print(f"backend -> post_processar_conta -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_processar_conta','error':error})   
        
     def get_caixa_historico(self,filters:dict):
         try:
@@ -625,6 +625,221 @@ class ApiBackend():
         except Exception as error:
             print(f"backend -> patch_empresa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'patch_empresa','error':error})   
+        
+    def get_usuario(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/usuario/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_usuario','error':error})
+    
+    def post_usuario(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/usuario/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_usuario','error':error})   
+        
+    def patch_usuario(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/usuario?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_usuario','error':error})   
+        
+    def get_rota(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/rota/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_rota','error':error})
+    
+    def post_rota(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/rota/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_rota','error':error})   
+        
+    def patch_rota(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/rota?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_rota','error':error})   
+        
+    def get_grupo_acesso(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_grupo_acesso -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_grupo_acesso','error':error})
+    
+    def post_grupo_acesso(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_grupo_acesso -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_grupo_acesso','error':error})   
+        
+    def patch_grupo_acesso(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_grupo_acesso -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_grupo_acesso','error':error})   
+        
+    def get_grupo_acesso_rota(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_rota/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_grupo_acesso_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_grupo_acesso_rota','error':error})
+    
+    def post_grupo_acesso_rota(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_rota/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_grupo_acesso_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_grupo_acesso_rota','error':error})   
+        
+    def patch_grupo_acesso_rota(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_rota?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_grupo_acesso_rota -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_grupo_acesso_rota','error':error})   
+        
+    def get_grupo_acesso_usuario(self,filters:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_usuario/"
+            headers={}
+            payload=filters
+            
+            response = request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_grupo_acesso_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_grupo_acesso_usuario','error':error})
+    
+    def post_grupo_acesso_usuario(self,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_usuario/"
+            headers={
+                        "Content-Type": "application/json"
+                    }
+            payload=data
+            
+            response = request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_grupo_acesso_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_grupo_acesso_usuario','error':error})   
+        
+    def patch_grupo_acesso_usuario(self,id:int,data:dict):
+        try:
+            url = f"{self.BASE_URL}/grupo_acesso_usuario?id={id}"
+            headers={"Content-Type": "application/json"}
+            payload=data
+            
+            response = request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_grupo_acesso_usuario -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_grupo_acesso_usuario','error':error})   
 
     
     def get_google_calendar(self,filters:dict):
