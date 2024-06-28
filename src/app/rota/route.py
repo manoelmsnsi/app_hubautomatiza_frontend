@@ -37,10 +37,12 @@ async def rota_list(request: Request):
 async def rota_form(request: Request):
     try:
         rota_data={"items":[{}]}
+        empresa_data = api_backend.get_empresa(filters={})
+        status_data = api_backend.get_status(filters={})
         if(len(request.query_params) !=0 ):
             rota_data = api_backend.get_rota(filters=request.query_params)
          
-        return templates.TemplateResponse("form.html",{"request": request,"rota_data":rota_data["items"]})
+        return templates.TemplateResponse("form.html",{"request": request,"rota_data":rota_data["items"],"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"rota_form"},"error":error}})
     
@@ -51,7 +53,7 @@ async def rota_insert(request: Request):
         data = dict(await request.form())
         rota_data = api_backend.post_rota(data=data)
         flash(request, "rota INSERIDO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/rota', rota_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"rota_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"rota_insert"},"error":error}})
@@ -63,7 +65,7 @@ async def rota_update(request: Request,id:int):
         data = dict(await request.form())
         api_backend.patch_rota(id=id,data=data)
         flash(request, "rota ALTERADO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/rota', rota_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"rota_update"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"rota_update"},"error":error}})

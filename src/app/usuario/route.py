@@ -37,10 +37,12 @@ async def usuario_list(request: Request):
 async def usuario_form(request: Request):
     try:
         usuario_data={"items":[{}]}
+        empresa_data = api_backend.get_empresa(filters={})
+        pessoa_data = api_backend.get_pessoa(filters={})
+        status_data = api_backend.get_status(filters={})
         if(len(request.query_params) !=0 ):
-            usuario_data = api_backend.get_usuario(filters=request.query_params)
-         
-        return templates.TemplateResponse("form.html",{"request": request,"usuario_data":usuario_data["items"]})
+            usuario_data = api_backend.get_usuario(filters=request.query_params)         
+        return templates.TemplateResponse("form.html",{"request": request,"usuario_data":usuario_data["items"],"empresa_data":empresa_data["items"],"pessoa_data":pessoa_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"usuario_form"},"error":error}})
     
@@ -51,7 +53,7 @@ async def usuario_insert(request: Request):
         data = dict(await request.form())
         usuario_data = api_backend.post_usuario(data=data)
         flash(request, "usuario INSERIDO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/usuario', usuario_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"usuario_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"usuario_insert"},"error":error}})
@@ -63,7 +65,7 @@ async def usuario_update(request: Request,id:int):
         data = dict(await request.form())
         api_backend.patch_usuario(id=id,data=data)
         flash(request, "usuario ALTERADO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/usuario', usuario_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"usuario_update"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"usuario_update"},"error":error}})

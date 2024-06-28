@@ -70,7 +70,7 @@
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                                     <a  class="btn btn-danger" href="/grupo_acesso_usuario/form?grupo_acesso_id={{grupo_acesso_data['id']}}"><i class="fas fa-handshake"></i></a>
-                                    <a  class="btn btn-primary" href="/usuario/form?grupo_acesso_id={{grupo_acesso_data['id']}}"><i class="fas fa-plus"></i></a>
+                                    <a  class="btn btn-primary" href="/em_contrucao"><i class="fas fa-plus"></i></a>
                                 </div>
                             </form>
                         </div>
@@ -96,7 +96,6 @@
                                     </td>
                                     <td>{{ grupo_acesso_usuario["create_at"]}}</td>
                                     <td>
-                                        <a href="/usuario/form?id={{grupo_acesso_usuario.id}}" class="btn btn-light">Editar</a>
                                         <a href="#" class="btn btn-danger">Deletar</a>
                                     </td>
                                 </tr>
@@ -126,7 +125,7 @@
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
-                                    <a  class="btn btn-primary" href="/rota/form?pessoa_id={{ grupo_acesso_data['id'] }}"><i class="fas fa-plus"></i></a>
+                                    <a  class="btn btn-primary" href="/em_contrucao"><i class="fas fa-plus"></i></a>
                                 </div>
                             </form>
                         </div>
@@ -156,7 +155,6 @@
                                     </td>    
                                     <td>{{ rota["create_at"]}}</td>
                                     <td>
-                                        <a href="/rota/form?id={{rota.id}}" class="btn btn-light">Editar</a>
                                         <a href="#" class="btn btn-danger">Deletar</a>
                                     </td>
                                 </tr>
