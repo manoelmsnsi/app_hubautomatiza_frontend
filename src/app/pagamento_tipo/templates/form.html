@@ -25,11 +25,11 @@
                         </div>                                    
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>DESCRIÇÃO</label>
-                            <input type="text" name="description" value="{{ pagamento_tipo_data['description'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="description" value="{{ pagamento_tipo_data['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                             <label>JUROS</label>
-                            <input type="text" name="fees" value="{{ pagamento_tipo_data['fees'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="fees" value="{{ pagamento_tipo_data['fees'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                           <label>Entrada</label>

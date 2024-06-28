@@ -24,7 +24,7 @@
                                         </select>                            
                                     </div>            
                                         -->
-                                    <input name="name" type="text" class="form-control" placeholder="Search">
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>

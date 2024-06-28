@@ -368,7 +368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var endPos = owner.element.selectionEnd;
 	        var oldValue = owner.element.value;
 
-	        // fix Android browser type="text" input field
+	        // fix Android browser type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" input field
 	        // cursor not jumping issue
 	        if (owner.isAndroid) {
 	            window.setTimeout(function () {

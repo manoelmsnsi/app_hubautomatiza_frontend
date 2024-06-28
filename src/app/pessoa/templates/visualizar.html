@@ -27,15 +27,15 @@
                     <div class="row">                     
                         <div class="form-group col-sm-12  col-md-12 col-lg-1">
                             <label>#</label>
-                            <input type="text" disabled name="id" value="{{ pessoa_data['id'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="id" value="{{ pessoa_data['id'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-11">
                             <label>NOME</label>
-                            <input type="text" disabled name="name" value="{{ pessoa_data['name'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="name" value="{{ pessoa_data['name'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CPF/CNPJ</label>
-                            <input type="text" disabled name="cpf_cnpj" value="{{ pessoa_data['cpf_cnpj']}}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="cpf_cnpj" value="{{ pessoa_data['cpf_cnpj']}}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                         <label>TIPO</label>
@@ -94,7 +94,7 @@
                                         </select>                            
                                     </div>            
                                         -->
-                                    <input name="name" type="text" class="form-control" placeholder="Search">
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
@@ -158,7 +158,7 @@
                                         </select>                            
                                     </div>            
                                         -->
-                                    <input name="name" type="text" class="form-control" placeholder="Search">
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>

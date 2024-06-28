@@ -23,11 +23,11 @@
                     <div class="row">                      
                         <div class="form-group col-sm-12  col-md-12 col-lg-12">
                             <label>NOME</label>
-                            <input type="text" name="name" value="{{ pessoa_data.name }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="name" value="{{ pessoa_data.name }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CPF/CNPJ</label>
-                            <input type="text" name="cpf_cnpj" value="{{ pessoa_data.cpf_cnpj}}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cpf_cnpj" value="{{ pessoa_data.cpf_cnpj}}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                           <label>TIPO</label>

@@ -23,15 +23,15 @@
                     <div class="row">                        
                         <div class="form-group col-sm-12  col-md-12 col-lg-6">
                             <label>NOME FANTASIA</label>
-                            <input type="text" name="name_fantasy" value="{{ empresa_data['name_fantasy'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="name_fantasy" value="{{ empresa_data['name_fantasy'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-6">
                             <label>RAZÃO SOCIAL</label>
-                            <input type="text" name="razao_social" value="{{ empresa_data['razao_social'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="razao_social" value="{{ empresa_data['razao_social'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CPF/CNPJ</label>
-                            <input type="text" name="cnpj" value="{{ empresa_data['cnpj'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cnpj" value="{{ empresa_data['cnpj'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>E-MAIL</label>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>TELEFONE</label>
-                            <input type="text" name="telefone" value="{{ empresa_data['telefone'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="telefone" value="{{ empresa_data['telefone'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                           <label>STATUS</label>

@@ -56,7 +56,7 @@
 {{/each}}
 
 {{#form new_comment}}
-  <input type="text" name="body">
+  <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="body">
 {{/form}}
 
 </textarea></form>

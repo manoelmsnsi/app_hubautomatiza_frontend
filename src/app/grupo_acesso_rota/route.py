@@ -36,11 +36,14 @@ async def grupo_acesso_rota_list(request: Request):
 @frontend.get("/grupo_acesso_rota/form",)
 async def grupo_acesso_rota_form(request: Request):
     try:
-        grupo_acesso_rota_data={"items":[{}]}
-        if(len(request.query_params) !=0 ):
-            grupo_acesso_rota_data = api_backend.get_grupo_acesso_rota(filters=request.query_params)
+        grupo_acesso_id = request.query_params["grupo_acesso_id"]
+        grupo_acesso_rota_data = api_backend.get_grupo_acesso_rota(filters={"id":grupo_acesso_id})
+        empresa_data = api_backend.get_empresa(filters={})
+        grupo_acesso_data = api_backend.get_grupo_acesso(filters={})
+        status_data = api_backend.get_status(filters={})
+        rota_data = api_backend.get_rota(filters={})
          
-        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_rota_data":grupo_acesso_rota_data["items"]})
+        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_rota_data":grupo_acesso_rota_data["items"],"rota_data":rota_data["items"],"empresa_data":empresa_data["items"],"grupo_acesso_data":grupo_acesso_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_rota_form"},"error":error}})
     
@@ -51,9 +54,9 @@ async def grupo_acesso_rota_insert(request: Request):
         data = dict(await request.form())
         grupo_acesso_rota_data = api_backend.post_grupo_acesso_rota(data=data)
         flash(request, "grupo_acesso_rota INSERIDO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/grupo_acesso_rota', grupo_acesso_rota_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/grupo_acesso/visualizar?id={grupo_acesso_rota_data["grupo_acesso_id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
-        # flash(request, {"data":{"frontend":{"function":"grupo_acesso_rota_insert"},"error":error}}, "alert-danger")
+        flash(request, {"data":{"frontend":{"function":"grupo_acesso_rota_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_rota_insert"},"error":error}})
     
 
@@ -63,7 +66,7 @@ async def grupo_acesso_rota_update(request: Request,id:int):
         data = dict(await request.form())
         api_backend.patch_grupo_acesso_rota(id=id,data=data)
         flash(request, "grupo_acesso_rota ALTERADO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/grupo_acesso_rota', grupo_acesso_rota_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/grupo_acesso_rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"grupo_acesso_rota_update"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_rota_update"},"error":error}})

@@ -84,7 +84,7 @@
 
       var body = '<div class="form-group row-fluid">' +
           '<label>' + lang.databasic.testLabel + '</label>' +
-          '<input class="ext-databasic-test form-control" type="text" />' +
+          '<input class="ext-databasic-test form-control" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" />' +
           '</div>';
       var footer = '<button href="#" class="btn btn-primary ext-databasic-save">' + lang.databasic.insert + '</button>';
 

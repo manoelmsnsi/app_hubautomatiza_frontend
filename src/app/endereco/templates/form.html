@@ -24,23 +24,23 @@
                         <input type="hidden" name="pessoa_id" value="{{ pessoa_id}}" maxlength="255" class="form-control">
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>PAIS</label>
-                            <input type="text" name="pais" value="{{ endereco_data['pais'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="pais" value="{{ endereco_data['pais'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CIDADE</label>
-                            <input type="text" name="cidade" value="{{ endereco_data['cidade'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cidade" value="{{ endereco_data['cidade'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CEP</label>
-                            <input type="text" name="cep" value="{{ endereco_data['cep'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cep" value="{{ endereco_data['cep'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>BAIRRO</label>
-                            <input type="text" name="bairro" value="{{ endereco_data['bairro'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="bairro" value="{{ endereco_data['bairro'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-8">
                             <label>LOGRADOURO</label>
-                            <input type="text" name="logradouro" value="{{ endereco_data['logradouro'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="logradouro" value="{{ endereco_data['logradouro'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-4">
                           <label>STATUS</label>

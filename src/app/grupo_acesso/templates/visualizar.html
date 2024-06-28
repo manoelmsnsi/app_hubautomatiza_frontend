@@ -27,19 +27,19 @@
                     <div class="row">                     
                         <div class="form-group col-sm-12  col-md-12 col-lg-1">
                             <label>#</label>
-                            <input type="text" disabled name="id" value="{{ grupo_acesso_data['id'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="id" value="{{ grupo_acesso_data['id'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-5">
                             <label>NOME</label>
-                            <input type="text" disabled name="description" value="{{ grupo_acesso_data['description'] }}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="description" value="{{ grupo_acesso_data['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>STATUS</label>
-                            <input type="text" disabled name="cpf_cnpj" value="{{ grupo_acesso_data['status']['description']}}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="cpf_cnpj" value="{{ grupo_acesso_data['status']['description']}}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
                             <label>CRIADO</label>
-                            <input type="text" disabled name="create_at" value="{{ grupo_acesso_data['create_at']}}" maxlength="255" class="form-control">
+                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="create_at" value="{{ grupo_acesso_data['create_at']}}" maxlength="255" class="form-control">
                         </div>
                         
                         
@@ -65,7 +65,7 @@
                                         </select>                            
                                     </div>            
                                         -->
-                                    <input name="name" type="text" class="form-control" placeholder="Search">
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
@@ -110,7 +110,7 @@
             <div class="col-sm-12  col-md-12 col-lg-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4>ACESSOS</h4>
+                        <h4>ROTAS</h4>
                         <div class="card-header-form">
                             <form method="get" action="/rota">
                                 <div class="input-group">      
@@ -121,11 +121,11 @@
                                         </select>                            
                                     </div>            
                                         -->
-                                    <input name="name" type="text" class="form-control" placeholder="Search">
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
-                                    <a  class="btn btn-primary" href="/em_contrucao"><i class="fas fa-plus"></i></a>
+                                    <a  class="btn btn-danger" href="/grupo_acesso_rota/form?grupo_acesso_id={{grupo_acesso_data['id']}}"><i class="fas fa-handshake"></i></a>
                                 </div>
                             </form>
                         </div>
@@ -142,18 +142,18 @@
                                     <th>CRIADO EM</th>
                                     <th>AÇÃO</th>
                                 </tr>           
-                                {% for rota in rota_data['items'] %}
+                                {% for grupo_acesso_rota in grupo_acesso_rota_data['items'] %}
                                 <tr>                
-                                    <td>{{ rota["id"] }}</td>
-                                    <td>{{ rota["description"] }}</td>     
-                                    <td>{{ rota["route"] }}</td>     
-                                    <td>{{ rota["method"] }}</td>     
+                                    <td>{{ grupo_acesso_rota["id"] }}</td>
+                                    <td>{{ grupo_acesso_rota["rota"]["description"] }}</td>     
+                                    <td>{{ grupo_acesso_rota["rota"]["route"] }}</td>     
+                                    <td>{{ grupo_acesso_rota["rota"]["method"] }}</td>     
                                     <td>
                                         <div class="badge badge-primary">
-                                            {{ rota["status"]["description"] }}
+                                            {{ grupo_acesso_rota["status"]["description"] }}
                                         </div>       
                                     </td>    
-                                    <td>{{ rota["create_at"]}}</td>
+                                    <td>{{ grupo_acesso_rota["create_at"]}}</td>
                                     <td>
                                         <a href="#" class="btn btn-danger">Deletar</a>
                                     </td>

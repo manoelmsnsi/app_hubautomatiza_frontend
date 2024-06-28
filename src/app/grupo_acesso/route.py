@@ -49,10 +49,10 @@ async def grupo_acesso_form(request: Request):
     try:
         grupo_acesso_id=request.query_params["id"]
         grupo_acesso_data = api_backend.get_grupo_acesso(filters={"id":grupo_acesso_id})
-        rota_data = api_backend.get_rota(filters={"grupo_acesso_id":grupo_acesso_id})
+        grupo_acesso_rota_data = api_backend.get_grupo_acesso_rota(filters={"grupo_acesso_id":grupo_acesso_id})
         grupo_acesso_usuario_data = api_backend.get_grupo_acesso_usuario(filters={"grupo_acesso_id":grupo_acesso_id})
          
-        return templates.TemplateResponse("visualizar.html",{"request": request,"grupo_acesso_data":grupo_acesso_data,"rota_data":rota_data,"grupo_acesso_usuario_data":grupo_acesso_usuario_data})
+        return templates.TemplateResponse("visualizar.html",{"request": request,"grupo_acesso_data":grupo_acesso_data,"grupo_acesso_rota_data":grupo_acesso_rota_data,"grupo_acesso_usuario_data":grupo_acesso_usuario_data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_form"},"error":error}})
     

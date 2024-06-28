@@ -22,7 +22,7 @@
                             </select>                            
                         </div>            
                               -->
-                        <input name="name" type="text" class="form-control" placeholder="Search">
+                        <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                         <div class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                         </div>
@@ -36,6 +36,7 @@
                 <table class="table table-striped">                
                     <tr>
                         <th>#</th>
+                        <th>PESSOA</th>
                         <th>USERNAME</th>
                         <th>STATUS</th>
                         <th>CRIADO EM</th>
@@ -44,6 +45,7 @@
                     {% for usuario in data['items'] %}
                     <tr>                
                         <td>{{ usuario["id"] }}</td>
+                        <td>{{ usuario["pessoa"]["name"] }}</td>
                         <td>{{ usuario["username"] }}</td>  
                         <td>
                             <div class="badge badge-primary">

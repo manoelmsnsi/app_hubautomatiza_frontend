@@ -5872,11 +5872,11 @@ var LinkDialog = /** @class */ (function () {
         var body = [
             '<div class="form-group note-form-group">',
             "<label class=\"note-form-label\">" + this.lang.link.textToDisplay + "</label>",
-            '<input class="note-link-text form-control note-form-control  note-input" type="text" />',
+            '<input class="note-link-text form-control note-form-control  note-input" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" />',
             '</div>',
             '<div class="form-group note-form-group">',
             "<label class=\"note-form-label\">" + this.lang.link.url + "</label>",
-            '<input class="note-link-url form-control note-form-control note-input" type="text" value="http://" />',
+            '<input class="note-link-url form-control note-form-control note-input" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" value="http://" />',
             '</div>',
             !this.options.disableLinkTarget
                 ? $$1('<div/>').append(this.ui.checkbox({
@@ -6091,7 +6091,7 @@ var ImageDialog = /** @class */ (function () {
             '<div class="form-group note-group-image-url" style="overflow:auto;">',
             '<label class="note-form-label">' + this.lang.image.url + '</label>',
             '<input class="note-image-url form-control note-form-control note-input ',
-            ' col-md-12" type="text" />',
+            ' col-md-12" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" />',
             '</div>'
         ].join('');
         var buttonClass = 'btn btn-primary note-btn note-btn-primary note-image-btn';
@@ -6301,7 +6301,7 @@ var VideoDialog = /** @class */ (function () {
         var body = [
             '<div class="form-group note-form-group row-fluid">',
             "<label class=\"note-form-label\">" + this.lang.video.url + " <small class=\"text-muted\">" + this.lang.video.providers + "</small></label>",
-            '<input class="note-video-url form-control note-form-control note-input" type="text" />',
+            '<input class="note-video-url form-control note-form-control note-input" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" />',
             '</div>'
         ].join('');
         var buttonClass = 'btn btn-primary note-btn note-btn-primary note-video-btn';

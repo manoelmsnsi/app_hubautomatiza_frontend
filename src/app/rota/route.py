@@ -52,7 +52,7 @@ async def rota_insert(request: Request):
     try:
         data = dict(await request.form())
         rota_data = api_backend.post_rota(data=data)
-        flash(request, "rota INSERIDO COM SUCESSO!", "alert-success")
+        flash(request, "ROTA INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"rota_insert"},"error":error}}, "alert-danger")
@@ -64,7 +64,7 @@ async def rota_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_rota(id=id,data=data)
-        flash(request, "rota ALTERADO COM SUCESSO!", "alert-success")
+        flash(request, "ROTA ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"rota_update"},"error":error}}, "alert-danger")

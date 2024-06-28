@@ -22,15 +22,15 @@
                         <input type="hidden" name="conta_id" value="{{ conta_data['id'] }}" maxlength="255" class="form-control">
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>PESSOA</label>
-                          <input type="text" name="pessoa" disabled value="{{ conta_data['pessoa']['name'] }}" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="pessoa" disabled value="{{ conta_data['pessoa']['name'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>DOCUMENTO</label>
-                          <input type="text" name="documento_tipo" disabled value="{{ conta_data['documento_tipo']['description'] }}" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="documento_tipo" disabled value="{{ conta_data['documento_tipo']['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>PAGAMENTO</label>
-                          <input type="text" name="pagamento_tipo" disabled value="{{ conta_data['pagamento_tipo']['description'] }}" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="pagamento_tipo" disabled value="{{ conta_data['pagamento_tipo']['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>VALOR DA PARCELA</label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>CATEGORIA</label>
-                          <input type="text" name="categoria" disabled value="{{ conta_data['categoria']['description'] }}" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="categoria" disabled value="{{ conta_data['categoria']['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-2">
                           <label>DATA VENCIMENTO</label>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-12">
                           <label>OBSERVAÇÃO</label>
-                          <input type="text" name="observation" disabled value="{{ conta_data['observation'] }}" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="observation" disabled value="{{ conta_data['observation'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-12">
                           <hr>
@@ -102,7 +102,7 @@
 
                         <div class="form-group col-sm-12 col-md-12 col-lg-9">
                           <label>OBSERVAÇÃO</label>
-                          <input type="text" name="onservation" value="" maxlength="255" class="form-control">
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="onservation" value="" maxlength="255" class="form-control">
                         </div>
                         
                     </div>
