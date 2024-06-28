@@ -50,9 +50,9 @@ async def grupo_acesso_form(request: Request):
         grupo_acesso_id=request.query_params["id"]
         grupo_acesso_data = api_backend.get_grupo_acesso(filters={"id":grupo_acesso_id})
         rota_data = api_backend.get_rota(filters={"grupo_acesso_id":grupo_acesso_id})
-        usuario_data = api_backend.get_usuario(filters={"grupo_acesso_id":grupo_acesso_id})
+        grupo_acesso_usuario_data = api_backend.get_grupo_acesso_usuario(filters={"grupo_acesso_id":grupo_acesso_id})
          
-        return templates.TemplateResponse("visualizar.html",{"request": request,"grupo_acesso_data":grupo_acesso_data,"rota_data":rota_data,"usuario_data":usuario_data})
+        return templates.TemplateResponse("visualizar.html",{"request": request,"grupo_acesso_data":grupo_acesso_data,"rota_data":rota_data,"grupo_acesso_usuario_data":grupo_acesso_usuario_data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_form"},"error":error}})
     
@@ -62,7 +62,7 @@ async def grupo_acesso_insert(request: Request):
     try:
         data = dict(await request.form())
         grupo_acesso_data = api_backend.post_grupo_acesso(data=data)
-        flash(request, "grupo_acesso INSERIDO COM SUCESSO!", "alert-success")
+        flash(request, "VINCULO CRIADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/grupo_acesso', grupo_acesso_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"grupo_acesso_insert"},"error":error}}, "alert-danger")
@@ -74,7 +74,7 @@ async def grupo_acesso_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_grupo_acesso(id=id,data=data)
-        flash(request, "grupo_acesso ALTERADO COM SUCESSO!", "alert-success")
+        flash(request, "VINCULO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/grupo_acesso', grupo_acesso_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"grupo_acesso_update"},"error":error}}, "alert-danger")

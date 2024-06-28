@@ -2,7 +2,7 @@
 {% block content %}
 <div class="section-header">    
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="/pessoa">PESSOA</a></div>
+      <div class="breadcrumb-item active"><a href="/grupo_acesso">GRUPO DE ACESSO</a></div>
       <div class="breadcrumb-item">LISTAGEM</div>
     </div>
   </div>
@@ -13,12 +13,12 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>PESSOA</h4>
+                <h4>GRUPO DE ACESSO</h4>
                 <div class="card-header-form">
-                    <form method="get" action="/contato">
+                    <form method="get" action="#">
                         <div class="input-group">  
-                            <a  class="btn btn-primary" href="/pessoa/form?id={{grupo_acesso_data['id']}}"><i class="fas fa-edit"></i></a>
-                            <a  class="btn btn-danger" href="/pessoa"><i class="fas fa-reply"></i></a>
+                            <a  class="btn btn-primary" href="/grupo_acesso/form?id={{grupo_acesso_data['id']}}"><i class="fas fa-edit"></i></a>
+                            <a  class="btn btn-danger" href="/grupo_acesso"><i class="fas fa-reply"></i></a>
                         </div>
                     </form>
                 </div>
@@ -29,23 +29,19 @@
                             <label>#</label>
                             <input type="text" disabled name="id" value="{{ grupo_acesso_data['id'] }}" maxlength="255" class="form-control">
                         </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-11">
+                        <div class="form-group col-sm-12  col-md-12 col-lg-5">
                             <label>NOME</label>
-                            <input type="text" disabled name="name" value="{{ grupo_acesso_data['name'] }}" maxlength="255" class="form-control">
+                            <input type="text" disabled name="description" value="{{ grupo_acesso_data['description'] }}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                            <label>CPF/CNPJ</label>
-                            <input type="text" disabled name="cpf_cnpj" value="{{ grupo_acesso_data['cpf_cnpj']}}" maxlength="255" class="form-control">
+                            <label>STATUS</label>
+                            <input type="text" disabled name="cpf_cnpj" value="{{ grupo_acesso_data['status']['description']}}" maxlength="255" class="form-control">
                         </div>
                         <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                        <label>TIPO</label>
+                            <label>CRIADO</label>
+                            <input type="text" disabled name="create_at" value="{{ grupo_acesso_data['create_at']}}" maxlength="255" class="form-control">
+                        </div>
                         
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                        <label>EMPRESA</label>
-                        
-                        </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                        <label>STATUS</label>
                         
                         </div>                
                     </div>
@@ -73,7 +69,8 @@
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
-                                    <a  class="btn btn-primary" href="/usuario/form?pessoa_id={{grupo_acesso_data['id']}}"><i class="fas fa-plus"></i></a>
+                                    <a  class="btn btn-danger" href="/grupo_acesso_usuario/form?grupo_acesso_id={{grupo_acesso_data['id']}}"><i class="fas fa-handshake"></i></a>
+                                    <a  class="btn btn-primary" href="/usuario/form?grupo_acesso_id={{grupo_acesso_data['id']}}"><i class="fas fa-plus"></i></a>
                                 </div>
                             </form>
                         </div>
@@ -88,18 +85,18 @@
                                     <th>CRIADO EM</th>
                                     <th>AÇÃO</th>
                                 </tr>           
-                                {% for usuario in usuario_data['items'] %}
+                                {% for grupo_acesso_usuario in grupo_acesso_usuario_data['items'] %}
                                 <tr>                
-                                    <td>{{ usuario["id"] }}</td>
-                                    <td>{{ usuario["username"] }}</td>  
+                                    <td>{{ grupo_acesso_usuario["usuario"]["id"] }}</td>
+                                    <td>{{ grupo_acesso_usuario["usuario"]["username"] }}</td>  
                                     <td>
                                         <div class="badge badge-primary">
-                                            {{ usuario["status"]["description"] }}
+                                            {{ grupo_acesso_usuario["status"]["description"] }}
                                         </div>       
                                     </td>
-                                    <td>{{ usuario["create_at"]}}</td>
+                                    <td>{{ grupo_acesso_usuario["create_at"]}}</td>
                                     <td>
-                                        <a href="/usuario/form?id={{usuario.id}}" class="btn btn-light">Editar</a>
+                                        <a href="/usuario/form?id={{grupo_acesso_usuario.id}}" class="btn btn-light">Editar</a>
                                         <a href="#" class="btn btn-danger">Deletar</a>
                                     </td>
                                 </tr>
