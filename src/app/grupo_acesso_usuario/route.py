@@ -38,7 +38,7 @@ async def grupo_acesso_usuario_form(request: Request):
     try:
     
         grupo_acesso_id = request.query_params["grupo_acesso_id"]
-        grupo_acesso_usuario_data = api_backend.get_grupo_acesso_usuario(filters={"id":grupo_acesso_id})
+        grupo_acesso_usuario_data = api_backend.get_grupo_acesso_usuario(filters={"grupo_acesso_id":grupo_acesso_id})
         usuario_data = api_backend.get_usuario(filters={})
         empresa_data = api_backend.get_empresa(filters={})
         grupo_acesso_data = api_backend.get_grupo_acesso(filters={})

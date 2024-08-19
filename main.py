@@ -74,7 +74,6 @@ app.mount("/static", StaticFiles(directory="src/system/static", html=True), name
 base_templates = Jinja2Templates(directory=["src/app/automatiza/auth/templates","src/app/home/templates"])
 base_templates.env.globals['get_flashed_messages'] = get_flashed_messages
 
-
 # Configurar o CORS
 origins = [
     "*",  # Origem do seu aplicativo

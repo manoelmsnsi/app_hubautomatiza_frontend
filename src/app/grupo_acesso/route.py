@@ -29,6 +29,7 @@ api_backend = ApiBackend()
 async def grupo_acesso_list(request: Request):
     try:
         data = api_backend.get_grupo_acesso(filters={})
+        
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_list"},"error":error}})
@@ -36,11 +37,12 @@ async def grupo_acesso_list(request: Request):
 @frontend.get("/grupo_acesso/form",)
 async def grupo_acesso_form(request: Request):
     try:
+        status_data = api_backend.get_status(filters={})
+        empresa_data = api_backend.get_empresa(filters={})
         grupo_acesso_data={"items":[{}]}
         if(len(request.query_params) !=0 ):
-            grupo_acesso_data = api_backend.get_grupo_acesso(filters=request.query_params)
-         
-        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_data":grupo_acesso_data["items"]})
+            grupo_acesso_data = api_backend.get_grupo_acesso(filters=request.query_params)         
+        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_data":grupo_acesso_data["items"],"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_form"},"error":error}})
     
@@ -63,7 +65,7 @@ async def grupo_acesso_insert(request: Request):
         data = dict(await request.form())
         grupo_acesso_data = api_backend.post_grupo_acesso(data=data)
         flash(request, "VINCULO CRIADO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/grupo_acesso', grupo_acesso_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/grupo_acesso', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"grupo_acesso_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_insert"},"error":error}})
@@ -75,7 +77,7 @@ async def grupo_acesso_update(request: Request,id:int):
         data = dict(await request.form())
         api_backend.patch_grupo_acesso(id=id,data=data)
         flash(request, "VINCULO ALTERADO COM SUCESSO!", "alert-success")
-        return RedirectResponse(f'/grupo_acesso', grupo_acesso_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(f'/grupo_acesso', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"grupo_acesso_update"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_update"},"error":error}})
