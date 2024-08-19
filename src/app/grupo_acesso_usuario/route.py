@@ -44,7 +44,7 @@ async def grupo_acesso_usuario_form(request: Request):
         grupo_acesso_data = api_backend.get_grupo_acesso(filters={})
         status_data = api_backend.get_status(filters={})
          
-        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_usuario_data":grupo_acesso_usuario_data["items"],"empresa_data":empresa_data["items"],"status_data":status_data["items"],"grupo_acesso_data":grupo_acesso_data["items"],"usuario_data":usuario_data["items"]})
+        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_id":grupo_acesso_id, "grupo_acesso_usuario_data":grupo_acesso_usuario_data["items"],"empresa_data":empresa_data["items"],"status_data":status_data["items"],"grupo_acesso_data":grupo_acesso_data["items"],"usuario_data":usuario_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_usuario_form"},"error":error}})
     

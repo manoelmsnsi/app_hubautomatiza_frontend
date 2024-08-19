@@ -23,8 +23,10 @@
                         <label>GRUPO DE ACESO</label>
                       <select name="grupo_acesso_id" class="form-control select2">
                         {% for grupo_acesso_usuario in grupo_acesso_data %}
-                          {% if(grupo_acesso_usuario_data[0]["grupo_acesso_usuario_id"]) == grupo_acesso_usuario['id'] %}                                                                         
-                            <option selected value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
+                          {% if grupo_acesso_usuario_data|length != 0 %}
+                            {% if(grupo_acesso_usuario_data[0]["grupo_acesso_usuario_id"]) == grupo_acesso_usuario['id'] %}                                                                         
+                              <option selected value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
+                            {% endif %}
                           {% else %}  
                             <option  value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
                           {% endif %}
@@ -35,8 +37,10 @@
                       <label>USUÁRIO</label>
                       <select name="usuario_id" class="form-control select2">
                         {% for usuario in usuario_data %}
-                          {% if(grupo_acesso_usuario_data["usuario_id"]) == usuario['id'] %}                                                                         
-                            <option selected value="{{ usuario['id'] }}">{{ usuario['username'] }}</option>
+                          {% if grupo_acesso_usuario_data|length != 0 %}
+                            {% if(grupo_acesso_usuario_data["usuario_id"]) == usuario['id'] %}                                                                         
+                              <option selected value="{{ usuario['id'] }}">{{ usuario['username'] }}</option>
+                            {% endif %}
                           {% else %}  
                             <option  value="{{ usuario['id'] }}">{{ usuario['username'] }}</option>
                           {% endif %}
@@ -47,11 +51,13 @@
                       <label>STATUS</label>
                       <select name="status_id" class="form-control select2">
                         {% for status in status_data %}
-                        {% if(grupo_acesso_usuario_data["usuario_id"]) == status['id'] %}                                                                         
-                        <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
-                        {% else %}  
-                        <option  value="{{ status['id'] }}">{{ status['description'] }}</option>
-                        {% endif %}
+                          {% if grupo_acesso_usuario_data|length != 0 %}
+                            {% if(grupo_acesso_usuario_data["usuario_id"]) == status['id'] %}                                                                         
+                              <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
+                            {% endif %}
+                          {% else %}  
+                            <option  value="{{ status['id'] }}">{{ status['description'] }}</option>
+                          {% endif %}
                         {% endfor %}
                       </select>
                     </div>
@@ -59,8 +65,10 @@
                       <label>EMPRESA</label>
                       <select name="empresa_id" class="form-control select2">
                         {% for empresa in empresa_data %}
-                          {% if(grupo_acesso_usuario_data["empresa_id"]) == empresa['id'] %}                                                                         
-                            <option selected value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
+                          {% if grupo_acesso_usuario_data|length != 0 %}
+                            {% if(grupo_acesso_usuario_data["empresa_id"]) == empresa['id'] %}                                                                         
+                              <option selected value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
+                            {% endif %}
                           {% else %}  
                             <option  value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
                           {% endif %}
@@ -70,7 +78,7 @@
                   </div>
                   <div class="card-footer text-right">
                     <button class="btn btn-primary mr-1" type="submit">Salvar</button>
-                    <a href="/grupo_acesso/visualizar?id={{grupo_acesso_usuario_data[0]['grupo_acesso_id'] }}" class="btn btn-danger" type="reset">Cancelar</a>
+                    <a href="/grupo_acesso/visualizar?id={{grupo_acesso_id}}" class="btn btn-danger" type="reset">Cancelar</a>
                   </div>
               </div>
             </form>                    
