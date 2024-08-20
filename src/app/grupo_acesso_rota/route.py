@@ -43,7 +43,7 @@ async def grupo_acesso_rota_form(request: Request):
         status_data = api_backend.get_status(filters={})
         rota_data = api_backend.get_rota(filters={})
          
-        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_rota_data":grupo_acesso_rota_data["items"],"rota_data":rota_data["items"],"empresa_data":empresa_data["items"],"grupo_acesso_data":grupo_acesso_data["items"],"status_data":status_data["items"]})
+        return templates.TemplateResponse("form.html",{"request": request,"grupo_acesso_id":grupo_acesso_id,"grupo_acesso_rota_data":grupo_acesso_rota_data["items"],"rota_data":rota_data["items"],"empresa_data":empresa_data["items"],"grupo_acesso_data":grupo_acesso_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"grupo_acesso_rota_form"},"error":error}})
     
