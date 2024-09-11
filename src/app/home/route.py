@@ -1,4 +1,5 @@
 from collections import defaultdict
+from datetime import date, datetime
 import random
 from typing import Dict, List
 from fastapi.staticfiles import StaticFiles
@@ -37,7 +38,14 @@ async def init(request: Request):
 @frontend.get("/home",)
 async def home(request: Request):
     # data_calendar = api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
-    data = api_backend.get_hub_data(filters={"empresa_id":1,"create_at":"2024-09-09"},token = request.state.token)
+
+    return RedirectResponse(f'/dash', status_code=status.HTTP_303_SEE_OTHER)
+
+@frontend.get("/dash",)
+async def dash(request: Request):
+    # data_calendar = api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
+    filters = {"create_at":request.query_params.get("create_at",datetime.now().date())}
+    data = api_backend.get_hub_data(filters=filters,token = request.state.token)
     
     data_calendar = [
                         {
@@ -61,6 +69,7 @@ async def home(request: Request):
                     ]
     
     data_chart =  organizar_dados(dados=data)
+    data_chart_table = contar_linhas_por_empresa_e_integracao(dados=data)
     # {
     #     "datasets": [{
     #         "data": [80, 50, 40, 30, 20],
@@ -76,7 +85,7 @@ async def home(request: Request):
     #     "labels": ["Black", "Green", "Yellow", "Red", "Blue"]
     # }
 
-    return templates.TemplateResponse("home.html",{"request": request,"data_calendar":data_calendar,"data_chart":data_chart})
+    return templates.TemplateResponse("home.html",{"request": request,"data_calendar":data_calendar,"data_chart":data_chart,"data_chart_table":data_chart_table,"filters":filters})
 
 @frontend.get("/em_contrucao",)
 async def em_contrucao(request: Request):
@@ -93,7 +102,7 @@ def organizar_dados(dados: List[Dict]) -> Dict:
         "datasets": [{
             "data": [],
             "backgroundColor": [
-                "#191d21", "#63ed7a", "#ffa426", "#fc544b", "#6777ef"
+                "#C06C84", "#20c997", "#17a2b8", "#343a40", "#235e7b"
             ],
             "label": "Totais"
         }],
@@ -105,7 +114,7 @@ def organizar_dados(dados: List[Dict]) -> Dict:
 
     # Iterando sobre os dados e contando as linhas por empresa_id e integracao_id
     for dado in dados:
-        chave = (dado['empresa_id'], dado['integracao_id'])
+        chave = (dado['empresa']['name_fantasy'], dado['integracao']['nome'])
         contagem_por_empresa_e_integracao[chave] += 1
 
     # Dicionário para armazenar a soma das contagens por empresa_id
@@ -120,3 +129,39 @@ def organizar_dados(dados: List[Dict]) -> Dict:
         resultados['labels'].append(f" {empresa_id}")
 
     return resultados
+
+
+
+
+def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict[str, Dict[str, int]]]:
+    """
+    Conta o número de linhas para cada combinação de nome da empresa e nome da integração,
+    e calcula o total de consumo para cada empresa.
+
+    :param dados: Lista de dicionários contendo os dados.
+    :return: Lista de dicionários onde cada dicionário contém o nome da empresa como chave e outro dicionário
+             como valor, que contém o nome da integração como chave e o total de linhas como valor.
+    """
+    contagem_por_empresa_e_integracao = defaultdict(lambda: defaultdict(int))
+    
+    for dado in dados:
+        empresa = dado.get('empresa', {})
+        integracao = dado.get('integracao', {})
+        
+        empresa_nome = empresa.get('name_fantasy', 'Desconhecido')
+        integracao_nome = integracao.get('nome', 'Desconhecido')
+        
+        contagem_por_empresa_e_integracao[empresa_nome][integracao_nome] += 1
+    
+    resultados = []
+    
+    for empresa_nome, integracao_totais in contagem_por_empresa_e_integracao.items():
+        total_sum = sum(integracao_totais.values())
+        resultados.append({
+            'empresa_nome': empresa_nome,
+            'integracao_totais': integracao_totais,
+            'total_sum': total_sum
+        })
+
+    return resultados
+

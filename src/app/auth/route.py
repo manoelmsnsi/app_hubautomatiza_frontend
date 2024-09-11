@@ -60,7 +60,7 @@ async def login_for_access_token(requests: Request,username: str = Form(...),pas
             headers={"WWW-Authenticate": "Bearer"},
         )
     token_decode =api_backend.token_access_decode(token[7:])
-
+    
     service_response = await home(requests)
     
     service_response.set_cookie("token",token)

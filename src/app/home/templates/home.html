@@ -11,29 +11,11 @@
   
     <div class="section-body">
         <div class="row">
-            <div class=" col-12 col-md-4 col-lg-4">
+            
+            <div class=" col-12 col-md-4 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Pie Chart</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                            <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
-                            </div>
-                            <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
-                            </div>
-                        </div>
-                        <canvas id="myChart1" width="1340" height="670" style="display: block; width: 670px; height: 335px;" class="chartjs-render-monitor"></canvas>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class=" col-12 col-md-4 col-lg-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Pie Chart</h4>
+                        <h4>Da</h4>
                     </div>
                     <div class="card-body">
                         <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -48,55 +30,44 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 col-lg-4">
-                    <div class="card gradient-bottom">
+            <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card ">
                       <div class="card-header">
-                        <h4>Consumo Diario Cliente</h4>
-                        <div class="card-header-action dropdown">
-                          <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Month</a>
-                          <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                            <li class="dropdown-title">Select Period</li>
-                            <li><a href="#" class="dropdown-item">Today</a></li>
-                            <li><a href="#" class="dropdown-item">Week</a></li>
-                            <li><a href="#" class="dropdown-item active">Month</a></li>
-                            <li><a href="#" class="dropdown-item">This Year</a></li>
-                          </ul>
+                        <h4>Consumo Diario</h4>
+                        <div class="card-header-form">
+                            <form method="get" action="/dash">
+                                <div class="input-group">     
+                                    <input name="create_at" type="date"  value="{{filters['create_at']}}" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                       </div>
-                      <div class="card-body" id="top-5-scroll" tabindex="2" style="verflow: hidden; outline: none;">
+                      <div class="card-body" id="top-5-scroll" tabindex="2" >
                         <ul class="list-unstyled list-unstyled-border">
-                          <li class="media">
-                            <div class="media-body">
-                              <div class="float-right"><div class="font-weight-600 text-muted text-small">Consumo Total 100</div></div>
-                              <div class="media-title">Empresa 1</div>
-                              <div class="mt-1">
-                                <div class="budget-price">
-                                  <div class="budget-price-square bg-primary" data-width="70%" style="width: 70%;"></div>
-                                  <div class="budget-price-label">70</div>
-                                </div>
-                                <div class="budget-price">
-                                  <div class="budget-price-square bg-danger" data-width="30%" style="width: 30%;"></div>
-                                  <div class="budget-price-label">30</div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="media">
-                            <div class="media-body">
-                              <div class="float-right"><div class="font-weight-600 text-muted text-small">Consumo Total 500</div></div>
-                              <div class="media-title">Empresa 2</div>
-                              <div class="mt-1">
-                                <div class="budget-price">
-                                  <div class="budget-price-square bg-primary" data-width="10%" style="width: 10%;"></div>
-                                  <div class="budget-price-label">100</div>
-                                </div>
-                                <div class="budget-price">
-                                  <div class="budget-price-square bg-danger" data-width="90%" style="width: 90%;"></div>
-                                  <div class="budget-price-label">400</div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
+                            {% for empresa_data in data_chart_table %}
+                                <li class="media">
+                                    <div class="media-body">
+                                        <div class="float-right">
+                                            <div class="font-weight-600 text-muted text-small">Consumo Total {{ empresa_data.total_sum }}</div>
+                                        </div>
+                                        <div class="media-title">{{ empresa_data.empresa_nome }}</div>
+                                        <div class="mt-1">
+                                            {% for integracao_nome, total in empresa_data.integracao_totais.items() %}
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary" data-width="{{ (total / empresa_data.total_sum) * 100 }}%" style="width: {{ (total / empresa_data.total_sum) * 100 }}%;"></div>
+                                                    <div class="budget-price-label">{{ integracao_nome }}: {{ total }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+
+
                           
                           
                         </ul>
