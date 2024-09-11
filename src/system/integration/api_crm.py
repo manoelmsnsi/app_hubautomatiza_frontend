@@ -1,5 +1,4 @@
 import os
-from fastapi import HTTPException
 from requests import request
 from datetime import datetime, timedelta
 
@@ -40,8 +39,9 @@ class ApiBackend():
 
     def get_pessoa(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -53,9 +53,11 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_pessoa','error':error})   
     def post_pessoa(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -69,8 +71,12 @@ class ApiBackend():
         
     def patch_pessoa(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -83,8 +89,9 @@ class ApiBackend():
    
     def get_pessoa_tipo(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa_tipo/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -97,6 +104,7 @@ class ApiBackend():
         
     def post_pessoa_tipo(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa_tipo/"
             headers={
                         "Content-Type": "application/json"
@@ -113,8 +121,12 @@ class ApiBackend():
         
     def patch_pessoa_tipo(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pessoa_tipo?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -128,8 +140,9 @@ class ApiBackend():
             
     def get_endereco(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/endereco/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -140,6 +153,7 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_endereco','error':error})   
     def post_endereco(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/endereco/"
             headers={
                         "Content-Type": "application/json"
@@ -156,8 +170,12 @@ class ApiBackend():
         
     def patch_endereco(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/endereco?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -170,8 +188,9 @@ class ApiBackend():
 
     def get_contato(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -182,6 +201,7 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_contato','error':error}) 
     def post_contato(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato/"
             headers={
                         "Content-Type": "application/json"
@@ -198,8 +218,12 @@ class ApiBackend():
         
     def patch_contato(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -212,8 +236,9 @@ class ApiBackend():
     
     def get_contato_tipo(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato_tipo/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -224,6 +249,7 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_contato_tipo','error':error})   
     def post_contato_tipo(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato_tipo/"
             headers={
                         "Content-Type": "application/json"
@@ -240,8 +266,12 @@ class ApiBackend():
         
     def patch_contato_tipo(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/contato_tipo?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -254,8 +284,9 @@ class ApiBackend():
        
     def get_caixa(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/caixa/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -267,6 +298,7 @@ class ApiBackend():
     
     def post_caixa(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/caixa/"
             headers={
                         "Content-Type": "application/json"
@@ -283,8 +315,12 @@ class ApiBackend():
         
     def patch_caixa(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/caixa?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -296,8 +332,12 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'patch_caixa','error':error})   
     def post_processar_conta(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta_processar_pagamento"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="POST",headers=headers,url=url,json=payload)
@@ -310,8 +350,9 @@ class ApiBackend():
        
     def get_caixa_historico(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/caixa_historico/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -323,8 +364,9 @@ class ApiBackend():
 
     def get_conta(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -335,6 +377,7 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_conta','error':error})   
     def post_conta(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta/"
             headers={
                         "Content-Type": "application/json"
@@ -351,8 +394,12 @@ class ApiBackend():
         
     def patch_conta(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -365,8 +412,9 @@ class ApiBackend():
         
     def get_conta_tipo(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta_tipo/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -378,6 +426,7 @@ class ApiBackend():
     
     def post_conta_tipo(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta_tipo/"
             headers={
                         "Content-Type": "application/json"
@@ -394,8 +443,12 @@ class ApiBackend():
         
     def patch_conta_tipo(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/conta_tipo?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -408,8 +461,9 @@ class ApiBackend():
     
     def get_documento_tipo(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/documento_tipo/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -421,6 +475,7 @@ class ApiBackend():
         
     def post_documento_tipo(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/documento_tipo/"
             headers={
                         "Content-Type": "application/json"
@@ -437,8 +492,12 @@ class ApiBackend():
         
     def patch_documento_tipo(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/documento_tipo?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -451,6 +510,7 @@ class ApiBackend():
 
     def get_pagamento_tipo(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pagamento_tipo/"
             headers = {
                         "Content-Type":"application/json",
@@ -467,6 +527,7 @@ class ApiBackend():
 
     def post_pagamento_tipo(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pagamento_tipo/"
             headers={
                         "Content-Type": "application/json"
@@ -483,8 +544,12 @@ class ApiBackend():
         
     def patch_pagamento_tipo(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/pagamento_tipo?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -498,8 +563,9 @@ class ApiBackend():
        
     def get_categoria(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/categoria/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -511,6 +577,7 @@ class ApiBackend():
         
     def post_categoria(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/categoria/"
             headers={
                         "Content-Type": "application/json"
@@ -527,8 +594,12 @@ class ApiBackend():
         
     def patch_categoria(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/categoria?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -541,8 +612,9 @@ class ApiBackend():
        
     def get_status(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/status/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -554,6 +626,7 @@ class ApiBackend():
     
     def post_status(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/status/"
             headers={
                         "Content-Type": "application/json"
@@ -570,8 +643,12 @@ class ApiBackend():
         
     def patch_status(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/status?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -585,8 +662,9 @@ class ApiBackend():
        
     def get_empresa(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/empresa/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -598,6 +676,7 @@ class ApiBackend():
     
     def post_empresa(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/empresa/"
             headers={
                         "Content-Type": "application/json"
@@ -614,8 +693,12 @@ class ApiBackend():
         
     def patch_empresa(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/empresa?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -628,8 +711,9 @@ class ApiBackend():
         
     def get_usuario(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/usuario/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -641,6 +725,7 @@ class ApiBackend():
     
     def post_usuario(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/usuario/"
             headers={
                         "Content-Type": "application/json"
@@ -657,8 +742,12 @@ class ApiBackend():
         
     def patch_usuario(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/usuario?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -671,8 +760,9 @@ class ApiBackend():
         
     def get_rota(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/rota/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -684,6 +774,7 @@ class ApiBackend():
     
     def post_rota(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/rota/"
             headers={
                         "Content-Type": "application/json"
@@ -700,8 +791,12 @@ class ApiBackend():
         
     def patch_rota(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/rota?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -714,8 +809,9 @@ class ApiBackend():
         
     def get_grupo_acesso(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -727,6 +823,7 @@ class ApiBackend():
     
     def post_grupo_acesso(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso/"
             headers={
                         "Content-Type": "application/json"
@@ -743,8 +840,12 @@ class ApiBackend():
         
     def patch_grupo_acesso(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -757,8 +858,9 @@ class ApiBackend():
         
     def get_grupo_acesso_rota(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_rota/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -770,6 +872,7 @@ class ApiBackend():
     
     def post_grupo_acesso_rota(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_rota/"
             headers={
                         "Content-Type": "application/json"
@@ -786,8 +889,12 @@ class ApiBackend():
         
     def patch_grupo_acesso_rota(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_rota?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -800,8 +907,9 @@ class ApiBackend():
         
     def get_grupo_acesso_usuario(self,filters:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_usuario/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)
@@ -813,6 +921,7 @@ class ApiBackend():
     
     def post_grupo_acesso_usuario(self,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_usuario/"
             headers={
                         "Content-Type": "application/json"
@@ -829,8 +938,12 @@ class ApiBackend():
         
     def patch_grupo_acesso_usuario(self,id:int,data:dict):
         try:
+            self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_usuario?id={id}"
-            headers={"Content-Type": "application/json"}
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
+                    }
             payload=data
             
             response = request(method="PATCH",headers=headers,url=url,json=payload)
@@ -850,8 +963,9 @@ class ApiBackend():
                 }
         """
         try:
+            self.auth()
             url = f"{self.BASE_URL}/google_calendar/"
-            headers={}
+            headers={"Authorization":self.TOKEN}
             payload=filters
             
             response = request(method="GET",headers=headers,url=url,params=payload)

@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/fullcalendar/fullcalendar.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/datatables.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
   
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ url_for('static',path='css/style.css')}}">
@@ -71,15 +73,16 @@
   <script src="{{ url_for('static',path='modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
   <script src="{{ url_for('static',path='modules/summernote/summernote-bs4.js') }}"></script>
   <script src="{{ url_for('static',path='modules/select2/dist/js/select2.full.min.js')}}"></script>
+  <script src="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static',path='modules/datatables/datatables.min.js') }}"></script>  
   
-  <!-- Page Specific JS File -->
-  <!-- <script src="{{ url_for('static',path='js/page/index.js') }}"></script> -->
   
   <!-- Template JS File -->
   <script src="{{ url_for('static',path='js/scripts.js') }}"></script>
   <script src="{{ url_for('static',path='js/custom.js') }}"></script>
   <script src="{{ url_for('static',path='modules/fullcalendar/fullcalendar.min.js')}}"></script>
   <script src="{{ url_for('static',path='modules/fullcalendar/locale/pt-br.js')}}"></script>
+  <script src="{{ url_for('static',path='js/page/modules-datatables.js') }}"></script>
   
   {% block scripts %}{% endblock %}
 </body>

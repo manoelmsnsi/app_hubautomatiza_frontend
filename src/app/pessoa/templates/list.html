@@ -15,14 +15,13 @@
             <div class="card-header-form">
                 <form method="get" action="/pessoa">
                     <div class="input-group">      
-                        <!-- <div class=" d-inline mr-2">
-                            <select class="btn btn-primary"name="param_search" >
-                                <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
-                                <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
-                            </select>                            
-                        </div>            
-                              -->
-                        <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
+                        <div class="d-inline mr-2">                            
+                            <select class="btn btn-primary" name="filter">
+                                    <option value="name">NOME</option>
+                                    <option value="cpf">CPF/CNPJ</option>
+                            </select>
+                        </div>                              
+                        <input name="value" type="text" class="form-control" placeholder="Search">
                         <div class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                         </div>

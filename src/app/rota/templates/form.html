@@ -41,11 +41,11 @@
                           <label>STATUS</label>
                           <select name="status_id" class="form-control select2">
                             {% for status in status_data %}
-                            {% if(rota_data["usuario_id"]) == status['id'] %}                                                                         
-                            <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
-                            {% else %}  
-                            <option  value="{{ status['id'] }}">{{ status['description'] }}</option>
-                            {% endif %}
+                              {% if(rota_data["usuario_id"]) == status['id'] %}                                                                         
+                                <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
+                              {% else %}  
+                                <option  value="{{ status['id'] }}">{{ status['description'] }}</option>
+                              {% endif %}
                             {% endfor %}
                           </select>
                         </div>
