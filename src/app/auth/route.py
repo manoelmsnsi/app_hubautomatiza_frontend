@@ -1,10 +1,12 @@
+from datetime import timedelta
 from fastapi.staticfiles import StaticFiles
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Form, HTTPException, Request,status
 
+from src.app.home.route import home
 from src.system.core.flash import get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
 
@@ -46,18 +48,23 @@ async def auth_form(request: Request):
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"auth_form"},"error":error}})
     
-# @frontend.post("/auth/insert")
-# async def auth_insert(request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await auth_controller.insert(data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/auth', auth_code=auth.HTTP_303_SEE_OTHER)
-
-# @frontend.post("/auth/update/{id}")
-# async def auth_update(id:int,request: Request, data_form:StatusForm = Depends(StatusForm.as_form)):
-#     await auth_controller.update(id=id,data=data_form,token = request.cookies.get("token"))
-#     return RedirectResponse('/auth', auth_code=auth.HTTP_303_SEE_OTHER)
-
-# @frontend.get("/auth/delete/")
-# async def auth_delete(id:int,request: Request):
-#     await auth_controller.delete(id=id,token = request.cookies.get("token"))
-#     return RedirectResponse('/auth', auth_code=auth.HTTP_303_SEE_OTHER)
     
+    
+@frontend.post("/auth", response_model=dict, tags=["AUTH"])
+async def login_for_access_token(requests: Request,username: str = Form(...),password:str = Form(...) ):
+    token = api_backend.authf(username, password)
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    token_decode =api_backend.token_access_decode(token[7:])
+
+    service_response = await home(requests)
+    
+    service_response.set_cookie("token",token)
+    service_response.set_cookie(key='username', value=token_decode["username"], httponly=True)
+    service_response.set_cookie(key='empresa', value=token_decode["empresa"]["name_fantasy"], httponly=True)
+    return service_response
+

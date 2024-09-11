@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/rota",)
 async def rota_list(request: Request):
     try:
-        data = api_backend.get_rota(filters={})
+        data = api_backend.get_rota(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"rota_list"},"error":error}})
@@ -37,10 +37,10 @@ async def rota_list(request: Request):
 async def rota_form(request: Request):
     try:
         rota_data={"items":[{}]}
-        empresa_data = api_backend.get_empresa(filters={})
-        status_data = api_backend.get_status(filters={})
+        empresa_data = api_backend.get_empresa(filters={},token = request.state.token)
+        status_data = api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            rota_data = api_backend.get_rota(filters=request.query_params)
+            rota_data = api_backend.get_rota(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"rota_data":rota_data["items"],"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -51,7 +51,7 @@ async def rota_form(request: Request):
 async def rota_insert(request: Request):
     try:
         data = dict(await request.form())
-        rota_data = api_backend.post_rota(data=data)
+        rota_data = api_backend.post_rota(data=data,token = request.state.token)
         flash(request, "ROTA INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -63,7 +63,7 @@ async def rota_insert(request: Request):
 async def rota_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_rota(id=id,data=data)
+        api_backend.patch_rota(id=id,data=data,token = request.state.token)
         flash(request, "ROTA ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/rota', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

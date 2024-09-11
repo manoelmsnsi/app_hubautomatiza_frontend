@@ -28,8 +28,8 @@ api_backend = ApiBackend()
 @frontend.get("/acesso",)
 async def acesso_list(request: Request):
     try:
-        # data = api_backend.get_acesso(filters={})
-        acesso_data=api_backend.get_status(filters={})
+        # data = api_backend.get_acesso(filters={},token = request.state.token)
+        acesso_data=api_backend.get_status(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":acesso_data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"acesso_list"},"error":error}})
@@ -38,8 +38,8 @@ async def acesso_list(request: Request):
 async def acesso_form(request: Request):
     try:
         acesso_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
-        empresa_data=api_backend.get_empresa(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
+        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
         acesso_data=["LISTAR","VISUALIZAR","PROCESSAR","INSERIR","EDITAR","EXCLUIR"]
         grupo_acesso_data=["ATENDENTE","FINANCEIRO","CAIXA","ADMIN"]
         # if(len(request.query_params) !=0 ):
@@ -60,7 +60,7 @@ async def acesso_form(request: Request):
 #     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
 
 # @frontend.get("/status/delete/")
-# async def status_delete(id:int,request: Request):
+# async def status_delete(id:int,request: Request)):
 #     await status_controller.delete(id=id,token = request.cookies.get("token"))
 #     return RedirectResponse('/status', status_code=status.HTTP_303_SEE_OTHER)
     

@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/contato",)
 async def contato_list(request: Request):
     try:
-        data = api_backend.get_contato(filters={})
+        data = api_backend.get_contato(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"contato_list"},"error":error}})
@@ -37,11 +37,11 @@ async def contato_list(request: Request):
 async def contato_form(request: Request):
     try:
         contato_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
-        contato_tipo_data=api_backend.get_contato_tipo(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
+        contato_tipo_data=api_backend.get_contato_tipo(filters={},token = request.state.token)
         pessoa_id = request.query_params["pessoa_id"]
         if(len(request.query_params) >1 ):
-            contato_data = api_backend.get_contato(filters={"id":request.query_params["id"]})
+            contato_data = api_backend.get_contato(filters={"id":request.query_params["id"]},token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"contato_data":contato_data["items"],"contato_tipo_data":contato_tipo_data["items"],"pessoa_id":pessoa_id})
     except Exception as error:
@@ -51,7 +51,7 @@ async def contato_form(request: Request):
 async def contato_insert(request: Request):
     try:
         data = dict(await request.form())
-        contato_data = api_backend.post_contato(data=data)
+        contato_data = api_backend.post_contato(data=data,token = request.state.token)
         return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"contato_insert"},"error":error}}, "alert-danger")
@@ -62,7 +62,7 @@ async def contato_insert(request: Request):
 async def contato_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_contato(id=id,data=data)
+        api_backend.patch_contato(id=id,data=data,token = request.state.token)
         return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"contato_update"},"error":error}}, "alert-danger")

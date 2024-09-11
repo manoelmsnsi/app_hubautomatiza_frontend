@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/documento_tipo",)
 async def documento_tipo_list(request: Request):
     try:
-        data = api_backend.get_documento_tipo(filters={})
+        data = api_backend.get_documento_tipo(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"documento_tipo_list"},"error":error}})
@@ -37,9 +37,9 @@ async def documento_tipo_list(request: Request):
 async def documento_tipo_form(request: Request):
     try:
         documento_tipo_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            documento_tipo_data = api_backend.get_documento_tipo(filters=request.query_params)
+            documento_tipo_data = api_backend.get_documento_tipo(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"documento_tipo_data":documento_tipo_data["items"]})
     except Exception as error:
@@ -49,7 +49,7 @@ async def documento_tipo_form(request: Request):
 async def documento_tipo_insert(request: Request):
     try:
         data = dict(await request.form())
-        documento_tipo_data = api_backend.post_documento_tipo(data=data)
+        documento_tipo_data = api_backend.post_documento_tipo(data=data,token = request.state.token)
         flash(request, "TIPO DE DOCUMENTO INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/documento_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -61,7 +61,7 @@ async def documento_tipo_insert(request: Request):
 async def documento_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_documento_tipo(id=id,data=data)
+        api_backend.patch_documento_tipo(id=id,data=data,token = request.state.token)
         flash(request, "TIPO DE DOCUMENTO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/documento_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

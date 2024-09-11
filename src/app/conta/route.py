@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/conta",)
 async def conta_list(request: Request):
     try:
-        data = api_backend.get_conta(filters={"status_id":1})
+        data = api_backend.get_conta(filters={"status_id":1},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_list"},"error":error}})
@@ -37,16 +37,16 @@ async def conta_list(request: Request):
 async def conta_form(request: Request):
     try:
         conta_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
-        pessoa_data=api_backend.get_pessoa(filters={})
-        empresa_data=api_backend.get_empresa(filters={})
-        categoria_data=api_backend.get_categoria(filters={})
-        conta_tipo_data=api_backend.get_conta_tipo(filters={})
-        caixa_data=api_backend.get_caixa(filters={})
-        pagamento_tipo_data=api_backend.get_pagamento_tipo(filters={})
-        documento_tipo_data=api_backend.get_documento_tipo(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
+        pessoa_data=api_backend.get_pessoa(filters={},token = request.state.token)
+        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
+        categoria_data=api_backend.get_categoria(filters={},token = request.state.token)
+        conta_tipo_data=api_backend.get_conta_tipo(filters={},token = request.state.token)
+        caixa_data=api_backend.get_caixa(filters={},token = request.state.token)
+        pagamento_tipo_data=api_backend.get_pagamento_tipo(filters={},token = request.state.token)
+        documento_tipo_data=api_backend.get_documento_tipo(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            conta_data = api_backend.get_conta(filters=request.query_params)
+            conta_data = api_backend.get_conta(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{
                                                         "request": request,
@@ -68,7 +68,7 @@ async def conta_form(request: Request):
 async def conta_insert(request: Request):
     try:
         data = dict(await request.form())
-        conta_data = api_backend.post_conta(data=data)
+        conta_data = api_backend.post_conta(data=data,token = request.state.token)
         flash(request, "CONTA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -79,7 +79,7 @@ async def conta_insert(request: Request):
 async def conta_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_conta(id=id,data=data)
+        api_backend.patch_conta(id=id,data=data,token = request.state.token)
         flash(request, "CATEGORIA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -91,7 +91,7 @@ async def conta_update(request: Request,id:int):
 async def conta_processar(request: Request):
     try:
         data = dict(await request.form())
-        api_backend.post_processar_conta(data=data)
+        api_backend.post_processar_conta(data=data,token = request.state.token)
         flash(request, "CONTA PROCESSADA COM SUCESSO!", "alert-sucess")
         return RedirectResponse(f'/conta', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

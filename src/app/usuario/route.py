@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/usuario",)
 async def usuario_list(request: Request):
     try:
-        data = api_backend.get_usuario(filters={})
+        data = api_backend.get_usuario(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"usuario_list"},"error":error}})
@@ -37,11 +37,11 @@ async def usuario_list(request: Request):
 async def usuario_form(request: Request):
     try:
         usuario_data={"items":[{}]}
-        empresa_data = api_backend.get_empresa(filters={})
-        pessoa_data = api_backend.get_pessoa(filters={})
-        status_data = api_backend.get_status(filters={})
+        empresa_data = api_backend.get_empresa(filters={},token = request.state.token)
+        pessoa_data = api_backend.get_pessoa(filters={},token = request.state.token)
+        status_data = api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            usuario_data = api_backend.get_usuario(filters=request.query_params)         
+            usuario_data = api_backend.get_usuario(filters=request.query_params,token = request.state.token)         
         return templates.TemplateResponse("form.html",{"request": request,"usuario_data":usuario_data["items"],"empresa_data":empresa_data["items"],"pessoa_data":pessoa_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"usuario_form"},"error":error}})
@@ -51,7 +51,7 @@ async def usuario_form(request: Request):
 async def usuario_insert(request: Request):
     try:
         data = dict(await request.form())
-        usuario_data = api_backend.post_usuario(data=data)
+        usuario_data = api_backend.post_usuario(data=data,token = request.state.token)
         flash(request, "usuario INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -63,7 +63,7 @@ async def usuario_insert(request: Request):
 async def usuario_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_usuario(id=id,data=data)
+        api_backend.patch_usuario(id=id,data=data,token = request.state.token)
         flash(request, "usuario ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

@@ -44,7 +44,14 @@
                             {% endfor %}
                           </select>
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-6 ">
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-2 ">
+                          <label>É ADMIM?</label>
+                          <select name="is_admin" class="form-control select2">
+                            <option value="True">Sim</option>
+                            <option selected value="False">Não</option>
+                          </select>
+                        </div>
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-4 ">
                           <label>STATUS</label>
                           <select name="status_id" class="form-control select2">
                             {% for status in status_data %}

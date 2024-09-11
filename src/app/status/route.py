@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/status",)
 async def status_list(request: Request):
     try:
-        data = api_backend.get_status(filters={})
+        data = api_backend.get_status(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"status_list"},"error":error}})
@@ -38,7 +38,7 @@ async def status_form(request: Request):
     try:
         status_data={"items":[{}]}
         if(len(request.query_params) !=0 ):
-            status_data = api_backend.get_status(filters=request.query_params)
+            status_data = api_backend.get_status(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"]})
     except Exception as error:
@@ -49,7 +49,7 @@ async def status_form(request: Request):
 async def status_insert(request: Request):
     try:
         data = dict(await request.form())
-        status_data = api_backend.post_status(data=data)
+        status_data = api_backend.post_status(data=data,token = request.state.token)
         flash(request, "STATUS INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/status', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -61,7 +61,7 @@ async def status_insert(request: Request):
 async def status_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_status(id=id,data=data)
+        api_backend.patch_status(id=id,data=data,token = request.state.token)
         flash(request, "STATUS ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/status', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

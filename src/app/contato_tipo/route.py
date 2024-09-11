@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/contato_tipo",)
 async def contato_tipo_list(request: Request):
     try:
-        data = api_backend.get_contato_tipo(filters={})
+        data = api_backend.get_contato_tipo(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"contato_tipo_list"},"error":error}})
@@ -37,9 +37,9 @@ async def contato_tipo_list(request: Request):
 async def contato_tipo_form(request: Request):
     try:
         contato_tipo_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            contato_tipo_data = api_backend.get_contato_tipo(filters=request.query_params)
+            contato_tipo_data = api_backend.get_contato_tipo(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"contato_tipo_data":contato_tipo_data["items"]})
     except Exception as error:
@@ -49,7 +49,7 @@ async def contato_tipo_form(request: Request):
 async def contato_tipo_insert(request: Request):
     try:
         data = dict(await request.form())
-        contato_tipo_data = api_backend.post_contato_tipo(data=data)
+        contato_tipo_data = api_backend.post_contato_tipo(data=data,token = request.state.token)
         flash(request, "TIPO DE CONTATO INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/contato_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -61,7 +61,7 @@ async def contato_tipo_insert(request: Request):
 async def contato_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_contato_tipo(id=id,data=data)
+        api_backend.patch_contato_tipo(id=id,data=data,token = request.state.token)
         flash(request, "TIPO DE CONTA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/contato_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

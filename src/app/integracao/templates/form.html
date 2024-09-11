@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="section-header">    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/usuario">INTEGRAÇÃO</a></div>
+      <div class="breadcrumb-item">FORMULÁRIO</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h4>CADASTRO DE INTEGRAÇÃO</h4>
+          </div>
+          <div class="card-body">
+            {% if integracao_data[0] %}
+              {% set integracao_data = integracao_data[0] %}
+              <form method="POST" action="/usuario/update/{{ integracao_data['id'] }}"> 
+            {% else %}
+              <form method="POST" action="/usuario/insert"> 
+            {% endif %}
+                <div class="card-body">
+                    <div class="row">                             
+                        <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                            <label>NOME DA INTEGRAÇÃO</label>
+                            <input type="text"  name="nome"  value="{{ integracao_data['nome'] }}" maxlength="255" class="form-control">
+                        </div>                        
+                        <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                            <label>PSEUDONIMO</label>
+                            <input type="text"  name="pseudonimo"  value="{{ integracao_data['pseudonimo'] }}" maxlength="255" class="form-control">
+                        </div>                        
+                        <div class="form-group col-sm-12 col-md-12 col-lg-1">
+                            <label>PRIORIDADE</label>
+                            <input type="text"  name="prioridade"  value="{{ integracao_data['prioridade'] }}" maxlength="3" class="form-control">
+                        </div>                        
+                        <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                            <label>IDENTIFICADOR</label>
+                            <input type="text"  name="identificador"  value="{{ integracao_data['identificador'] }}" maxlength="255" class="form-control">
+                        </div>  
+                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
+                          <label>GRUPO DE INTEGRCÃO</label>
+                          <select name="pessoa_id" class="form-control select2">
+                            {% for integracao_grupo in integracao_grupo_data %}
+                              {% if(integracao_data["integracao_grupo_id"]) == integracao_grupo['id'] %}                                                                         
+                                <option selected value="{{ integracao_grupo['id'] }}">{{ integracao_grupo['nome'] }}</option>
+                              {% else %}  
+                                <option  value="{{ integracao_grupo['id'] }}">{{ integracao_grupo['nome'] }}</option>
+                              {% endif %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                            <label>OBSERVAÇÃO</label>
+                            <input type="text"  name="observacao"  value="{{ integracao_data['observacao'] }}" maxlength="255" class="form-control">
+                        </div>  
+                </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
+                    <a href="/grupo_acesso" class="btn btn-danger" type="reset">Cancelar</a>
+                  </div>
+              </div>
+            </form>                    
+          </div>
+      </div> 
+    </div>
+  </div>
+{% endblock %}

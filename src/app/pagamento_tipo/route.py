@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/pagamento_tipo",)
 async def pagamento_tipo_list(request: Request):
     try:
-        data = api_backend.get_pagamento_tipo(filters={})
+        data = api_backend.get_pagamento_tipo(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"pagamento_tipo_list"},"error":error}})
@@ -37,9 +37,9 @@ async def pagamento_tipo_list(request: Request):
 async def pagamento_tipo_form(request: Request):
     try:
         pagamento_tipo_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            pagamento_tipo_data = api_backend.get_pagamento_tipo(filters=request.query_params)         
+            pagamento_tipo_data = api_backend.get_pagamento_tipo(filters=request.query_params,token = request.state.token)         
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"pagamento_tipo_data":pagamento_tipo_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"pagamento_tipo_form"},"error":error}})
@@ -48,7 +48,7 @@ async def pagamento_tipo_form(request: Request):
 async def pagamento_tipo_insert(request: Request):
     try:
         data = dict(await request.form())
-        pagamento_tipo_data = api_backend.post_pagamento_tipo(data=data)
+        pagamento_tipo_data = api_backend.post_pagamento_tipo(data=data,token = request.state.token)
         flash(request, "TIPO DE PAGAMENTO INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pagamento_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -60,7 +60,7 @@ async def pagamento_tipo_insert(request: Request):
 async def pagamento_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_pagamento_tipo(id=id,data=data)
+        api_backend.patch_pagamento_tipo(id=id,data=data,token = request.state.token)
         flash(request, "TIPO DE PAGAMENTO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pagamento_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/endereco",)
 async def endereco_list(request: Request):
     try:
-        data = api_backend.get_endereco(filters={})
+        data = api_backend.get_endereco(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"endereco_list"},"error":error}})
@@ -37,10 +37,10 @@ async def endereco_list(request: Request):
 async def endereco_form(request: Request):
     try:
         endereco_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={})
+        status_data=api_backend.get_status(filters={},token = request.state.token)
         pessoa_id = request.query_params["pessoa_id"]
         if(len(request.query_params) >1 ):
-            endereco_data = api_backend.get_endereco(filters={"id":request.query_params["id"]})
+            endereco_data = api_backend.get_endereco(filters={"id":request.query_params["id"]},token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"endereco_data":endereco_data["items"],"pessoa_id":pessoa_id})
     except Exception as error:
@@ -50,7 +50,7 @@ async def endereco_form(request: Request):
 async def endereco_insert(request: Request):
     try:
         data = dict(await request.form())
-        endereco_data = api_backend.post_endereco(data=data)
+        endereco_data = api_backend.post_endereco(data=data,token = request.state.token)
         flash(request, "ENDEREÇO INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -62,7 +62,7 @@ async def endereco_insert(request: Request):
 async def endereco_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_endereco(id=id,data=data)
+        api_backend.patch_endereco(id=id,data=data,token = request.state.token)
         flash(request, "ENDEREÇO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={data["pessoa_id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
