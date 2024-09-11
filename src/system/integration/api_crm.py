@@ -107,7 +107,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/pessoa_tipo/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -156,7 +157,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/endereco/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -204,7 +206,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/contato/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -252,7 +255,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/contato_tipo/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -301,7 +305,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/caixa/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -380,7 +385,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/conta/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -429,7 +435,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/conta_tipo/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -478,7 +485,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/documento_tipo/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -530,7 +538,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/pagamento_tipo/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -580,7 +589,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/categoria/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -629,7 +639,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/status/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -679,7 +690,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/empresa/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -728,7 +740,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/usuario/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -777,7 +790,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/rota/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -826,7 +840,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/grupo_acesso/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -875,7 +890,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_rota/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             
@@ -924,7 +940,8 @@ class ApiBackend():
             self.auth()
             url = f"{self.BASE_URL}/grupo_acesso_usuario/"
             headers={
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization":self.TOKEN
                     }
             payload=data
             

@@ -23,10 +23,8 @@
                         <label>GRUPO DE ACESO</label>
                       <select name="grupo_acesso_id" class="form-control select2">
                         {% for grupo_acesso_usuario in grupo_acesso_data %}
-                          {% if grupo_acesso_rota_data|length != 0 %}
-                            {% if(grupo_acesso_rota_data[0]["grupo_acesso_usuario_id"]) == grupo_acesso_usuario['id'] %}                                                                         
-                              <option selected value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
-                            {% endif %}
+                          {% if(grupo_acesso_rota_data[0]["grupo_acesso_usuario_id"]) == grupo_acesso_usuario['id'] %}                                                                         
+                            <option selected value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
                           {% else %}  
                             <option  value="{{ grupo_acesso_usuario['id'] }}">{{ grupo_acesso_usuario['description'] }}</option>
                           {% endif %}
@@ -37,10 +35,8 @@
                       <label>ROTA</label>
                       <select name="rota_id" class="form-control select2">
                         {% for rota in rota_data %}
-                          {% if grupo_acesso_rota_data|length != 0 %}
-                            {% if(grupo_acesso_rota_data["rota_id"]) == rota['id'] %}                                                                         
-                              <option selected value="{{ rota['id'] }}">{{ rota['description'] }} - {{ rota['route'] }} - {{ rota['method'] }}</option>
-                            {% endif %}
+                          {% if(grupo_acesso_rota_data["rota_id"]) == rota['id'] %}                                                                         
+                            <option selected value="{{ rota['id'] }}">{{ rota['description'] }} - {{ rota['route'] }} - {{ rota['method'] }}</option>                            
                           {% else %}  
                             <option value="{{ rota['id'] }}">{{ rota['description'] }} - {{ rota['route'] }} - {{ rota['method'] }}</option>                            
                           {% endif %}
@@ -51,10 +47,8 @@
                       <label>STATUS</label>
                       <select name="status_id" class="form-control select2">
                         {% for status in status_data %}
-                          {% if grupo_acesso_rota_data|length != 0 %}
-                            {% if(grupo_acesso_rota_data["usuario_id"]) == status['id'] %}                                                                         
-                              <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
-                            {% endif %}
+                          {% if(grupo_acesso_rota_data["usuario_id"]) == status['id'] %}                                                                         
+                            <option selected value="{{ status['id'] }}">{{ status['description'] }}</option>
                           {% else %}  
                             <option  value="{{ status['id'] }}">{{ status['description'] }}</option>
                           {% endif %}
@@ -65,10 +59,8 @@
                       <label>EMPRESA</label>
                       <select name="empresa_id" class="form-control select2">
                         {% for empresa in empresa_data %}
-                          {% if grupo_acesso_rota_data|length != 0 %}
-                            {% if(grupo_acesso_rota_data["empresa_id"]) == empresa['id'] %}                                                                         
-                              <option selected value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
-                            {% endif %}
+                          {% if(grupo_acesso_rota_data["empresa_id"]) == empresa['id'] %}                                                                         
+                            <option selected value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>                            
                           {% else %}  
                             <option  value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
                           {% endif %}
