@@ -52,7 +52,7 @@ async def usuario_insert(request: Request):
     try:
         data = dict(await request.form())
         usuario_data = api_backend.post_usuario(data=data,token = request.state.token)
-        flash(request, "usuario INSERIDO COM SUCESSO!", "alert-success")
+        flash(request, "USUARIO INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"usuario_insert"},"error":error}}, "alert-danger")
@@ -64,7 +64,7 @@ async def usuario_update(request: Request,id:int):
     try:
         data = dict(await request.form())
         api_backend.patch_usuario(id=id,data=data,token = request.state.token)
-        flash(request, "usuario ALTERADO COM SUCESSO!", "alert-success")
+        flash(request, "USUARIO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/usuario', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"usuario_update"},"error":error}}, "alert-danger")

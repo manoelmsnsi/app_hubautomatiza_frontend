@@ -31,16 +31,17 @@
       <section class="section">
         <div class="iziToast-wrapper iziToast-wrapper-topRight"></div>
         <div class="container mt-5">
-          {% if mensagem %}
-          <div class="alert alert-danger alert-dismissible show fade">
+          {% for message in get_flashed_messages(request) %}
+          <div class=""></div>
+          <div class="alert {{ message.category }} alert-dismissible show fade">
             <div class="alert-body">
               <button class="close" data-dismiss="alert">
                 <span>×</span>
               </button>
-                {{mensagem}}
+              {{ message.message }}
               </div>
             </div>
-            {% endif %}
+          {% endfor %}
           <div class="row">
             <!-- <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> -->
             <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
@@ -57,9 +58,9 @@
                   <form method="POST" action="/auth" class="needs-validation" novalidate="">
                     <div class="form-group">
                       <label for="email">E-mail</label>
-                      <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
+                      <input id="email" type="email" class="form-control" name="username" tabindex="1" required autofocus>
                       <div class="invalid-feedback">
-                        Digite seu usuário
+                        Digite um e-mail valido.
                       </div>
                     </div>
   

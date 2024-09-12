@@ -40,6 +40,7 @@
                         <th>USERNAME</th>
                         <th>ADMIN</th>
                         <th>STATUS</th>
+                        <th>EMPRESA</th>
                         <th>CRIADO EM</th>
                         <th>AÇÃO</th>
                     </tr>           
@@ -60,6 +61,7 @@
                                 {{ usuario["status"]["description"] }}
                             </div>       
                         </td>
+                        <td>{{ usuario["empresa"]["name_fantasy"]}}</td>
                         <td>{{ usuario["create_at"]}}</td>
                         <td>
                             <a href="/usuario/form?id={{usuario.id}}" class="btn btn-light">Editar</a>

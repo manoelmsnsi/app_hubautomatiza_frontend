@@ -29,11 +29,11 @@ api_backend = ApiBackend()
 
 
 #FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED#
-@frontend.get("/",)
-async def init(request: Request):
-    # data = await api_backend.read()
-    return templates.TemplateResponse("login.html",{"request": request})
-    # return RedirectResponse('/auth/form', status_code=status.HTTP_303_SEE_OTHER)
+# @frontend.get("/",)
+# async def init(request: Request):
+#     # data = await api_backend.read()
+#     return templates.TemplateResponse("login.html",{"request": request})
+#     # return RedirectResponse('/auth/form', status_code=status.HTTP_303_SEE_OTHER)
 
 @frontend.get("/home",)
 async def home(request: Request):

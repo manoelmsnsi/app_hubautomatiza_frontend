@@ -1195,7 +1195,7 @@ tr:first-child > td > .fc-day-grid-event {
   background-color: #ffa426;
 }
 .toast.toast-success {
-  background-color: #c4e5c9;
+  background-color: #97c39e;
 }
 .toast.toast-info {
   background-color: #fff;
@@ -1823,7 +1823,7 @@ tr:first-child > td > .fc-day-grid-event {
   line-height: 20px;
   border-radius: 50%;
   text-align: center;
-  background-color: #c4e5c9;
+  background-color: #97c39e;
   color: #fff;
   margin-right: 10px;
 }
@@ -1964,7 +1964,7 @@ tr:first-child > td > .fc-day-grid-event {
   width: 0.5em;
 }
 .avatar .avatar-presence.online {
-  background: #c4e5c9;
+  background: #97c39e;
 }
 .avatar .avatar-presence.busy {
   background: #C06C84;
@@ -2028,11 +2028,11 @@ tr:first-child > td > .fc-day-grid-event {
   color: #fff;
 }
 .wizard-steps .wizard-step.wizard-step-success {
-  background-color: #c4e5c9;
+  background-color: #97c39e;
   color: #fff;
 }
 .wizard-steps .wizard-step.wizard-step-success:before {
-  background-color: #c4e5c9;
+  background-color: #97c39e;
   color: #fff;
 }
 .wizard-steps .wizard-step.wizard-step-danger {

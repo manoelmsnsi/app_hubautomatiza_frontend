@@ -23,7 +23,7 @@
                     <div class="row">                             
                         <div class="form-group col-sm-12 col-md-12 col-lg-4">
                             <label>USERNAME</label>
-                            <input type="text"  name="username"  value="{{ usuario_data['username'] }}" maxlength="255" class="form-control">
+                            <input type="email"  name="username"  value="{{ usuario_data['username'] }}" maxlength="255" class="form-control">
                         </div>                        
                     
                                            
@@ -36,11 +36,11 @@
                           <label>PESSOA</label>
                           <select name="pessoa_id" class="form-control select2">
                             {% for pessoa in pessoa_data %}
-                            {% if(usuario_data["usuario_id"]) == pessoa['id'] %}                                                                         
-                            <option selected value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
-                            {% else %}  
-                            <option  value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
-                            {% endif %}
+                              {% if(usuario_data["usuario_id"]) == pessoa['id'] %}                                                                         
+                                <option selected value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
+                              {% else %}  
+                                <option  value="{{ pessoa['id'] }}">{{ pessoa['name'] }}</option>
+                              {% endif %}
                             {% endfor %}
                           </select>
                         </div>

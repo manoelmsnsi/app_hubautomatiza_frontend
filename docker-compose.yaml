@@ -10,6 +10,11 @@ services:
       - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - BASE_REDIS=redis
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=0.0.0.0
+      - RABBITMQ_PORT=5672
     ports:
       - 8051:8051
     networks:
@@ -32,7 +37,12 @@ services:
       network_default:
         aliases:
           - api_acesso
-  
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis_crm
+    networks:
+        network_default:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.21
     ports:
