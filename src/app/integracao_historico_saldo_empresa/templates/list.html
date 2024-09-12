@@ -54,7 +54,7 @@
                         <td>{{ integracao_historico_saldo_empresa["empresa"]["name_fantasy"] }}</td>
                         <td>{{ integracao_historico_saldo_empresa["create_at"]}}</td>
                         <td>
-                            <a href="#?id={{integracao_historico_saldo_empresa.id}}" class="btn btn-primary">visualizar</a>
+                            <a href="/integracao_historico_saldo_empresa/visualizar?identificador={{integracao_historico_saldo_empresa["identificador"] }}" class="btn btn-primary">visualizar</a>
                         </td>
                     </tr>
                     {% endfor %}              

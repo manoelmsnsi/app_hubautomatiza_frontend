@@ -22,7 +22,7 @@ api_backend = ApiBackend()
 
 
 #FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED#
-@frontend.get("/integracao_historico_saldo_empresa",)
+@frontend.get("/integracao_historico_saldo_empresa")
 async def integracao_historico_saldo_empresa_list(request: Request):
     try:
         filters = {request.query_params.get("filter"):request.query_params.get("value")}
@@ -31,7 +31,7 @@ async def integracao_historico_saldo_empresa_list(request: Request):
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_list"},"error":error}})
 
-@frontend.get("/integracao_historico_saldo_empresa/form",)
+@frontend.get("/integracao_historico_saldo_empresa/form")
 async def integracao_historico_saldo_empresa_form(request: Request):
     try:
         integracao_historico_saldo_empresa_data={"items":[{}]}
@@ -41,6 +41,16 @@ async def integracao_historico_saldo_empresa_form(request: Request):
         return templates.TemplateResponse("form.html",{"request": request,"integracao_historico_saldo_empresa_data":integracao_historico_saldo_empresa_data["items"],"integracao_grupo_data":integracao_grupo_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_form"},"error":error}})
+    
+    
+@frontend.get("/integracao_historico_saldo_empresa/visualizar")
+async def integracao_historico_saldo_empresa_visualizar(request: Request):
+    try:
+        if(len(request.query_params) !=0 ):
+            hub_data = api_backend.get_hub_data(filters={"identificador":request.query_params.get("identificador",'1111')},token = request.state.token)    
+        return templates.TemplateResponse("visualizar.html",{"request": request,"hub_data":hub_data})
+    except Exception as error:
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_visualizar"},"error":error}})
     
     
 @frontend.post("/integracao_historico_saldo_empresa/insert")
