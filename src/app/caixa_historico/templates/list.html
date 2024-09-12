@@ -21,7 +21,6 @@
                         <tr>
                             <th>#</th>
                             <th>DESCRIÇÃO</th>
-                            <th>CAIXA</th>
                             <th>PAGAMENTO</th>
                             <th>DOCUMENTO</th>
                             <th>VALOR PARCELA</th>
@@ -33,14 +32,12 @@
                             <th>DATA VENCIMENTO</th>
                             <th>EMPRESA</th>
                             <th>STATUS</th>
-                            <th>CRIADO EM</th>
                             <th>AÇÃO</th>
                         </tr>
                         {% for caixa_historico in data["items"] %}
                         <tr>
                             <td>{{ caixa_historico.id }}</td>
-                            <td>{{ caixa_historico.caixa.description }}</td>
-                            <td>{{ caixa_historico.caixa.description }}</td>
+                            <td>{{ caixa_historico.conta.descricao }}</td>
                             <td>{{ caixa_historico.conta.pagamento_tipo.description }}</td>
                             <td>{{ caixa_historico.conta.documento_tipo.description }}</td>
                             <td>{{ caixa_historico.conta.valor_parcela }}</td>
@@ -71,7 +68,6 @@
                                     {{ caixa_historico.status.description }}
                                 </div>
                             </td>
-                            <td>{{ caixa_historico.create_at }}</td>
                             <td>
                                 <a href="/em_contrucao" class="btn btn-primary">Detalhar</a>
                             </td>

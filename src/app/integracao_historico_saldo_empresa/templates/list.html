@@ -48,10 +48,10 @@
                     <tr>                
                         <td>{{ integracao_historico_saldo_empresa["id"] }}</td>
                         <td>{{ integracao_historico_saldo_empresa["tipo"] }}</td>
-                        <td>{{ integracao_historico_saldo_empresa["saldo"] }}</td>
+                        <td>{{ integracao_historico_saldo_empresa.saldo }}</td>
                         <td>{{ integracao_historico_saldo_empresa["identificador"] }}</td>
-                        <td>{{ integracao_historico_saldo_empresa["integracao_id"] }}</td>
-                        <td>{{ integracao_historico_saldo_empresa["empresa_id"] }}</td>
+                        <td>{{ integracao_historico_saldo_empresa.integracao.integracao_grupo.nome }}</td>
+                        <td>{{ integracao_historico_saldo_empresa["empresa"]["name_fantasy"] }}</td>
                         <td>{{ integracao_historico_saldo_empresa["create_at"]}}</td>
                         <td>
                             <a href="#?id={{integracao_historico_saldo_empresa.id}}" class="btn btn-primary">visualizar</a>

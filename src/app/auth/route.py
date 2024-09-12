@@ -41,15 +41,15 @@ async def auth_form(request: Request):
     try:
         return templates.TemplateResponse("login.html",{"request": request})
     except Exception as error:
-        flash(request, "Usuário ou senha invalido, contate o administrador.", "alert-error")
+        flash(request, "Ops algo deu errado, Contate o administrador.", "alert-danger")
         return templates.TemplateResponse("login.html",{"request": request,"data":{"frontend":{"function":"auth_form"},"error":error}})
 @frontend.get("/auth/recuperar_senha",)
 async def auth_form(request: Request):
     try:
         return templates.TemplateResponse("recovey_password.html",{"request": request})
     except Exception as error:
-        flash(request, "Usuário ou senha invalido, contate o administrador.", "alert-error")
-        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"auth_form"},"error":error}})
+        flash(request, "Ops algo deu errado, Contate o administrador.", "alert-danger")
+        return templates.TemplateResponse("login.html",{"request": request,"data":{"frontend":{"function":"auth_form"},"error":error}})
     
     
     
