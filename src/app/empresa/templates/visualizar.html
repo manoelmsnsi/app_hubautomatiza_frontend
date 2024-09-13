@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-header">    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/empresa">EMPRESA</a></div>
+      <div class="breadcrumb-item">LISTAGEM</div>
+    </div>
+  </div>
+<div class="row">
+    {% if empresa_data %}
+        {% set empresa_data = empresa_data[0] %}     
+    {% endif %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>EMPRESA</h4>
+                <div class="card-header-form">
+                    <form method="get" action="/contato">
+                        <div class="input-group">  
+                            <a  class="btn btn-primary" href="/empresa/form?id={{empresa_data['id']}}"><i class="fas fa-edit"></i></a>
+                            <a  class="btn btn-danger" href="/empresa"><i class="fas fa-reply"></i></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">                     
+                    <div class="form-group col-sm-12  col-md-12 col-lg-2">
+                        <label>#</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="id" value="{{ empresa_data['id'] }}" maxlength="255" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12  col-md-12 col-lg-5">
+                        <label>NOME FANTASIA</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="name_fantasy" value="{{ empresa_data['name_fantasy'] }}" maxlength="255" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12  col-md-12 col-lg-5">
+                        <label>RAZAO SOCIAL</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="razaoi_social" value="{{ empresa_data['razao_social'] }}" maxlength="255" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12  col-md-12 col-lg-4">
+                        <label>CPF/CNPJ</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="cnpj" value="{{ empresa_data['cnpj']}}" maxlength="255" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12  col-md-12 col-lg-4">
+                        <label>EMAIL</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="email" value="{{ empresa_data['email']}}" maxlength="255" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-12  col-md-12 col-lg-4">
+                        <label>TELEFONE</label>
+                        <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" disabled name="telefone" value="{{ empresa_data['telefone']}}" maxlength="255" class="form-control">
+                    </div>              
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-12  col-md-12 col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>USUÁRIOS</h4>
+                        <div class="card-header-form">
+                            <form method="get" action="/usuario">
+                                <div class="input-group">      
+                                    <!-- <div class=" d-inline mr-2">
+                                        <select class="btn btn-primary"name="param_search" >
+                                            <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
+                                            <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
+                                        </select>                            
+                                    </div>            
+                                        -->
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                    <a  class="btn btn-primary" href="/usuario/form"><i class="fas fa-plus"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive">
+                                <table id="table-1" class="table table-striped " style="width:100%">     
+                                <thead> 
+                                    <tr>
+                                    <th>#</th>
+                                    <th>PESSOA</th>
+                                    <th>USERNAME</th>
+                                    <th>STATUS</th>
+                                    <th>CRIADO EM</th>
+                                    <th>AÇÃO</th>
+                                </tr>           
+                                </thead> 
+                                {% for usuario in usuario_data['items'] %}
+                                <tr>                
+                                    <td>{{ usuario["id"] }}</td>
+                                    <td>{{ usuario["pessoa"]["name"] }}</td>
+                                    <td>{{ usuario["username"] }}</td>                                 
+                                    <td>
+                                        <div class="badge badge-primary">
+                                            {{ usuario["status"]["description"] }}
+                                        </div>       
+                                    </td>
+                                    <td>{{ usuario["create_at"]}}</td>
+                                    <td>
+                                        <a href="/usuario/form?id={{usuario.id}}" class="btn btn-light">Editar</a>
+                                        <a href="#" class="btn btn-danger">Deletar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}              
+                            </table>              
+                            <div class="card-footer text-right">
+                                <nav class="d-inline-block">
+                                  <ul class="pagination mb-0">
+                                    <li class="page-item">
+                                        {% if usuario_data['page'] > 1 %}
+                                            <a class="page-link" href="?page={{ usuario_data['page']-1 }}" ><i class="fas fa-chevron-left"></i></a>
+                                        {% endif %}
+                                      </li>
+                                      <li class="page-item active"><a class="page-link" href="#">{{ usuario_data['page'] }}/{{ usuario_data['pages'] }}<span class="sr-only">(current)</span></a></li> 
+                                      <li class="page-item">
+                                        {% if usuario_data['page'] < usuario_data['pages'] %}
+                                            <a class="page-link" href="?page={{ usuario_data['page']+1 }}"><i class="fas fa-chevron-right"></i></a>
+                                        {% endif %}
+                                      </li>
+                                  </ul>
+                                </nav>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          
+          
+            
+            <div class="col-sm-12  col-md-12 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>SALDOS</h4>
+                        <div class="card-header-form">
+                            <form method="get" action="/integracao_saldo_empresa">
+                                <div class="input-group">      
+                                    <!-- <div class=" d-inline mr-2">
+                                        <select class="btn btn-primary"name="param_search" >
+                                            <a class="dropdown-item" ><option  selected value="name">NOME</option></a>
+                                            <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
+                                        </select>                            
+                                    </div>            
+                                        -->
+                                    <input name="name" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                    <a  class="btn btn-primary" href="/integracao_saldo_empresa/form}}"><i class="fas fa-plus"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive">
+                                <table id="table-2" class="table table-striped " style="width:100%">     
+                                <thead> 
+                                    <tr>
+                                    <th>#</th>
+                                    <th>SALDO</th>
+                                    <th>LIMITE DIARIO</th>
+                                    <th>GRUPO</th>
+                                    <th>CRIADO EM</th>
+                                    <th>AÇÃO</th>
+                                </tr>           
+                                </thead> 
+                                {% for integracao_saldo_empresa in integracao_saldo_empresa_data['items'] %}
+                                <tr>                
+                                    <td>{{ integracao_saldo_empresa["id"] }}</td>
+                                    <td>{{ integracao_saldo_empresa["saldo"] }}</td>
+                                    <td>{{ integracao_saldo_empresa["limite_diario"] }}</td>  
+                                    <td>{{ integracao_saldo_empresa["integracao_grupo"]["nome"] }}</td>  
+                                    <td>{{ integracao_saldo_empresa["create_at"] }}</td>  
+                                    <td>
+                                        <a href="/integracao_saldo_empresa/form?id={{integracao_saldo_empresa.id}}" class="btn btn-light">Editar</a>
+                                        <a href="#" class="btn btn-danger">Deletar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}              
+                            </table>              
+                            <div class="card-footer text-right">
+                                <nav class="d-inline-block">
+                                <ul class="pagination mb-0">
+                                    <li class="page-item">
+                                        {% if integracao_saldo_empresa_data['page'] > 1 %}
+                                            <a class="page-link" href="?page={{ integracao_saldo_empresa_data['page']-1 }}" ><i class="fas fa-chevron-left"></i></a>
+                                        {% endif %}
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">{{ integracao_saldo_empresa_data['page'] }}/{{ integracao_saldo_empresa_data['pages'] }}<span class="sr-only">(current)</span></a></li> 
+                                    <li class="page-item">
+                                        {% if integracao_saldo_empresa_data['page'] < integracao_saldo_empresa_data['pages'] %}
+                                            <a class="page-link" href="?page={{ integracao_saldo_empresa_data['page']+1 }}"><i class="fas fa-chevron-right"></i></a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+</div>
+{% endblock %}
+{% block scripts %}    
+    <script>
+        $(document).ready(function() {
+            $('#table-1').DataTable({
+                "searching": false,   // Desativa a barra de pesquisa
+                "paging": false,      // Desativa a paginação
+                "responsive": true,   // Torna a tabela responsiva
+                "columnDefs": [],
+                "language": {
+            "sEmptyTable": "Nenhum dado disponível na tabela",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
+            }
+        });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table-2').DataTable({
+                "searching": false,   // Desativa a barra de pesquisa
+                "paging": false,      // Desativa a paginação
+                "responsive": true,   // Torna a tabela responsiva
+                "columnDefs": [],
+                "language": {
+            "sEmptyTable": "Nenhum dado disponível na tabela",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
+            }
+        });
+        });
+    </script>
+{% endblock %}

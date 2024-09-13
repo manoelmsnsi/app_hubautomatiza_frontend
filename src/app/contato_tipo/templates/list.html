@@ -31,16 +31,18 @@
                 </form>
           </div>
         </div>
-        <div class="card-body p-0">
+        <div class="card-body ">
             <div class="table-responsive">
-                <table class="table table-striped">                
-                    <tr>
+                    <table id="table-1" class="table table-striped " style="width:100%">     
+                    <thead> 
+                        <tr>
                         <th>#</th>
                         <th>DESCRIÇÃO</th>
                         <th>STATUS</th>
                         <th>CRIADO EM</th>
                         <th>AÇÃO</th>
                     </tr>           
+                    </thead> 
                     {% for contato_tipo in data['items'] %}
                     <tr>                
                         <td>{{ contato_tipo["id"] }}</td>
@@ -78,6 +80,24 @@
                 </div>
             </div>
         </div>
-    </div>
+  </div>
 </div>
+{% endblock %}
+{% block scripts %}    
+    <script>
+        $(document).ready(function() {
+            $('#table-1').DataTable({
+                "searching": false,   // Desativa a barra de pesquisa
+                "paging": false,      // Desativa a paginação
+                "responsive": true,   // Torna a tabela responsiva
+                "columnDefs": [],
+                "language": {
+            "sEmptyTable": "Nenhum dado disponível na tabela",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
+            }
+        });
+        });
+    </script>
 {% endblock %}

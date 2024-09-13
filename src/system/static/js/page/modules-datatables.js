@@ -29,11 +29,15 @@ $("[data-checkboxes]").each(function() {
 });
 
 $("#table-1").dataTable({
+  "searching": false,   // Desativa a barra de pesquisa
+  "paging": false,  
   "columnDefs": [
     { "sortable": false, "targets": [2,3] }
   ]
 });
 $("#table-2").dataTable({
+  "searching": false,   // Desativa a barra de pesquisa
+  "paging": false,  
   "columnDefs": [
     { "sortable": false, "targets": [0,2,3] }
   ]

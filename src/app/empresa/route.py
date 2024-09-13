@@ -44,6 +44,19 @@ async def empresa_form(request: Request):
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"empresa_form"},"error":error}})
+
+@frontend.get("/empresa/visualizar",)
+async def empresa_form(request: Request):
+    try:
+        empresa_data={"items":[{}]}
+        if(len(request.query_params) !=0 ):
+            empresa_data = api_backend.get_empresa(filters=request.query_params,token = request.state.token)
+            usuario_data = api_backend.get_usuario(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
+            integracao_saldo_empresa_data = api_backend.get_integracao_saldo_empresa(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
+         
+        return templates.TemplateResponse("visualizar.html",{"request": request,"usuario_data":usuario_data,"integracao_saldo_empresa_data":integracao_saldo_empresa_data,"empresa_data":empresa_data["items"]})
+    except Exception as error:
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"empresa_form"},"error":error}})
     
 @frontend.post("/empresa/insert")
 async def empresa_insert(request: Request):

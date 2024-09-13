@@ -43,6 +43,17 @@ async def integracao_grupo_form(request: Request):
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_grupo_form"},"error":error}})
     
+@frontend.get("/integracao_grupo/visualizar",)
+async def integracao_grupo_visualizar(request: Request):
+    try:
+        integracao_grupo_data={"items":[{}]}
+        if(len(request.query_params) !=0 ):
+            integracao_grupo_data = api_backend.get_integracao_grupo(filters=request.query_params,token = request.state.token)
+            integracao_data = api_backend.get_integracao(filters={"integracao_grupo_id":integracao_grupo_data["items"][0]["id"]},token = request.state.token)
+         
+        return templates.TemplateResponse("visualizar.html",{"request": request,"integracao_data":integracao_data,"integracao_grupo_data":integracao_grupo_data["items"]})
+    except Exception as error:
+        return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"empresa_form"},"error":error}})
     
 @frontend.post("/integracao_grupo/insert")
 async def integracao_grupo_insert(request: Request):

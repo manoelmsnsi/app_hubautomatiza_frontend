@@ -9,20 +9,25 @@
   <link rel="shortcut icon" href="{{ url_for('static', path='img/favicon_16px.png') }}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/fontawesome/css/all.min.css')}}">
+  
 
   <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/datatables.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css')}}">
+  
   <link rel="stylesheet" href="{{ url_for('static',path='modules/jqvmap/dist/jqvmap.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/summernote/summernote-bs4.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/select2/dist/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/owlcarousel2/dist/assets/owl.theme.default.min.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='modules/fullcalendar/fullcalendar.min.css')}}">
-  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/datatables.min.css')}}">
-  <link rel="stylesheet" href="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
   
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ url_for('static',path='css/style.css')}}">
   <link rel="stylesheet" href="{{ url_for('static',path='css/components.css')}}">
+
+
 </head>
 
 <body>
@@ -72,18 +77,20 @@
   <script src="{{ url_for('static',path='modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
   <script src="{{ url_for('static',path='modules/summernote/summernote-bs4.js') }}"></script>
   <script src="{{ url_for('static',path='modules/select2/dist/js/select2.full.min.js')}}"></script>
-  <script src="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+  
   <script src="{{ url_for('static',path='modules/datatables/datatables.min.js') }}"></script>  
+  <script src="{{ url_for('static',path='modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>  
+  <script src="{{ url_for('static',path='modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>  
+  
   
   <script src="{{ url_for('static',path='modules/chart.min.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static',path='js/page/modules-chartjs.js') }}" ></script>
+  
   <!-- Template JS File -->
   <script src="{{ url_for('static',path='js/scripts.js') }}"></script>
   <script src="{{ url_for('static',path='js/custom.js') }}"></script>
   <script src="{{ url_for('static',path='modules/fullcalendar/fullcalendar.min.js')}}"></script>
   <script src="{{ url_for('static',path='modules/fullcalendar/locale/pt-br.js')}}"></script>
-  <script src="{{ url_for('static',path='js/page/modules-datatables.js') }}"></script>
-  
+
   {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -28,7 +28,11 @@ api_backend = ApiBackend()
 @frontend.get("/conta",)
 async def conta_list(request: Request):
     try:
-        data = api_backend.get_conta(filters={"status_id":1},token = request.state.token)
+        filters={}
+        if len(request.query_params)!=0:
+            filters = {request.query_params.get("filter"):request.query_params.get("value")}
+        filters["status_id"]=1
+        data = api_backend.get_conta(filters=filters,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_list"},"error":error}})
