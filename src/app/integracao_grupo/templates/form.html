@@ -21,11 +21,15 @@
             {% endif %}
                 <div class="card-body">
                     <div class="row">                             
-                      <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                      <div class="form-group col-sm-12 col-md-12 col-lg-8">
                           <label>NOME</label>
                           <input type="text"  name="nome"  value="{{ integracao_grupo_data['nome'] }}" maxlength="255" class="form-control">
                       </div>  
-                      <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                      <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                          <label>TIPO DO GRUPO</label>
+                          <input type="text"  name="tipo"  value="{{ integracao_grupo_data['tipo'] }}" maxlength="255" class="form-control">
+                      </div>  
+                      <div class="form-group col-sm-12 col-md-12 col-lg-12">
                           <label>OBSERVAÃO</label>
                           <input type="observacao" name="observacao" value="{{ integracao_grupo_data['observacao'] }}" maxlength="255" class="form-control">
                       </div>                        
