@@ -28,7 +28,12 @@ api_backend = ApiBackend()
 @frontend.get("/empresa",)
 async def empresa_list(request: Request):
     try:
-        data = api_backend.get_empresa(filters={},token = request.state.token)
+        token = request.state.token
+        id= None
+        token_decode  = api_backend.token_access_decode(token=token[7:])
+        if token_decode.get("is_admin",False)==False:
+            id = token_decode.get("empresa_id",0)
+        data = api_backend.get_empresa(filters={"id":id},token = token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"empresa_list"},"error":error}})

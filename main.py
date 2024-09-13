@@ -125,12 +125,16 @@ async def add_process_time_header(request: Request, call_next):
         if token_decode == False:
             print('TOKEN INVALIDO')
             return RedirectResponse('/', status_code=status.HTTP_303_SEE_OTHER)
-        else:            
+        else:
             new_token = api_backend.create_access_token(data=token_decode)
             print('TOKEN VALIDO - REDIRECIONANDO')
             request.state.token=new_token
             response = await call_next(request)
             response.timeout = 60
+            if token_decode["is_admin"]==True:
+                response.set_cookie(key='_is', value="_isA@4aDsd34fM@+.213..crm", httponly=True)
+            else:    
+                response.set_cookie(key='_is', value="_isU@4oSdf8afE@+.200.crm", httponly=True)
             response.set_cookie("token",new_token)
             return response
     else:

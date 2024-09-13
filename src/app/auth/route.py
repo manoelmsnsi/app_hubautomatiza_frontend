@@ -70,6 +70,10 @@ async def login_for_access_token(requests: Request,username: str = Form(...),pas
         service_response.set_cookie("token",token)
         service_response.set_cookie(key='username', value=token_decode["username"], httponly=True)
         service_response.set_cookie(key='empresa', value=token_decode["empresa"]["name_fantasy"], httponly=True)
+        if token_decode["is_admin"]==True:
+            service_response.set_cookie(key='_is', value="_isA@4aDsd34fM@+.213..crm", httponly=True)
+        else:    
+            service_response.set_cookie(key='_is', value="_isU@4oSdf8afE@+.200.crm", httponly=True)
         return service_response
 
     except Exception as error:

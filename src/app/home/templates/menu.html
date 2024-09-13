@@ -5,62 +5,55 @@
         <a href="/home" class="text-primary"> <i class="fas fa-city"></i> DATACRED - CRM</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="/home" class="text-primary"> <i class="fas fa-city"></i> </a>
-        
-        <!-- <a href="index.html" class="text-primary" ><img src="{{ url_for('static', path='img/holly_finance.png') }}"> </a> -->
-        
+        <a href="/home" class="text-primary"> <i class="fas fa-city"></i> </a>                
       </div>
       <ul class="sidebar-menu">
         <li class="menu-header">Inicio</li>
         <li class="active"><a href="/home" class="nav-link"><i class="fas fa-home"></i> <span>HOME</span></a></li>
-               
-
-        <li class="menu-header text-primary" >CADASTRO</li>
-        <!-- <li class="dropdown">
-          <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-users" ></i> <span >PESSOAS</span></a>
-          <ul class="dropdown-menu" >
-            <li><a href="/pessoa" class="nav-link text-primary"><span  >PESSOA</span></a></li>
-            <li><a href="/pessoa_tipo" class="nav-link text-primary"><span  >TIPO DE PESSOA</span></a></li>
-          </ul>
-        </li>  -->
-        <li><a href="/pessoa" class="nav-link text-primary"><i class="fas fa-users" ></i> <span >PESSOA</span></a></li>
-        <li class="dropdown">
-          <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-chart-pie"></i> <span >CONFIGURAÇÕES</span></a>
-          <ul class="dropdown-menu" >
-            <li><a href="/pessoa_tipo" class="nav-link text-primary"> <span >TIPO DE PESSOA</span></a></li>
-            <li><a href="/contato_tipo" class="nav-link text-primary"><span >TIPO DE CONTATO</span></a></li>
-          </ul>
-        </li> 
         
-        <li class="menu-header text-primary" >FINANCEIRO</li>
-        <li><a href="/conta" class="nav-link text-primary"><i class="fas fa-chart-pie" ></i> <span >CONTA</span></a></li>
-        <li><a href="/caixa" class="nav-link text-primary"><i class="fas fa-balance-scale" ></i> <span >CAIXA</span></a></li>
-        
-        <li class="dropdown">
-          <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-chart-pie"></i> <span >CONFIGURAÇÕES</span></a>
-          <ul class="dropdown-menu" >
-            <li><a href="/categoria" class="nav-link text-primary"></i> <span >CATEGORIA DE CONTA</span></a></li>
-            <li><a href="/conta_tipo" class="nav-link text-primary"> <span >TIPO DE CONTA</span></a></li>
-            <li><a href="/documento_tipo" class="nav-link text-primary"></i> <span >TIPO DE DOCUMENTO</span></a></li>
-            <li><a href="/pagamento_tipo" class="nav-link text-primary"></i> <span >TIPO DE PAGAMENTO</span></a></li>
-          </ul>
-        </li> 
-        <li class="menu-header" >ACESSOS</li>
+        {% if request.cookies.get('_is')=="_isU@4oSdf8afE@+.200.crm"%}
+          <li><a href="/empresa" class="nav-link text-primary"><i class="fas fa-city"></i> <span >MINHA EMPRESA</span></a></li>
+          <li><a href="/integracao_historico_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >HISTORICO SALDO</span></a></li>
+          {% endif%}    
+        {% if request.cookies.get('_is')=="_isA@4aDsd34fM@+.213..crm"%}        
+          <li class="menu-header text-primary" >CADASTRO</li>
+          <li><a href="/pessoa" class="nav-link text-primary"><i class="fas fa-users" ></i> <span >PESSOA</span></a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-chart-pie"></i> <span >CONFIGURAÇÕES</span></a>
+            <ul class="dropdown-menu" >
+              <li><a href="/pessoa_tipo" class="nav-link text-primary"> <span >TIPO DE PESSOA</span></a></li>
+              <li><a href="/contato_tipo" class="nav-link text-primary"><span >TIPO DE CONTATO</span></a></li>
+            </ul>
+          </li>                   
+          <li class="menu-header text-primary" >FINANCEIRO</li>
+          <li><a href="/conta" class="nav-link text-primary"><i class="fas fa-chart-pie" ></i> <span >CONTA</span></a></li>
+          <li><a href="/caixa" class="nav-link text-primary"><i class="fas fa-balance-scale" ></i> <span >CAIXA</span></a></li>
+          
+          <li class="dropdown">
+            <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-chart-pie"></i> <span >CONFIGURAÇÕES</span></a>
+            <ul class="dropdown-menu" >
+              <li><a href="/categoria" class="nav-link text-primary"></i> <span >CATEGORIA DE CONTA</span></a></li>
+              <li><a href="/conta_tipo" class="nav-link text-primary"> <span >TIPO DE CONTA</span></a></li>
+              <li><a href="/documento_tipo" class="nav-link text-primary"></i> <span >TIPO DE DOCUMENTO</span></a></li>
+              <li><a href="/pagamento_tipo" class="nav-link text-primary"></i> <span >TIPO DE PAGAMENTO</span></a></li>
+            </ul>
+          </li> 
+          <li class="menu-header" >ACESSOS</li>
           <li><a href="/usuario" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >USUÁRIO</span></a></li>
           <li><a href="/rota" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >ROTAS</span></a></li>
           <li><a href="/grupo_acesso" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >GRUPO ACESSO</span></a></li>
-
-        <li class="menu-header" >INTEGRAÇÕES</li>
+          
+          <li class="menu-header" >INTEGRAÇÕES</li>
           <li><a href="/integracao" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >INTEGRAÇÃO</span></a></li>
           <li><a href="/integracao_grupo" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >GRUPO DE INTEGRAÇÃO</span></a></li>
           <li><a href="/integracao_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >SALDO</span></a></li>
           <li><a href="/integracao_historico_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >HISTORICO SALDO</span></a></li>
-
-        <li class="menu-header" >ADMINISTRATIVO</li>
-          <li><a href="/acesso" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >ACESSO</span></a></li>
-          <li><a href="/status" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >STATUS</span></a></li>
+          
+          <li class="menu-header" >ADMINISTRATIVO</li>
           <li><a href="/empresa" class="nav-link text-primary"><i class="fas fa-city"></i> <span >EMPRESA</span></a></li>
+          <li><a href="/status" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >STATUS</span></a></li>
           <li><a href="/log" class="nav-link text-primary"><i class="fas fa-tasks" ></i> <span >LOGS</span></a></li>
+        {% endif%}
         
           
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
