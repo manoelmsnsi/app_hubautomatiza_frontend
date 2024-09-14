@@ -20,54 +20,54 @@
               <form method="POST" action="/pessoa/insert"> 
             {% endif %}
                 <div class="card-body">
-                    <div class="row">                      
-                        <div class="form-group col-sm-12  col-md-12 col-lg-12">
-                            <label>NOME</label>
-                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="name" value="{{ pessoa_data.name }}" maxlength="255" class="form-control">
-                        </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                            <label>CPF/CNPJ</label>
-                            <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cpf_cnpj" value="{{ pessoa_data.cpf_cnpj}}" maxlength="255" class="form-control">
-                        </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                  <div class="row">                      
+                      <div class="form-group col-sm-12  col-md-12 col-lg-12">
+                          <label>NOME</label>
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="name" value="{{ pessoa_data.name }}" maxlength="255" class="form-control">
+                      </div>
+                      <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>CPF/CNPJ</label>
+                          <input type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" name="cpf_cnpj" value="{{ pessoa_data.cpf_cnpj}}" maxlength="255" class="form-control">
+                      </div>
+                      <div class="form-group col-sm-12  col-md-12 col-lg-3">                        
                           <label>TIPO</label>
                           <select name="pessoa_tipo_id" class="form-control select2 ">
                               {% for pessoa_tipo in pessoa_tipo_data %}
-                                {% if(pessoa_data["tipo_id"]) == pessoa_tipo['id'] %}                                                                         
+                                {% if(pessoa_data["tipo_id"]) == pessoa_tipo['id'] %}
                                     <option selected value="{{ pessoa_tipo['id'] }}">{{ pessoa_tipo['description'] }}</option>
                                 {% else %}  
                                   <option  value="{{ pessoa_tipo['id'] }}">{{ pessoa_tipo['description'] }}</option>
                                 {% endif %}
                               {% endfor %}
                           </select>
-                        </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                          <label>EMPRESA</label>
-                          <select name="empresa_id" class="form-control select2 ">
-                              {% for empresa in empresa_data %}
-                                {% if(pessoa_data["empresa_id"]) == empresa['id'] %}                                                                         
-                                    <option selected value="{{ empresa['id'] }}">{{empresa['name_fantasy']}}</option>
-                                {% else %}  
-                                  <option  value="{{ empresa['id'] }}">{{empresa['name_fantasy']}}</option>
-                                {% endif %}
-                              {% endfor %}
-                          </select>
-                        </div>
-                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
-                          <label>STATUS</label>
-                          <select name="status_id" class="form-control select2 ">
-                              {% for status in status_data %}
-                                {% if(pessoa_data["status_id"]) == status['id'] %}                                                                         
-                                    <option selected value="{{status['id']}}">{{status['description']}}</option>
-                                {% else %}  
-                                  <option  value="{{status['id']}}">{{status['description']}}</option>
-                                {% endif %}
-                              {% endfor %}
-                          </select>
-                        </div>
-                        
-                    </div>
-                </div>
+                        </div>                      
+                      <div class="form-group col-sm-12  col-md-12 col-lg-3">         
+                        <label>EMPRESA</label>
+                        <select name="empresa_id" class="form-control select2 ">
+                          {% for empresa in empresa_data %}
+                            {% if(pessoa_data["empresa_id"]) == empresa['id'] %}
+                            <option selected value="{{ empresa['id'] }}">{{empresa['name_fantasy']}}</option>
+                            {% else %}  
+                            <option  value="{{ empresa['id'] }}">{{empresa['name_fantasy']}}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>                          
+                      </div>
+                      
+                      <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                        <label>STATUS</label>
+                        <select name="status_id" class="form-control select2 ">
+                            {% for status in status_data %}
+                              {% if(pessoa_data["status_id"]) == status['id'] %}
+                                  <option selected value="{{status['id']}}">{{status['description']}}</option>
+                              {% else %}  
+                                <option  value="{{status['id']}}">{{status['description']}}</option>
+                              {% endif %}
+                            {% endfor %}
+                        </select>
+                      </div>                        
+                    
+                  </div>
                   <div class="card-footer text-right">
                     <button class="btn btn-primary mr-1" type="submit">Salvar</button>
                     <a href="/pessoa" class="btn btn-danger" type="reset">Cancelar</a>

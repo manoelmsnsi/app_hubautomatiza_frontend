@@ -1227,8 +1227,8 @@ class ApiBackend():
             response.raise_for_status()    
             return response.json()
         except Exception as error:
-            print(f"backend -> get_empresa -> [ {error} ]")
-            raise Exception({'integration':'backend','function':'get_empresa','error':error})
+            print(f"backend -> get_google_calendar -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_google_calendar','error':error})
         
     def token_access_decode(self,token: str):
         try:
