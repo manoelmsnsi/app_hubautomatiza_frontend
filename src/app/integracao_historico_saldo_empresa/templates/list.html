@@ -49,10 +49,20 @@
                     {% for integracao_historico_saldo_empresa in data['items'] %}
                     <tr>                
                         <td>{{ integracao_historico_saldo_empresa["id"] }}</td>
-                        <td>{{ integracao_historico_saldo_empresa["tipo"] }}</td>
+                        <td> 
+                            {% if integracao_historico_saldo_empresa["tipo"]  == "Credito" %}
+                                <div class="badge badge-primary">
+                                    {{ integracao_historico_saldo_empresa["tipo"] }}
+                                </div>
+                            {% else  %}
+                                <div class="badge badge-danger">
+                                    {{ integracao_historico_saldo_empresa["tipo"] }}
+                                </div>
+                            {% endif %}
+                        </td>
                         <td>{{ integracao_historico_saldo_empresa.saldo }}</td>
                         <td>{{ integracao_historico_saldo_empresa["identificador"] }}</td>
-                        <td>{{ integracao_historico_saldo_empresa.integracao.integracao_grupo.nome }}</td>
+                        <td>{{ integracao_historico_saldo_empresa.integracao_grupo.nome }}</td>
                         <td>{{ integracao_historico_saldo_empresa["empresa"]["name_fantasy"] }}</td>
                         <td>{{ integracao_historico_saldo_empresa["create_at"]}}</td>
                         <td>

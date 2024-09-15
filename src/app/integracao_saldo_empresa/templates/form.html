@@ -21,11 +21,11 @@
             {% endif %}
                 <div class="card-body">
                     <div class="row">                             
-                        <div class="form-group col-sm-12 col-md-12 col-lg-1">
+                        <div class="form-group col-sm-12 col-md-12 col-lg-3">
                             <label>SALDO</label>
                             <input type="text"  name="saldo"  value="{{ integracao_saldo_empresa_data['saldo'] }}" maxlength="255" class="form-control">
                         </div>                               
-                        <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                        <div class="form-group col-sm-12 col-md-12 col-lg-3">
                             <label>LIMITE DIARIO</label>
                             <input type="text" name="limite_diario" value="{{ integracao_saldo_empresa_data['limite_diario'] }}" maxlength="255" class="form-control">
                         </div>                        
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
                           <label>GRUPO DE INTEGRAÇÃO</label>
-                          <select name="status_id" class="form-control select2">
+                          <select name="integracao_grupo_id" class="form-control select2">
                             {% for integracao_grupo in integracao_grupo_data %}
                               {% if(integracao_saldo_empresa_data["integracao_grupo_id"]) == integracao_grupo['id'] %}                                                                         
                               <option selected value="{{ integracao_grupo['id'] }}">{{ integracao_grupo['nome'] }}</option>
@@ -54,18 +54,7 @@
                             {% endfor %}
                           </select>
                         </div>
-                        <div class="form-group  col-sm-12  col-md-12 col-lg-3 ">
-                          <label>EMPRESA</label>
-                          <select name="empresa_id" class="form-control select2">
-                            {% for empresa in empresa_data %}
-                              {% if(integracao_saldo_empresa_data["empresa_id"]) == empresa['id'] %}                                                                         
-                                <option selected value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
-                              {% else %}  
-                                <option  value="{{ empresa['id'] }}">{{ empresa['name_fantasy'] }}</option>
-                              {% endif %}
-                            {% endfor %}
-                          </select>
-                        </div>
+                        
                 </div>
                   <div class="card-footer text-right">
                     <button class="btn btn-primary mr-1" type="submit">Salvar</button>
