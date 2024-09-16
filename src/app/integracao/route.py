@@ -38,9 +38,10 @@ async def integracao_form(request: Request):
     try:
         integracao_data={"items":[{}]}
         integracao_grupo_data = api_backend.get_integracao_grupo(filters={},token = request.state.token)
+        status_data = api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
             integracao_data = api_backend.get_integracao(filters=request.query_params,token = request.state.token)         
-        return templates.TemplateResponse("form.html",{"request": request,"integracao_data":integracao_data["items"],"integracao_grupo_data":integracao_grupo_data["items"]})
+        return templates.TemplateResponse("form.html",{"request": request,"integracao_data":integracao_data["items"],"integracao_grupo_data":integracao_grupo_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_form"},"error":error}})
     
