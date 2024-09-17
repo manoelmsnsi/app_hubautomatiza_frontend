@@ -114,7 +114,7 @@ def organizar_dados(dados: List[Dict]) -> Dict:
 
     # Iterando sobre os dados e contando as linhas por empresa_id e integracao_id
     for dado in dados:
-        chave = (dado['empresa']['name_fantasy'], dado['integracao']['nome'])
+        chave = (dado['empresa']['name_fantasy'], dado['integracao']['pseudonimo'])
         contagem_por_empresa_e_integracao[chave] += 1
 
     # Dicionário para armazenar a soma das contagens por empresa_id
@@ -149,7 +149,7 @@ def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict[str, 
         integracao = dado.get('integracao', {})
         
         empresa_nome = empresa.get('name_fantasy', 'Desconhecido')
-        integracao_nome = integracao.get('nome', 'Desconhecido')
+        integracao_nome = integracao.get('pseudonimo', 'Desconhecido')
         
         contagem_por_empresa_e_integracao[empresa_nome][integracao_nome] += 1
     
