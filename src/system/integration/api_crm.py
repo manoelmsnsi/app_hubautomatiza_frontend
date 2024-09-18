@@ -76,8 +76,8 @@ class ApiBackend():
                         }
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",url=url,headers=headers,data=payload)
-            
-            # response.raise_for_status()
+
+            response.raise_for_status()
 
             return f"Bearer {response.json()['access_token']}"
 
@@ -98,7 +98,7 @@ class ApiBackend():
             if(self.TOKEN_VENCIMENTO <= datetime.now()):
                 async with httpx.AsyncClient() as client:
                     response = await client.request("POST",url=url,headers=headers,data=payload)
-                # response.raise_for_status()
+                response.raise_for_status()
                 self.TOKEN = f"Bearer {response.json()['access_token']}"
                 self.TOKEN_VENCIMENTO = datetime.now() + timedelta(minutes=+55)
                 return f"Bearer {response.json()['access_token']}"
@@ -117,7 +117,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -135,7 +135,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -154,7 +154,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -170,7 +170,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -189,7 +189,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -208,7 +208,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -225,7 +225,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_endereco -> [ {error} ]")
@@ -242,7 +242,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -261,7 +261,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -277,7 +277,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_contato -> [ {error} ]")
@@ -294,7 +294,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -313,7 +313,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -329,7 +329,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_contato -> [ {error} ]")
@@ -346,7 +346,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -365,7 +365,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -381,7 +381,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_caixa -> [ {error} ]")
@@ -399,7 +399,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -418,7 +418,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -436,7 +436,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -452,7 +452,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_caixa_historico -> [ {error} ]")
@@ -467,7 +467,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_conta -> [ {error} ]")
@@ -484,7 +484,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -503,7 +503,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -519,7 +519,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_conta_tipo -> [ {error} ]")
@@ -537,7 +537,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -556,7 +556,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -572,7 +572,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_documento_tipo -> [ {error} ]")
@@ -590,7 +590,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -609,7 +609,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -628,7 +628,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_pagamento_tipo -> [ {error} ]")
@@ -646,7 +646,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -665,7 +665,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -682,7 +682,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_categoria -> [ {error} ]")
@@ -700,7 +700,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -719,7 +719,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -735,7 +735,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_status -> [ {error} ]")
@@ -753,7 +753,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -772,7 +772,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -789,7 +789,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_empresa -> [ {error} ]")
@@ -807,7 +807,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -826,7 +826,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -842,7 +842,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_usuario -> [ {error} ]")
@@ -860,7 +860,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -879,7 +879,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -895,7 +895,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_rota -> [ {error} ]")
@@ -913,7 +913,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -932,7 +932,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -948,7 +948,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_grupo_acesso -> [ {error} ]")
@@ -966,7 +966,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -985,7 +985,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1001,7 +1001,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_grupo_acesso_rota -> [ {error} ]")
@@ -1019,7 +1019,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1038,7 +1038,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1054,7 +1054,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_grupo_acesso_usuario -> [ {error} ]")
@@ -1072,7 +1072,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1091,7 +1091,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1107,7 +1107,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_integracao -> [ {error} ]")
@@ -1125,7 +1125,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1144,7 +1144,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1160,7 +1160,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_integracao_grupo -> [ {error} ]")
@@ -1178,7 +1178,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1197,7 +1197,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1213,7 +1213,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_integracao_saldo_empresa -> [ {error} ]")
@@ -1231,7 +1231,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1250,7 +1250,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1266,7 +1266,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_integracao_historico_saldo_empresa -> [ {error} ]")
@@ -1284,7 +1284,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="POST",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1303,7 +1303,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         
         except Exception as error:
@@ -1319,7 +1319,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             return response.json()
         except Exception as error:
             print(f"backend -> get_hub_data -> [ {error} ]")
@@ -1342,7 +1342,7 @@ class ApiBackend():
             
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            # response.raise_for_status()    
+            response.raise_for_status()    
             
             return response.json()
         except Exception as error:
