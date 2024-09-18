@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/caixa_historico",)
 async def caixa_historico_list(request: Request):
     try:
-        data = api_backend.get_caixa_historico(filters=request.query_params,token = request.state.token)
+        data = await api_backend.get_caixa_historico(filters=request.query_params,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_historico_list"},"error":error}})
@@ -37,11 +37,11 @@ async def caixa_historico_list(request: Request):
 async def caixa_historico_form(request: Request):
     try:
         caixa_historico_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token)
-        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
+        empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
         
         if(len(request.query_params) !=0 ):
-            caixa_historico_data = api_backend.get_caixa_historico(filters=request.query_params,token = request.state.token)
+            caixa_historico_data = await api_backend.get_caixa_historico(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"caixa_historico_data":caixa_historico_data["items"],"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:

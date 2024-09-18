@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/caixa",)
 async def caixa_list(request: Request):
     try:
-        data = api_backend.get_caixa(filters={},token = request.state.token)
+        data = await api_backend.get_caixa(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"caixa_list"},"error":error}})
@@ -37,10 +37,10 @@ async def caixa_list(request: Request):
 async def caixa_form(request: Request):
     try:
         caixa_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token)
-        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
+        empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            caixa_data = api_backend.get_caixa(filters=request.query_params,token = request.state.token)
+            caixa_data = await api_backend.get_caixa(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"caixa_data":caixa_data["items"],"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -50,7 +50,7 @@ async def caixa_form(request: Request):
 async def caixa_insert(request: Request):
     try:
         data = dict(await request.form())
-        caixa_data = api_backend.post_caixa(data=data,token = request.state.token)
+        caixa_data = await api_backend.post_caixa(data=data,token = request.state.token)
         return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"caixa_insert"},"error":error}}, "alert-danger")
@@ -61,7 +61,7 @@ async def caixa_insert(request: Request):
 async def caixa_update(request: Request,id: int):
     try:
         data = dict(await request.form())
-        api_backend.patch_caixa(id=id,data=data,token = request.state.token)
+        await api_backend.patch_caixa(id=id,data=data,token = request.state.token)
         return RedirectResponse(f'/caixa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
         # flash(request, {"data":{"frontend":{"function":"caixa_insert"},"error":error}}, "alert-danger")
@@ -72,10 +72,10 @@ async def caixa_update(request: Request,id: int):
 async def caixa_form(request: Request):
     try:
         conta_id = request.query_params["conta_id"]
-        caixa_data = api_backend.get_caixa(filters={},token = request.state.token)
-        conta_data = api_backend.get_conta(filters={"id":conta_id},token = request.state.token)        
-        status_data=api_backend.get_status(filters={},token = request.state.token)
-        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
+        caixa_data = await api_backend.get_caixa(filters={},token = request.state.token)
+        conta_data = await api_backend.get_conta(filters={"id":conta_id},token = request.state.token)        
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
+        empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
         data_current = datetime.now().strftime('%Y-%m-%d')
                  
         return templates.TemplateResponse("form_processar.html",{

@@ -121,12 +121,12 @@ async def add_process_time_header(request: Request, call_next):
     elif(token is not None):
         #validar autenticidade do token
         print('TOKEN EXISTENTE')
-        token_decode = api_backend.token_access_decode(token=token[7:])
+        token_decode = await api_backend.token_access_decode(token=token[7:])
         if token_decode == False:
             print('TOKEN INVALIDO')
             return RedirectResponse('/', status_code=status.HTTP_303_SEE_OTHER)
         else:
-            new_token = api_backend.create_access_token(data=token_decode)
+            new_token = await api_backend.create_access_token(data=token_decode)
             print('TOKEN VALIDO - REDIRECIONANDO')
             request.state.token=new_token
             response = await call_next(request)

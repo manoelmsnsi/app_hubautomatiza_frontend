@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/integracao",)
 async def integracao_list(request: Request):
     try:
-        data = api_backend.get_integracao(filters={},token = request.state.token)
+        data = await api_backend.get_integracao(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_list"},"error":error}})
@@ -37,10 +37,10 @@ async def integracao_list(request: Request):
 async def integracao_form(request: Request):
     try:
         integracao_data={"items":[{}]}
-        integracao_grupo_data = api_backend.get_integracao_grupo(filters={},token = request.state.token)
-        status_data = api_backend.get_status(filters={},token = request.state.token)
+        integracao_grupo_data = await api_backend.get_integracao_grupo(filters={},token = request.state.token)
+        status_data = await api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            integracao_data = api_backend.get_integracao(filters=request.query_params,token = request.state.token)         
+            integracao_data = await api_backend.get_integracao(filters=request.query_params,token = request.state.token)         
         return templates.TemplateResponse("form.html",{"request": request,"integracao_data":integracao_data["items"],"integracao_grupo_data":integracao_grupo_data["items"],"status_data":status_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_form"},"error":error}})
@@ -50,7 +50,7 @@ async def integracao_form(request: Request):
 async def integracao_insert(request: Request):
     try:
         data = dict(await request.form())
-        integracao_data = api_backend.post_integracao(data=data,token = request.state.token)
+        integracao_data = await api_backend.post_integracao(data=data,token = request.state.token)
         flash(request, "INTEGRAÇÃO INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/integracao', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -62,7 +62,7 @@ async def integracao_insert(request: Request):
 async def integracao_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_integracao(id=id,data=data,token = request.state.token)
+        await api_backend.patch_integracao(id=id,data=data,token = request.state.token)
         flash(request, "INTEGRAÇÃO ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/integracao', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

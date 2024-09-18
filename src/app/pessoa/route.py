@@ -30,7 +30,7 @@ api_backend = ApiBackend()
 async def pessoa_list(request: Request):
     try:
         filters = {request.query_params.get("filter"):request.query_params.get("value")}
-        data = api_backend.get_pessoa(filters=filters,token = request.state.token)
+        data = await api_backend.get_pessoa(filters=filters,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data,"filters":filters})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"pessoa_list"},"error":error}})
@@ -39,11 +39,11 @@ async def pessoa_list(request: Request):
 async def pessoa_form(request: Request):
     try:
         pessoa_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token)
-        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
-        pessoa_tipo_data=api_backend.get_pessoa_tipo(filters={},token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
+        empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
+        pessoa_tipo_data=await api_backend.get_pessoa_tipo(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            pessoa_data = api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
+            pessoa_data = await api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request, "pessoa_data": pessoa_data["items"],"status_data":status_data["items"],"pessoa_tipo_data":pessoa_tipo_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -54,12 +54,12 @@ async def pessoa_form(request: Request):
     try:
         pessoa_id=request.query_params["id"]
         pessoa_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token) 
-        empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
-        pessoa_tipo_data=api_backend.get_pessoa_tipo(filters={},token = request.state.token)
-        endereco_data=api_backend.get_endereco(filters={"pessoa_id":pessoa_id},token = request.state.token)
-        contato_data=api_backend.get_contato(filters={"pessoa_id":pessoa_id},token = request.state.token)        
-        pessoa_data = api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token) 
+        empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
+        pessoa_tipo_data=await api_backend.get_pessoa_tipo(filters={},token = request.state.token)
+        endereco_data=await api_backend.get_endereco(filters={"pessoa_id":pessoa_id},token = request.state.token)
+        contato_data=await api_backend.get_contato(filters={"pessoa_id":pessoa_id},token = request.state.token)        
+        pessoa_data = await api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("visualizar.html",{"request": request, "pessoa_data": pessoa_data["items"],"status_data":status_data["items"],"pessoa_tipo_data":pessoa_tipo_data["items"],"empresa_data":empresa_data["items"],"endereco_data":endereco_data["items"],"contato_data":contato_data["items"]})
     except Exception as error:
@@ -69,7 +69,7 @@ async def pessoa_form(request: Request):
 async def pessoa_insert(request: Request):
     try:
         data = dict(await request.form())
-        pessoa_data = api_backend.post_pessoa(data=data,token = request.state.token)
+        pessoa_data = await api_backend.post_pessoa(data=data,token = request.state.token)
         flash(request, "PESSOA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={pessoa_data["id"]}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -81,7 +81,7 @@ async def pessoa_insert(request: Request):
 async def pessoa_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_pessoa(id=id,data=data,token = request.state.token)
+        await api_backend.patch_pessoa(id=id,data=data,token = request.state.token)
         flash(request, "PESSOA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/pessoa/visualizar?id={id}', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -92,5 +92,5 @@ async def pessoa_update(request: Request,id:int):
 # @frontend.post("/pessoa/delete")
 # async def status_insert(request: Request)):
 #     data = request
-#     api_backend.delete_pessoa(id=id,data=request)
+#     await api_backend.delete_pessoa(id=id,data=request)
 #     return RedirectResponse('/pessoa', status_code=status.HTTP_303_SEE_OTHER)

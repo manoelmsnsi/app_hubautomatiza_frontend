@@ -31,21 +31,21 @@ api_backend = ApiBackend()
 #FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED#
 # @frontend.get("/",)
 # async def init(request: Request):
-#     # data = await api_backend.read()
+#     # data = await await api_backend.read()
 #     return templates.TemplateResponse("login.html",{"request": request})
 #     # return RedirectResponse('/auth/form', status_code=status.HTTP_303_SEE_OTHER)
 
 @frontend.get("/home",)
 async def home(request: Request):
-    # data_calendar = api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
+    # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
 
     return RedirectResponse(f'/dash', status_code=status.HTTP_303_SEE_OTHER)
 
 @frontend.get("/dash",)
 async def dash(request: Request):
-    # data_calendar = api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
+    # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
     filters = {"create_at":request.query_params.get("create_at",datetime.now().date())}
-    data = api_backend.get_hub_data(filters=filters,token = request.state.token)
+    data = await api_backend.get_hub_data(filters=filters,token = request.state.token)
     
     data_calendar = [
                         {

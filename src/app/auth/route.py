@@ -30,7 +30,7 @@ api_backend = ApiBackend()
 @frontend.get("/auth",)
 async def auth_list(request: Request):
     try:
-        data ={}# api_backend.get_auth(filters=request.query_params)
+        data ={}# await api_backend.get_auth(filters=request.query_params)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         flash(request, "Usuário ou senha invalido, contate o administrador.", "alert-error")
@@ -56,14 +56,14 @@ async def auth_form(request: Request):
 @frontend.post("/auth", response_model=dict, tags=["AUTH"])
 async def login_for_access_token(requests: Request,username: str = Form(...),password:str = Form(...) ):
     try:
-        token = api_backend.authf(username, password)
+        token = await api_backend.authf(username, password)
         if not token:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        token_decode =api_backend.token_access_decode(token[7:])
+        token_decode =await api_backend.token_access_decode(token[7:])
         
         service_response = await home(requests)
         

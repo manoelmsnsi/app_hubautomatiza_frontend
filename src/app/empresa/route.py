@@ -30,10 +30,10 @@ async def empresa_list(request: Request):
     try:
         token = request.state.token
         id= None
-        token_decode  = api_backend.token_access_decode(token=token[7:])
+        token_decode  = await api_backend.token_access_decode(token=token[7:])
         if token_decode.get("is_admin",False)==False:
             id = token_decode.get("empresa_id",0)
-        data = api_backend.get_empresa(filters={"id":id},token = token)
+        data = await api_backend.get_empresa(filters={"id":id},token = token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"empresa_list"},"error":error}})
@@ -42,9 +42,9 @@ async def empresa_list(request: Request):
 async def empresa_form(request: Request):
     try:
         empresa_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            empresa_data = api_backend.get_empresa(filters=request.query_params,token = request.state.token)
+            empresa_data = await api_backend.get_empresa(filters=request.query_params,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -55,9 +55,9 @@ async def empresa_form(request: Request):
     try:
         empresa_data={"items":[{}]}
         if(len(request.query_params) !=0 ):
-            empresa_data = api_backend.get_empresa(filters=request.query_params,token = request.state.token)
-            usuario_data = api_backend.get_usuario(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
-            integracao_saldo_empresa_data = api_backend.get_integracao_saldo_empresa(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
+            empresa_data = await api_backend.get_empresa(filters=request.query_params,token = request.state.token)
+            usuario_data = await api_backend.get_usuario(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
+            integracao_saldo_empresa_data = await api_backend.get_integracao_saldo_empresa(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
          
         return templates.TemplateResponse("visualizar.html",{"request": request,"usuario_data":usuario_data,"integracao_saldo_empresa_data":integracao_saldo_empresa_data,"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -67,7 +67,7 @@ async def empresa_form(request: Request):
 async def empresa_insert(request: Request):
     try:
         data = dict(await request.form())
-        empresa_data = api_backend.post_empresa(data=data,token = request.state.token)
+        empresa_data = await api_backend.post_empresa(data=data,token = request.state.token)
         flash(request, "EMPRESA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -79,7 +79,7 @@ async def empresa_insert(request: Request):
 async def empresa_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_empresa(id=id,data=data,token = request.state.token)
+        await api_backend.patch_empresa(id=id,data=data,token = request.state.token)
         flash(request, "EMPRESA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

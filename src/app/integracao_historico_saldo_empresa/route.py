@@ -26,7 +26,7 @@ api_backend = ApiBackend()
 async def integracao_historico_saldo_empresa_list(request: Request):
     try:
         filters = {request.query_params.get("filter"):request.query_params.get("value")}
-        data = api_backend.get_integracao_historico_saldo_empresa(filters=filters,token = request.state.token)
+        data = await api_backend.get_integracao_historico_saldo_empresa(filters=filters,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_list"},"error":error}})
@@ -35,9 +35,9 @@ async def integracao_historico_saldo_empresa_list(request: Request):
 async def integracao_historico_saldo_empresa_form(request: Request):
     try:
         integracao_historico_saldo_empresa_data={"items":[{}]}
-        integracao_grupo_data = api_backend.get_integracao_grupo(filters={},token = request.state.token)
+        integracao_grupo_data = await api_backend.get_integracao_grupo(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            integracao_historico_saldo_empresa_data = api_backend.get_integracao_historico_saldo_empresa(filters=request.query_params,token = request.state.token)         
+            integracao_historico_saldo_empresa_data = await api_backend.get_integracao_historico_saldo_empresa(filters=request.query_params,token = request.state.token)         
         return templates.TemplateResponse("form.html",{"request": request,"integracao_historico_saldo_empresa_data":integracao_historico_saldo_empresa_data["items"],"integracao_grupo_data":integracao_grupo_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_form"},"error":error}})
@@ -47,7 +47,7 @@ async def integracao_historico_saldo_empresa_form(request: Request):
 async def integracao_historico_saldo_empresa_visualizar(request: Request):
     try:
         if(len(request.query_params) !=0 ):
-            hub_data = api_backend.get_hub_data(filters={"identificador":request.query_params.get("identificador",'1111')},token = request.state.token)    
+            hub_data = await api_backend.get_hub_data(filters={"identificador":request.query_params.get("identificador",'1111')},token = request.state.token)    
         return templates.TemplateResponse("visualizar.html",{"request": request,"hub_data":hub_data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"integracao_historico_saldo_empresa_visualizar"},"error":error}})
@@ -57,7 +57,7 @@ async def integracao_historico_saldo_empresa_visualizar(request: Request):
 async def integracao_historico_saldo_empresa_insert(request: Request):
     try:
         data = dict(await request.form())
-        integracao_historico_saldo_empresa_data = api_backend.post_integracao_historico_saldo_empresa(data=data,token = request.state.token)
+        integracao_historico_saldo_empresa_data = await api_backend.post_integracao_historico_saldo_empresa(data=data,token = request.state.token)
         flash(request, "INTEGRAÇÃO SALDO EMPRESA INSERIDO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/integracao_historico_saldo_empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -69,7 +69,7 @@ async def integracao_historico_saldo_empresa_insert(request: Request):
 async def integracao_historico_saldo_empresa_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_integracao_historico_saldo_empresa(id=id,data=data,token = request.state.token)
+        await api_backend.patch_integracao_historico_saldo_empresa(id=id,data=data,token = request.state.token)
         flash(request, "INTEGRAÇÃO SALDO EMPRESA ALTERADO COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/integracao_historico_saldo_empresa', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

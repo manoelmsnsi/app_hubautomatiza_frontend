@@ -28,7 +28,7 @@ api_backend = ApiBackend()
 @frontend.get("/conta_tipo",)
 async def conta_tipo_list(request: Request):
     try:
-        data = api_backend.get_conta_tipo(filters={},token = request.state.token)
+        data = await api_backend.get_conta_tipo(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"conta_tipo_list"},"error":error}})
@@ -37,9 +37,9 @@ async def conta_tipo_list(request: Request):
 async def conta_tipo_form(request: Request):
     try:
         conta_tipo_data={"items":[{}]}
-        status_data=api_backend.get_status(filters={},token = request.state.token)
+        status_data=await api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            conta_tipo_data = api_backend.get_conta_tipo(filters=request.query_params)
+            conta_tipo_data = await api_backend.get_conta_tipo(filters=request.query_params)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"conta_tipo_data":conta_tipo_data["items"]})
     except Exception as error:
@@ -49,7 +49,7 @@ async def conta_tipo_form(request: Request):
 async def conta_tipo_insert(request: Request):
     try:
         data = dict(await request.form())
-        conta_tipo_data = api_backend.post_conta_tipo(data=data,token = request.state.token)
+        conta_tipo_data = await api_backend.post_conta_tipo(data=data,token = request.state.token)
         flash(request, "TIPO DE CONTA INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -61,7 +61,7 @@ async def conta_tipo_insert(request: Request):
 async def conta_tipo_update(request: Request,id:int):
     try:
         data = dict(await request.form())
-        api_backend.patch_conta_tipo(id=id,data=data,token = request.state.token)
+        await api_backend.patch_conta_tipo(id=id,data=data,token = request.state.token)
         flash(request, "TIPO DE CONTA ALTERADA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/conta_tipo', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:

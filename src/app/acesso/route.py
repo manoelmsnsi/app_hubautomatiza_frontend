@@ -28,8 +28,8 @@ api_backend = ApiBackend()
 @frontend.get("/acesso",)
 async def acesso_list(request: Request):
     try:
-        # data = api_backend.get_acesso(filters={},token = request.state.token)
-        acesso_data=api_backend.get_status(filters={},token = request.state.token)
+        # data = await api_backend.get_acesso(filters={},token = request.state.token)
+        acesso_data=await api_backend.get_status(filters={},token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":acesso_data})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"acesso_list"},"error":error}})
@@ -38,12 +38,12 @@ async def acesso_list(request: Request):
 # async def acesso_form(request: Request):
 #     try:
 #         acesso_data={"items":[{}]}
-#         status_data=api_backend.get_status(filters={},token = request.state.token)
-#         empresa_data=api_backend.get_empresa(filters={},token = request.state.token)
+#         status_data=await api_backend.get_status(filters={},token = request.state.token)
+#         empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
 #         acesso_data=["LISTAR","VISUALIZAR","PROCESSAR","INSERIR","EDITAR","EXCLUIR"]
 #         grupo_acesso_data=["ATENDENTE","FINANCEIRO","CAIXA","ADMIN"]
 #         # if(len(request.query_params) !=0 ):
-#             # acesso_data = api_backend.get_acesso(filters=request.query_params)
+#             # acesso_data = await api_backend.get_acesso(filters=request.query_params)
          
 #         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"empresa_data":empresa_data["items"],"acesso_data":acesso_data,"grupo_acesso_data":grupo_acesso_data})
 #     except Exception as error:
