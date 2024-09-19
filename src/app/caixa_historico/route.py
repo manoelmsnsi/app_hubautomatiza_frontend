@@ -28,6 +28,8 @@ api_backend = ApiBackend()
 @frontend.get("/caixa_historico",)
 async def caixa_historico_list(request: Request):
     try:
+        if(len(request.query_params) !=0 ):
+            print(request.query_params)
         data = await api_backend.get_caixa_historico(filters=request.query_params,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
