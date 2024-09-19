@@ -786,7 +786,6 @@ class ApiBackend():
             url = f"{self.BASE_URL}/empresa"
             headers={"Authorization":token}
             payload=filters
-            
             async with httpx.AsyncClient() as client:
                 response = await client.request(method="GET",headers=headers,url=url,params=payload)
             response.raise_for_status()    
