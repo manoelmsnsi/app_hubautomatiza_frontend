@@ -39,7 +39,7 @@ api_backend = ApiBackend()
 async def home(request: Request):
     # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
 
-    return RedirectResponse(f'/dash', status_code=status.HTTP_303_SEE_OTHER)
+    return templates.TemplateResponse("home.html",{"request": request,"data_calendar":[],"data_chart":[],"data_chart_table":[],"filters":[]})
 
 @frontend.get("/dash",)
 async def dash(request: Request):
@@ -68,8 +68,8 @@ async def dash(request: Request):
                         },
                     ]
     
-    data_chart =  organizar_dados(dados=data)
-    data_chart_table = contar_linhas_por_empresa_e_integracao(dados=data)
+    data_chart =  await organizar_dados(dados=data)
+    data_chart_table = await contar_linhas_por_empresa_e_integracao(dados=data)
     # {
     #     "datasets": [{
     #         "data": [80, 50, 40, 30, 20],
@@ -91,7 +91,7 @@ async def dash(request: Request):
 async def em_contrucao(request: Request):
     return templates.TemplateResponse("em_contrucao.html",{"request": request})
 
-def organizar_dados(dados: List[Dict]) -> Dict:
+async def organizar_dados(dados: List[Dict]) -> Dict:
     """
     Organiza os dados para o formato desejado para gráficos.
     
@@ -133,7 +133,7 @@ def organizar_dados(dados: List[Dict]) -> Dict:
 
 
 
-def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict[str, Dict[str, int]]]:
+async def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict[str, Dict[str, int]]]:
     """
     Conta o número de linhas para cada combinação de nome da empresa e nome da integração,
     e calcula o total de consumo para cada empresa.
