@@ -47,9 +47,9 @@
                             <td>{{ relatorio.empresa.name_fantasy }}</td>
                             <td>
                                 {% if request.cookies.get('_is')=="_isA@4aDsd34fM@+.213.crm"%} 
-                                    {{ relatorio.empresa.name_fantasy }}
+                                    {{ relatorio.integracao.nome }}
                                 {% else %}
-                                    {{ relatorio.empresa.pseudonimo }}
+                                    {{ relatorio.integracao.pseudonimo }}
                                 {% endif %}
                             </td>
                             <td><div class="badge badge-primary">{{ relatorio.total }}</div></td>
