@@ -1325,6 +1325,22 @@ class ApiBackend():
             raise Exception({'integration':'backend','function':'get_hub_data','error':error})
     
     
+    async def get_realtorio_consumo_integracao(self,filters:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/consumo_integracao"
+            headers={"Authorization":token}
+            payload=filters
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=20)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_consumo_integracao -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_consumo_integracao','error':error})
+    
+    
     
     async def get_google_calendar(self,filters:dict,token = None):
         """

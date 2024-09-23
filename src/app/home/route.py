@@ -39,51 +39,41 @@ api_backend = ApiBackend()
 async def home(request: Request):
     # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
 
-    return templates.TemplateResponse("home.html",{"request": request,"data_calendar":[],"data_chart":[],"data_chart_table":[],"filters":[]})
+    return RedirectResponse('/dash', status_code=status.HTTP_303_SEE_OTHER)
 
 @frontend.get("/dash",)
 async def dash(request: Request):
     # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
-    filters = {"create_at":request.query_params.get("create_at",datetime.now().date())}
-    data = await api_backend.get_hub_data(filters=filters,token = request.state.token)
+    filters={}
+    if request.query_params.get("start_data","") != "":
+        filters = {"start_data":request.query_params.get("start_data",datetime.now().date()),
+               "end_data":request.query_params.get("end_data",datetime.now().date())}
+    data = await api_backend.get_realtorio_consumo_integracao(filters=filters,token = request.state.token)
     
     data_calendar = [
-                        {
-                            "id":"1",
-                            "summary":"teste - 1",
-                            "start":{"dateTime":"2024-09-11T13:00:00-03:00"},
-                            "end":{"dateTime":"2024-09-11T14:00:00-03:00"},
-                            "description":"Olá, isso é um teste.",
-                            "hangoutLink":"http://meet.teste.com",
-                            "attendees":"participante1, participante 2",
-                        },
-                        {
-                            "id":"2",
-                            "summary":"teste - 2",
-                            "start":{"dateTime":"2024-09-11T15:00:00-03:00"},
-                            "end":{"dateTime":"2024-09-11T16:00:00-03:00"},
-                            "description":"Olá, isso é um teste.",
-                            "hangoutLink":"http://meet.teste.com",
-                            "attendees":"participante1, participante 2",
-                        },
+                        # {
+                        #     "id":"1",
+                        #     "summary":"teste - 1",
+                        #     "start":{"dateTime":"2024-09-11T13:00:00-03:00"},
+                        #     "end":{"dateTime":"2024-09-11T14:00:00-03:00"},
+                        #     "description":"Olá, isso é um teste.",
+                        #     "hangoutLink":"http://meet.teste.com",
+                        #     "attendees":"participante1, participante 2",
+                        # },
+                        # {
+                        #     "id":"2",
+                        #     "summary":"teste - 2",
+                        #     "start":{"dateTime":"2024-09-11T15:00:00-03:00"},
+                        #     "end":{"dateTime":"2024-09-11T16:00:00-03:00"},
+                        #     "description":"Olá, isso é um teste.",
+                        #     "hangoutLink":"http://meet.teste.com",
+                        #     "attendees":"participante1, participante 2",
+                        # },
                     ]
     
     data_chart =  await organizar_dados(dados=data)
     data_chart_table = await contar_linhas_por_empresa_e_integracao(dados=data)
-    # {
-    #     "datasets": [{
-    #         "data": [80, 50, 40, 30, 20],
-    #         "backgroundColor": [
-    #             "#191d21",
-    #             "#63ed7a",
-    #             "#ffa426",
-    #             "#fc544b",
-    #             "#6777ef"
-    #         ],
-    #         "label": "Totais"
-    #     }],
-    #     "labels": ["Black", "Green", "Yellow", "Red", "Blue"]
-    # }
+
 
     return templates.TemplateResponse("home.html",{"request": request,"data_calendar":data_calendar,"data_chart":data_chart,"data_chart_table":data_chart_table,"filters":filters})
 
@@ -113,9 +103,9 @@ async def organizar_dados(dados: List[Dict]) -> Dict:
     contagem_por_empresa_e_integracao = defaultdict(int)
 
     # Iterando sobre os dados e contando as linhas por empresa_id e integracao_id
-    for dado in dados:
+    for dado in dados["items"]:
         chave = (dado['empresa']['name_fantasy'], dado['integracao']['pseudonimo'])
-        contagem_por_empresa_e_integracao[chave] += 1
+        contagem_por_empresa_e_integracao[chave]=dado['total']
 
     # Dicionário para armazenar a soma das contagens por empresa_id
     contagem_por_empresa = defaultdict(int)
@@ -144,14 +134,14 @@ async def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict
     """
     contagem_por_empresa_e_integracao = defaultdict(lambda: defaultdict(int))
     
-    for dado in dados:
+    for dado in dados["items"]:
         empresa = dado.get('empresa', {})
         integracao = dado.get('integracao', {})
         
         empresa_nome = empresa.get('name_fantasy', 'Desconhecido')
         integracao_nome = integracao.get('pseudonimo', 'Desconhecido')
         
-        contagem_por_empresa_e_integracao[empresa_nome][integracao_nome] += 1
+        contagem_por_empresa_e_integracao[empresa_nome][integracao_nome] += dado.get("total")
     
     resultados = []
     
@@ -164,4 +154,6 @@ async def contar_linhas_por_empresa_e_integracao(dados: List[Dict]) -> List[Dict
         })
 
     return resultados
+
+
 

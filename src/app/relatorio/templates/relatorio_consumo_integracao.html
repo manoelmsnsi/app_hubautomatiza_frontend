@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-header">
+    <div class="section-header-breadcrumb">
+        <div class="breadcrumb-item active"><a href="/caixa_historico">HISTORICO CAIXA</a></div>
+        <div class="breadcrumb-item">LISTAGEM</div>
+    </div>
+</div>
+{% set list = namespace(receita_total=0, despesa_total=0) %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>HISTORICO CAIXA</h4>
+                <div class="card-header-form">
+                    <form method="get" action="#">
+                        <div class="input-group">     
+                            <input type="hidden" name="start_data" id="start_data">
+                            <input type="hidden" name="end_data" id="end_data">
+                            <a href="javascript:;" class="btn btn-primary daterange-btn icon-left btn-icon">
+                                <i class="fas fa-calendar"></i>
+                                <span id="dateRangeText">Selecione a Data</span>
+                            </a>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+              </div>
+            </div>
+            <div class="form-group">
+               
+              </div>
+            <div class="card-body ">                
+                <div class="table-responsive">
+                    <table id="table-1" class="table table-striped " style="width:100%">     
+                    <thead> 
+                        <tr>
+                            <th>EMPRESA</th>
+                            <th>INTEGRACAO</th>
+                            <th>TOTAL</th>
+                            <th>DATA CONSULTA</th>
+                        </tr>
+                    </thead>
+                        {% for relatorio in data["items"] %}
+                        <tr>
+                            <td>{{ relatorio.empresa.name_fantasy }}</td>
+                            <td>
+                                {% if request.cookies.get('_is')=="_isA@4aDsd34fM@+.213.crm"%} 
+                                    {{ relatorio.empresa.name_fantasy }}
+                                {% else %}
+                                    {{ relatorio.empresa.pseudonimo }}
+                                {% endif %}
+                            </td>
+                            <td><div class="badge badge-primary">{{ relatorio.total }}</div></td>
+                            <td>{{ relatorio.create_at }}</td>                           
+                        </tr>
+                        {% endfor %}
+                        
+                    </table>                    
+                </div>                     
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}
+{% block scripts %}    
+    <script>
+        $(document).ready(function() {
+            $('#table-1').DataTable({
+                "searching": false,   // Desativa a barra de pesquisa
+                "paging": false,      // Desativa a paginação
+                "responsive": true,   // Torna a tabela responsiva
+                "columnDefs": [],
+                "language": {
+            "sEmptyTable": "Nenhum dado disponível na tabela",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
+            }
+        });
+        });
+
+        $('.daterange-btn').daterangepicker({
+            ranges: {
+                'Hoje': [moment(), moment().add(1, 'days')],
+                'A 1 Dia': [moment().subtract(1, 'days'), moment().add(1, 'days')],
+                'Ultimos 7 Dias': [moment().subtract(6, 'days'), moment().add(1, 'days')],
+                'Ultimos 30 Dias': [moment().subtract(29, 'days'), moment().add(1, 'days')],
+                'Ultimo Mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            start_data: moment(),
+            end_data: moment()
+        }, function (start, end) {
+            let start_data = start.format('YYYY-MM-DD');
+            let end_data = end.format('YYYY-MM-DD');
+        
+            // Atualiza os campos ocultos do formulário
+            $('#start_data').val(start_data);
+            $('#end_data').val(end_data);
+        
+            // Atualiza o texto da tag <a>
+            $('#dateRangeText').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        });
+        
+        // Adiciona um evento de submit para verificar se os campos estão preenchidos
+        $('#dateRangeForm').on('submit', function(event) {
+            let start_data = $('#start_data').val();
+            let end_data = $('#end_data').val();
+        
+            if (!start_data || !end_data) {
+                event.preventDefault(); // Impede o envio se os campos estiverem vazios
+                alert('Por favor, selecione um intervalo de datas.');
+            }
+        });
+        
+          
+    </script>
+{% endblock %}
+
+

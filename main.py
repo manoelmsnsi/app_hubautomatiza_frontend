@@ -40,6 +40,7 @@ from src.app.integracao_grupo.route import frontend as integracao_grupo_route
 from src.app.grupo_acesso_usuario.route import frontend as grupo_acesso_usuario
 from src.app.grupo_acesso_rota.route import frontend as grupo_acesso_rota_route
 from src.app.integracao_saldo_empresa.route import frontend as integracao_saldo_empresa_route
+from src.app.relatorio.route import frontend as relatorio_route
 from src.app.integracao_historico_saldo_empresa.route import frontend as integracao_historico_saldo_empresa_route
 from src.system.integration.api_crm import ApiBackend
 
@@ -75,6 +76,7 @@ app.include_router(pagamento_tipo_route) #app_financeiro
 app.include_router(caixa_historico_route) #app_financeiro
 app.include_router(integracao_grupo_route) #app_gerenciador
 app.include_router(grupo_acesso_rota_route) #app_acesso
+app.include_router(relatorio_route) #app_RELATORIO
 app.include_router(integracao_saldo_empresa_route) #app_gerenciador
 app.include_router(integracao_historico_saldo_empresa_route) #app_gerenciador
 
