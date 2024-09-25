@@ -45,7 +45,7 @@ async def pessoa_form(request: Request):
         empresa_data=await api_backend.get_empresa(filters={},token = request.state.token)
         pessoa_tipo_data=await api_backend.get_pessoa_tipo(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            pessoa_data = await api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
+            pessoa_data = await api_backend.get_pessoa(filters=request.query_params._dict,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request, "pessoa_data": pessoa_data["items"],"status_data":status_data["items"],"pessoa_tipo_data":pessoa_tipo_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -61,7 +61,7 @@ async def pessoa_form(request: Request):
         pessoa_tipo_data=await api_backend.get_pessoa_tipo(filters={},token = request.state.token)
         endereco_data=await api_backend.get_endereco(filters={"pessoa_id":pessoa_id},token = request.state.token)
         contato_data=await api_backend.get_contato(filters={"pessoa_id":pessoa_id},token = request.state.token)        
-        pessoa_data = await api_backend.get_pessoa(filters=request.query_params,token = request.state.token)
+        pessoa_data = await api_backend.get_pessoa(filters={"id":pessoa_id},token = request.state.token)
          
         return templates.TemplateResponse("visualizar.html",{"request": request, "pessoa_data": pessoa_data["items"],"status_data":status_data["items"],"pessoa_tipo_data":pessoa_tipo_data["items"],"empresa_data":empresa_data["items"],"endereco_data":endereco_data["items"],"contato_data":contato_data["items"]})
     except Exception as error:
