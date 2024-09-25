@@ -115,7 +115,6 @@ class ApiBackend():
             payload = filters
             payload["size"]= 100
             page = 1
-            all_data = []
             response_data = {
             "items": [],
             "total": 0,
