@@ -108,13 +108,15 @@ class ApiBackend():
             print(f"BACKEND -> AUTH -> [ {error} ]")
             raise Exception({'integration':'backend','function':'auth','error':error})   
 
-    async def get_pessoa(self,filters:dict,token = None):
+    async def get_pessoa(self,filters:dict = {},token = None):
         try:
             url = f"{self.BASE_URL}/pessoa"
             headers = {"Authorization": token}
             payload = filters
             payload["size"]= 100
             page = 1
+            if "page" in payload:
+                page = payload["page"]
             response_data = {
             "items": [],
             "total": 0,
@@ -134,13 +136,13 @@ class ApiBackend():
                     response_data["items"].extend(json_response.get("items", []))
 
                     # Preenche os demais campos de controle apenas na primeira iteração
-                    if page == 1:
-                        response_data["total"] = json_response.get("total", 0)
-                        response_data["size"] = json_response.get("size", 50)
-                        response_data["pages"] = json_response.get("pages", 1)
+                    
+                    response_data["total"] = json_response.get("total", 0)
+                    response_data["size"] = response_data["size"]+json_response.get("size", 50)
+                    response_data["pages"] = 1
 
                     # Verifica se já processou todas as páginas
-                    if page >= response_data["pages"]:
+                    if int(page) >= response_data["pages"]:
                         break
 
                     page += 1  # Próxima página

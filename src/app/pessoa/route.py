@@ -29,7 +29,9 @@ api_backend = ApiBackend()
 @frontend.get("/pessoa",)
 async def pessoa_list(request: Request):
     try:
-        filters = {request.query_params.get("filter"):request.query_params.get("value")}
+        filters = request.query_params._dict
+        if request.query_params.get("filter"):
+            filters[request.query_params.get("filter")] = request.query_params.get("value")
         data = await api_backend.get_pessoa(filters=filters,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data,"filters":filters})
     except Exception as error:
