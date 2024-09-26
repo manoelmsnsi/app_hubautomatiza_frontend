@@ -47,7 +47,7 @@ async def empresa_form(request: Request):
         empresa_data={"items":[{}]}
         status_data=await api_backend.get_status(filters={},token = request.state.token)
         if(len(request.query_params) !=0 ):
-            empresa_data = await api_backend.get_empresa(filters=request.query_params,token = request.state.token)
+            empresa_data = await api_backend.get_empresa(filters=request.query_params._dict,token = request.state.token)
          
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
@@ -58,7 +58,7 @@ async def empresa_form(request: Request):
     try:
         empresa_data={"items":[{}]}
         if(len(request.query_params) !=0 ):
-            empresa_data = await api_backend.get_empresa(filters=request.query_params,token = request.state.token)
+            empresa_data = await api_backend.get_empresa(filters=request.query_params._dict,token = request.state.token)
             usuario_data = await api_backend.get_usuario(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
             integracao_saldo_empresa_data = await api_backend.get_integracao_saldo_empresa(filters={"empresa_id":empresa_data["items"][0]["id"]},token = request.state.token)
          

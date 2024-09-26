@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="section-header">    
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item active"><a href="/empresa">LOTE</a></div>
+      <div class="breadcrumb-item">Formulário</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h4>CADASTRO DE LOTE</h4>
+          </div>
+          <div class="card-body">
+              <form method="POST"  enctype='multipart/form-data' action="/lote/insert"> 
+            
+                <div class="card-body">
+                    <div class="row"> 
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>INTEGRAÇÃO</label>
+                          <select name="integracao_grupo_id" class="form-control select2 ">
+                              {% for integracao_grupo in integracao_grupo_data %}
+                                  <option  value="{{integracao_grupo['id']}}">{{integracao_grupo['nome']}}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>EMPRESA</label>
+                          <select name="empresa_id" class="form-control select2" >
+                              {% for empresa in empresa_data %}
+                                  <option  value="{{empresa['id']}}">{{empresa['name_fantasy']}}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>ARQUIVO</label>
+                          <input type="file"  name="file"  class="form-control btn-primary">
+                        </div>
+                        <div class="form-group col-sm-12  col-md-12 col-lg-3">
+                          <label>STATUS</label>
+                          <select name="status_id" class="form-control select2 ">
+                              {% for status in status_data %}
+                                  <option  value="{{status['id']}}">{{status['description']}}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Salvar</button>
+                    <a href="/empresa" class="btn btn-danger" type="reset">Cancelar</a>
+                  </div>
+              </div>
+            </form>                    
+          </div>
+      </div> 
+    </div>
+  </div>
+{% endblock %}

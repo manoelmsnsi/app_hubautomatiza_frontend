@@ -862,6 +862,111 @@ class ApiBackend():
             print(f"backend -> patch_empresa -> [ {error} ]")
             raise Exception({'integration':'backend','function':'patch_empresa','error':error})   
         
+    async def get_lote(self,filters:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/lote"
+            headers={"Authorization":token}
+            payload=filters
+            payload["size"]=100
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_lote -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_lote','error':error})
+    
+    async def post_lote(self,data:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/lote"
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":token
+                    }
+            payload=data
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_lote -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_lote','error':error})   
+        
+    async def patch_lote(self,id:int,data:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/lote?id={id}"
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":token
+                    }
+            payload=data
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_lote -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_lote','error':error})   
+        
+    async def get_tarefa(self,filters:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/tarefa"
+            headers={"Authorization":token}
+            payload=filters
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_tarefa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_tarefa','error':error})
+    
+    async def post_tarefa(self,data:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/tarefa"
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":token
+                    }
+            payload=data
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> post_tarefa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'post_tarefa','error':error})   
+        
+    async def patch_tarefa(self,id:int,data:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/tarefa?id={id}"
+            headers={
+                        "Content-Type": "application/json",
+                        "Authorization":token
+                    }
+            payload=data
+            
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+            response.raise_for_status()    
+            return response.json()
+        
+        except Exception as error:
+            print(f"backend -> patch_tarefa -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'patch_tarefa','error':error})   
+        
     async def get_usuario(self,filters:dict,token = None):
         try:
             # self.auth()
