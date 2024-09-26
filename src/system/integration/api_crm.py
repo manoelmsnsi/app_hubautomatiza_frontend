@@ -138,11 +138,11 @@ class ApiBackend():
                     # Preenche os demais campos de controle apenas na primeira iteração
                     
                     response_data["total"] = json_response.get("total", 0)
-                    response_data["size"] = response_data["size"]+json_response.get("size", 50)
-                    response_data["pages"] = 1
+                    response_data["size"] = json_response.get("total", 0) #response_data["size"]+json_response.get("size", 50)
+                    # response_data["pages"] = 1
 
                     # Verifica se já processou todas as páginas
-                    if int(page) >= response_data["pages"]:
+                    if int(page) >= json_response["pages"]:
                         break
 
                     page += 1  # Próxima página
@@ -915,6 +915,19 @@ class ApiBackend():
             print(f"backend -> patch_lote -> [ {error} ]")
             raise Exception({'integration':'backend','function':'patch_lote','error':error})   
         
+    async def get_lote_download(self,filters:dict,token = None):
+        try:
+            # self.auth()
+            url = f"{self.BASE_URL}/lote/download"
+            headers={"Authorization":token}
+            payload=filters
+            async with httpx.AsyncClient() as client:
+                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+            response.raise_for_status()    
+            return response.json()
+        except Exception as error:
+            print(f"backend -> get_lote_download -> [ {error} ]")
+            raise Exception({'integration':'backend','function':'get_lote_download','error':error})
     async def get_tarefa(self,filters:dict,token = None):
         try:
             # self.auth()

@@ -1,3 +1,5 @@
+import csv
+from io import StringIO
 import logging
 import os
 from pathlib import Path
@@ -5,7 +7,7 @@ import shutil
 from typing import List, Optional
 from fastapi.staticfiles import StaticFiles
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 from starlette.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
@@ -58,10 +60,17 @@ async def lote_form(request: Request):
         return templates.TemplateResponse("form.html",{"request": request,"status_data":status_data["items"],"lote_data":lote_data["items"],"integracao_grupo_data":integracao_grupo_data["items"],"empresa_data":empresa_data["items"]})
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"lote_form"},"error":error}})
-@frontend.get("/lote/baixar",)
+
+@frontend.get("/lote/download",)
 async def lote_form(request: Request):
     try:
-        return RedirectResponse(f'/em_contrucao', status_code=status.HTTP_303_SEE_OTHER)
+        save_folder = Path(f"{os.environ.get('PATH_FILE')}/lote/output")
+        lote_id=request.query_params.get("lote_id",0)
+        tarefa_data = await api_backend.get_tarefa(filters=request.query_params._dict,token = request.state.token)
+        csv_data = json_to_csv(tarefa_data["items"])
+        save_csv_to_file(csv_content= csv_data, filename=f"lote_{lote_id}.csv", directory=f"{save_folder}/")        
+        return FileResponse(f"{save_folder}/lote_{lote_id}.csv", filename=f"lote_{lote_id}.csv", headers={"Content-Disposition":f"attachment; filename=lote_{lote_id}.csv"})
+
     except Exception as error:
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"lote_form"},"error":error}})
 
@@ -93,6 +102,92 @@ async def lote_insert(request: Request,file: UploadFile = File(...)):
         # flash(request, {"data":{"frontend":{"function":"lote_insert"},"error":error}}, "alert-danger")
         return templates.TemplateResponse("error/500.html",{"request": request,"data":{"frontend":{"function":"lote_insert"},"error":error}})
     
+def save_csv_to_file(csv_content: str, filename: str, directory: str) -> str:
+        """
+        Salva o conteúdo CSV em um arquivo.
+
+        :param csv_content: O conteúdo CSV como uma string.
+        :param filename: O nome do arquivo a ser salvo (com extensão .csv).
+        :param directory: O diretório onde o arquivo será salvo.
+        :return: O caminho completo do arquivo salvo.
+        """
+        # Cria o diretório se não existir
+        os.makedirs(directory, exist_ok=True)
+
+        # Caminho completo do arquivo
+        file_path = os.path.join(directory, filename)
+
+        # Salva o conteúdo CSV no arquivo
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(csv_content)
+
+        return file_path
+def flatten_json(nested_json, parent_key='', sep='_'):
+        """
+        Função recursiva para achatar um JSON aninhado.
+        """
+        items = []
+        for k, v in nested_json.items():
+            new_key = f"{parent_key}{sep}{k}" if parent_key else k
+            if isinstance(v, dict):
+                items.extend(flatten_json(v, new_key, sep=sep).items())
+            else:
+                items.append((new_key, v))
+        return dict(items)
+
+def json_to_csv(tarefas):
+        # StringIO para escrever o CSV na memória
+        csv_output = StringIO()
+        
+        # Lista de todas as chaves únicas dentro de 'response_'
+        all_keys = set()
+
+        # Função para extrair as chaves do 'response_' de cada tarefa e achatar o JSON
+        def extract_keys(response_json):
+            if isinstance(response_json, dict):
+                flat_json = flatten_json(response_json)
+                for key in flat_json.keys():
+                    all_keys.add(key)
+
+        # Primeira passagem para coletar todas as chaves dentro de 'response_' de cada tarefa
+        for tarefa in tarefas:
+            response_json = tarefa["response_"]
+            if response_json:
+                extract_keys(response_json)
+
+        # Ordenar as chaves (opcional, para garantir ordem consistente)
+        fieldnames = sorted(all_keys)
+        
+        # Criar o writer CSV
+        writer = csv.DictWriter(csv_output, fieldnames=fieldnames)
+        
+        # Escrever o cabeçalho
+        writer.writeheader()
+
+        # Função para extrair valores do 'response_' de cada tarefa e achatar o JSON
+        def extract_values(response_json):
+            row = {}
+            if isinstance(response_json, dict):
+                flat_json = flatten_json(response_json)
+                for key in fieldnames:
+                    row[key] = flat_json.get(key, "")
+            return row
+
+        # Segunda passagem para escrever os dados no CSV
+        for tarefa in tarefas:
+            response_json = tarefa["response_"]
+            if response_json:
+                row = extract_values(response_json)
+                writer.writerow(row)
+        
+        # Retorna o CSV como string
+        csv_content = csv_output.getvalue()
+
+        # Debug: imprime o CSV gerado
+        print("CSV gerado:\n", csv_content)
+
+        return csv_content
+
 def process_file_to_model(file) -> List[Estructure]:
     data = []
 

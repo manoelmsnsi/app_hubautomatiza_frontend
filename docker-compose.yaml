@@ -1,48 +1,158 @@
 version: '3.8'
 services:
 
-  front_holly_finance:
-    image: ghcr.io/aumatiza/front_holly_finance:latest
-    command: uvicorn main:app  --host 0.0.0.0 --port 8051 --workers 6
+  api_externa:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: uvicorn api_externa:app  --host 0.0.0.0 --port 8050 --workers 6
     environment:
-      - BACNKEND_BASE_URL=http://0.0.0.0:8050
-      - ELASTIC_SERVICE_NAME="front_holly_finance"
-      - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_datacred_externa
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
       - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=ApiMy@CrM132@
-      - BASE_REDIS=redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - RABBITMQ_USUARIO=n1rabbitmq
       - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
-      - RABBITMQ_HOST=0.0.0.0
+      - RABBITMQ_HOST=213.199.42.242
       - RABBITMQ_PORT=5672
-    ports:
-      - 8051:8051
-    networks:
-      network_default:
-        aliases:
-          - api_acesso
-  api_holly_finance:
-    image: ghcr.io/aumatiza/api_holly_finance:latest
-    command: uvicorn main:app  --host 0.0.0.0 --port 8050 --workers 6
-    environment:
-      - DATABASE_URL="postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm"
-      - BACKUP_FILE="./"
-      - ELASTIC_SERVICE_NAME="api_holly_finance"
-      - ELASTIC_SERVER_URL="http://213.199.42.242:8200"
-      - ELASTIC_USER=elastic
-      - ELASTIC_PASSWORD=ApiMy@CrM132@
+    deploy:
+      replicas: 3
     ports:
       - 8050:8050
     networks:
       network_default:
         aliases:
           - api_acesso
+
+  front:
+    image: ghcr.io/aumatiza/front_holly_finance:latest
+    command: uvicorn main:app  --host 0.0.0.0 --port 8051 --workers 6
+    environment:
+      - BACNKEND_BASE_URL=http://api_interna:8049
+      - ELASTIC_SERVICE_NAME=front_datacred
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+    ports:
+      - 8051:8051
+    networks:
+      network_default:
+        aliases:
+          - front_crm
+
+  api_interna:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: uvicorn api_interna:app  --host 0.0.0.0 --port 8049 --workers 6
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_datacred_interna
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=213.199.42.242
+      - RABBITMQ_PORT=5672
+    # ports:
+    #   - 8049:8049
+    networks:
+      network_default:
+
+  worker_hub:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: "poetry run python -um src.app.app_workers.saldo.datacred_saldo_data_for_database"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_holly_finance
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=213.199.42.242
+      - RABBITMQ_PORT=5672
+    networks:
+      network_default:
+
+  worker_saldo:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: "poetry run python -um src.app.app_workers.hub.datacred_hub_data_for_database"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_holly_finance
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=213.199.42.242
+      - RABBITMQ_PORT=5672
+    deploy:
+      replicas: 2
+    networks:
+      network_default:
+
+  worker_historico_saldo:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: "poetry run python -um src.app.app_workers.historico_saldo.datacred_historico_saldo_data_for_database"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_holly_finance
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=213.199.42.242
+      - RABBITMQ_PORT=5672
+    networks:
+      network_default:
+  worker_lote_in100:
+    image: ghcr.io/aumatiza/api_holly_finance:latest
+    command: "poetry run python -um src.app.app_workers.lote_in100.datacred_lote_in100"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:Hu2B2!Ut98Om!ativba!&43@213.199.42.242:5432/api_crm
+      - BACKUP_FILE="./"
+      - ELASTIC_SERVICE_NAME=api_holly_finance
+      - ELASTIC_SERVER_URL=http://213.199.42.242:8200
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=ApiMy@CrM132@
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_USUARIO=n1rabbitmq
+      - RABBITMQ_SENHA=N!@56@cfdshjndDJdSGhcflds
+      - RABBITMQ_HOST=213.199.42.242
+      - RABBITMQ_PORT=5672
+    networks:
+      network_default:
   redis:
     image: redis:latest
     restart: always
     container_name: redis_crm
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 1G
     networks:
         network_default:
+    volumes:
+      - redis_data:/data
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.21
     ports:
@@ -51,7 +161,14 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=true
+      - ELASTIC_USER=elastic
       - ELASTIC_PASSWORD=ApiMy@CrM132@
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
     volumes:
       - data_elastic:/usr/share/elasticsearch/data
     networks:
@@ -68,6 +185,12 @@ services:
       - "5601:5601"
     depends_on:
       - elasticsearch
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - ELASTICSEARCH_USERNAME=elastic
@@ -89,6 +212,12 @@ services:
     depends_on:
       - elasticsearch
       - kibana
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - ELASTICSEARCH_USERNAME=elastic
@@ -112,10 +241,34 @@ services:
       options:
         max-size: "10m"
         max-file: "100"
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:7.17.21
+    depends_on:
+      - elasticsearch
+      - kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=ApiMy@CrM132@
+      - output.elasticsearch.enabled=true
+      - output.elasticsearch.hosts=["http://elasticsearch:9200"]
+      - setup.kibana.host=http://kibana:5601
+      - setup.kibana.username=elastic
+      - setup.kibana.password=ApiMy@CrM132@
+
+    networks:
+      - network_default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "100"
       
 volumes:
   data_elastic:
     driver: local
+  redis_data:
 networks:
   network_default:
-    name: ${NETWORK_DEFAULT:-network_default}
+    external: true
+      

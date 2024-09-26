@@ -55,7 +55,7 @@
                         <td>{{ lote["create_at"]}}</td>
                         <td>
                             <a href="/lote/visualizar?id={{lote.id}}" class="btn btn-primary">Vizualizar</a>
-                            <a href="/lote/baixar?id={{lote.id}}" class="btn btn-warning">Baixar</a>
+                            <a href="/lote/download?lote_id={{lote.id}}" class="btn btn-warning">Baixar</a>
                         </td>
                     </tr>
                     {% endfor %}              
