@@ -476,13 +476,43 @@ class ApiBackend():
         try:
             # self.auth()
             url = f"{self.BASE_URL}/caixa_historico"
-            headers={"Authorization":token}
-            payload=filters
+            headers = {"Authorization": token}
+            payload = filters
+            payload["size"]= 100
+            page = 1
+            if "page" in payload:
+                page = payload["page"]
+            response_data = {
+            "items": [],
+            "total": 0,
+            "page": 1,
+            "size": 50,
+            "pages": 1
+        }
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
-            response.raise_for_status()    
-            return response.json()
+                while True:
+                    payload["page"] = page  # Define o número da página no payload
+                    resp = await client.get(url, headers=headers, params=payload)
+                    resp.raise_for_status()
+                    json_response = resp.json()
+
+                    # Adiciona os itens da página atual
+                    response_data["items"].extend(json_response.get("items", []))
+
+                    # Preenche os demais campos de controle apenas na primeira iteração
+                    
+                    response_data["total"] = json_response.get("total", 0)
+                    response_data["size"] = json_response.get("total", 0) #response_data["size"]+json_response.get("size", 50)
+                    # response_data["pages"] = 1
+
+                    # Verifica se já processou todas as páginas
+                    if int(page) >= json_response["pages"]:
+                        break
+
+                    page += 1  # Próxima página
+
+            return response_data  # Retorna a estrutura com
         except Exception as error:
             print(f"backend -> get_caixa_historico -> [ {error} ]")
             raise Exception({'integration':'backend','function':'get_caixa_historico','error':error})   
