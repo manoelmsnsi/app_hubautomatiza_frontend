@@ -12,14 +12,14 @@
         {% if request.cookies.get('_is')=="_isU@4oSdf8afE@+.200.crm"%}
           <li class="active"><a href="/home" class="nav-link"><i class="fas fa-home"></i> <span>HOME</span></a></li>
           <li><a href="/empresa" class="nav-link text-primary"><i class="fas fa-city"></i> <span >MINHA EMPRESA</span></a></li>
-          <li><a href="/lote" class="nav-link text-primary"><i class="fas fa-tasks" ></i> <span >LOTE</span></a></li>
+          <li><a href="/lote" class="nav-link text-primary"><i class="fas fa-archive" ></i> <span >LOTE</span></a></li>
           <li><a href="/integracao_historico_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >HISTORICO SALDO</span></a></li>
           {% endif%}    
         {% if request.cookies.get('_is')=="_isA@4aDsd34fM@+.213.crm"%}     
           <li class="active"><a href="/home" class="nav-link"><i class="fas fa-home"></i> <span>HOME</span></a></li>   
           <li class="menu-header text-primary" >CADASTRO</li>
           <li><a href="/pessoa" class="nav-link text-primary"><i class="fas fa-users" ></i> <span >PESSOA</span></a></li>
-          <li><a href="/lote" class="nav-link text-primary"><i class="fas fa-tasks" ></i> <span >LOTE</span></a></li>
+          <li><a href="/lote" class="nav-link text-primary"><i class="fas fa-archive" ></i> <span >LOTE</span></a></li>
           <li class="dropdown">
             <a href="#" class="nav-link has-dropdown text-primary" data-toggle="dropdown"><i class="fas fa-chart-pie"></i> <span >CONFIGURAÇÕES</span></a>
             <ul class="dropdown-menu" >
@@ -41,14 +41,14 @@
             </ul>
           </li> 
           <li class="menu-header" >ACESSOS</li>
-          <li><a href="/usuario" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >USUÁRIO</span></a></li>
-          <li><a href="/rota" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >ROTAS</span></a></li>
-          <li><a href="/grupo_acesso" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >GRUPO ACESSO</span></a></li>
+          <li><a href="/usuario" class="nav-link text-primary"><i class="fas fa-users"></i> <span >USUÁRIO</span></a></li>
+          <li><a href="/rota" class="nav-link text-primary"><i class="fas fa-link"></i> <span >ROTAS</span></a></li>
+          <li><a href="/grupo_acesso" class="nav-link text-primary"><i class="fas fa-unlock-alt"></i> <span >GRUPO ACESSO</span></a></li>
           
           <li class="menu-header" >INTEGRAÇÕES</li>
-          <li><a href="/integracao" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >INTEGRAÇÃO</span></a></li>
-          <li><a href="/integracao_grupo" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >GRUPO DE INTEGRAÇÃO</span></a></li>
-          <li><a href="/integracao_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >SALDO</span></a></li>
+          <li><a href="/integracao" class="nav-link text-primary"><i class="fas fa-sitemap"></i> <span >INTEGRAÇÃO</span></a></li>
+          <li><a href="/integracao_grupo" class="nav-link text-primary"><i class="fas fa-sitemap"></i> <span >GRUPO DE INTEGRAÇÃO</span></a></li>
+          <li><a href="/integracao_saldo_empresa" class="nav-link text-primary"><i class="fas fa-balance-scale"></i> <span >SALDO</span></a></li>
           <li><a href="/integracao_historico_saldo_empresa" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >HISTORICO SALDO</span></a></li>
           
           <li class="menu-header" >ADMINISTRATIVO</li>
@@ -59,7 +59,8 @@
               <li><a href="/relatorio_consumo_integracao" class="nav-link text-primary"> <span >CONSUMO POR INTEGRAÇÃO</span></a></li>
             </ul>
           </li> 
-          <li><a href="/status" class="nav-link text-primary"><i class="fas fa-tasks"></i> <span >STATUS</span></a></li>
+          <li><a href="/status" class="nav-link text-primary"><i class="fas fa-tags"></i> <span >STATUS</span></a></li>
+          <li><a href="/backup" class="nav-link text-primary"><i class="fas fa-database"></i> <span >BACKUP</span></a></li>
           <li><a href="/log" class="nav-link text-primary"><i class="fas fa-tasks" ></i> <span >LOGS</span></a></li>
         {% endif%}
         
