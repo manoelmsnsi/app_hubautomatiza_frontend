@@ -37,13 +37,9 @@ class Estructure(BaseModel):
 async def lote_list(request: Request):
     try:
         token = request.state.token
-        id=None
         token_decode  = await api_backend.token_access_decode(token=token[7:])
-        if token_decode.get("is_admin",False)==False:
-            id = token_decode.get("lote_id",0)
-            data = await api_backend.get_lote(filters={"id":id},token = token)
-        else:
-            data = await api_backend.get_lote(filters={},token = token)
+
+        data = await api_backend.get_lote(filters=request.query_params._dict,token = token)
             
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
     except Exception as error:
