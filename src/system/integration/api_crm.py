@@ -75,7 +75,7 @@ class ApiBackend():
                             "password": password
                         }
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",url=url,headers=headers,data=payload)
+                response = await client.request(method="POST",url=url,headers=headers,data=payload,timeout=50)
 
             response.raise_for_status()
 
@@ -97,7 +97,7 @@ class ApiBackend():
                         }
             if(self.TOKEN_VENCIMENTO <= datetime.now()):
                 async with httpx.AsyncClient() as client:
-                    response = await client.request("POST",url=url,headers=headers,data=payload)
+                    response = await client.request("POST",url=url,headers=headers,data=payload,timeout=50)
                 response.raise_for_status()
                 self.TOKEN = f"Bearer {response.json()['access_token']}"
                 self.TOKEN_VENCIMENTO = datetime.now() + timedelta(minutes=+55)
@@ -128,7 +128,7 @@ class ApiBackend():
             async with httpx.AsyncClient() as client:
                 while True:
                     payload["page"] = page  # Define o número da página no payload
-                    resp = await client.get(url, headers=headers, params=payload)
+                    resp = await client.get(url, headers=headers, params=payload,timeout=50)
                     resp.raise_for_status()
                     json_response = resp.json()
 
@@ -163,7 +163,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -182,7 +182,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -198,7 +198,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -217,7 +217,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -236,7 +236,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -253,7 +253,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -270,7 +270,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -289,7 +289,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -305,7 +305,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -322,7 +322,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -341,7 +341,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -357,7 +357,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -374,7 +374,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -393,7 +393,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -409,7 +409,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -427,7 +427,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -446,7 +446,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -464,7 +464,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -493,7 +493,7 @@ class ApiBackend():
             async with httpx.AsyncClient() as client:
                 while True:
                     payload["page"] = page  # Define o número da página no payload
-                    resp = await client.get(url, headers=headers, params=payload)
+                    resp = await client.get(url, headers=headers, params=payload,timeout=50)
                     resp.raise_for_status()
                     json_response = resp.json()
 
@@ -525,7 +525,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -542,7 +542,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -561,7 +561,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -577,7 +577,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -595,7 +595,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -614,7 +614,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -630,7 +630,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -648,7 +648,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -667,7 +667,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -686,7 +686,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -704,7 +704,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -723,7 +723,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -740,7 +740,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -758,7 +758,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -777,7 +777,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -793,7 +793,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -811,7 +811,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -830,7 +830,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -847,7 +847,7 @@ class ApiBackend():
             payload=filters
             payload["size"]=100
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -865,7 +865,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -884,7 +884,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -900,7 +900,7 @@ class ApiBackend():
             payload=filters
             payload["size"]=100
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -918,7 +918,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -937,7 +937,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -952,7 +952,7 @@ class ApiBackend():
             headers={"Authorization":token}
             payload=filters
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -965,7 +965,7 @@ class ApiBackend():
             headers={"Authorization":token}
             payload=filters
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -983,7 +983,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1002,7 +1002,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1018,7 +1018,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1036,7 +1036,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1055,7 +1055,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1071,7 +1071,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1089,7 +1089,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1108,7 +1108,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1124,7 +1124,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1142,7 +1142,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1161,7 +1161,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1177,7 +1177,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1195,7 +1195,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1214,7 +1214,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1230,7 +1230,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1248,7 +1248,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1267,7 +1267,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1283,7 +1283,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1301,7 +1301,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1320,7 +1320,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1336,7 +1336,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1354,7 +1354,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1373,7 +1373,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1389,7 +1389,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1407,7 +1407,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1426,7 +1426,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1442,7 +1442,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1460,7 +1460,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="POST",headers=headers,url=url,json=payload)
+                response = await client.request(method="POST",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1479,7 +1479,7 @@ class ApiBackend():
             payload=data
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="PATCH",headers=headers,url=url,json=payload)
+                response = await client.request(method="PATCH",headers=headers,url=url,json=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         
@@ -1495,7 +1495,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1511,7 +1511,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=20)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=20,timeout=50)
             response.raise_for_status()    
             return response.json()
         except Exception as error:
@@ -1534,7 +1534,7 @@ class ApiBackend():
             payload=filters
             
             async with httpx.AsyncClient() as client:
-                response = await client.request(method="GET",headers=headers,url=url,params=payload)
+                response = await client.request(method="GET",headers=headers,url=url,params=payload,timeout=50)
             response.raise_for_status()    
             
             return response.json()
