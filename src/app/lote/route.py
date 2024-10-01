@@ -32,6 +32,7 @@ api_backend = ApiBackend()
 class Estructure(BaseModel):
     cpf: Optional[int] = None
     matricula: Optional[int] = None
+    cpf_cnpj: Optional[int] = None
 #FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED-FRONTNED#
 @frontend.get("/lote",)
 async def lote_list(request: Request):
@@ -91,7 +92,7 @@ async def lote_insert(request: Request,file: UploadFile = File(...)):
         del data["file"]
         lote_data = await api_backend.post_lote(data=data,token = request.state.token)
         for tarefa in tarefas:
-            tarefa_data = await api_backend.post_tarefa(data={"request_":{'cpf':tarefa.cpf,'matricula':tarefa.matricula},"lote_id":lote_data["id"],"status_id":1},token = request.state.token)
+            tarefa_data = await api_backend.post_tarefa(data={"request_":{'cpf':tarefa.cpf,'matricula':tarefa.matricula,"cpf_cnpj":tarefa.cpf_cnpj},"lote_id":lote_data["id"],"status_id":1},token = request.state.token)
         flash(request, "lote INSERIDA COM SUCESSO!", "alert-success")
         return RedirectResponse(f'/lote', status_code=status.HTTP_303_SEE_OTHER)
     except Exception as error:
@@ -196,7 +197,16 @@ def process_file_to_model(file) -> List[Estructure]:
 
             # Criar uma instância do modelo Estructure a partir dos dados da linha
             try:
-                structure = Estructure(cpf=int(line_data[0]), matricula=int(line_data[1]))
+                if "cpf" in line_data and "matricula" in line_data:
+                    structure = Estructure(cpf=int(line_data[0]), matricula=int(line_data[1]))
+                elif "matricula" in line_data:
+                    structure = Estructure(matricula=int(line_data[0]))
+                elif "cpf" in line_data:
+                    structure = Estructure( cpf=int(line_data[0]))
+                elif "cpf_cnpj" in line_data:
+                    structure = Estructure( cpf_cnpj=int(line_data[0]))
+                else:
+                    structure = Estructure( cpf_cnpj=int(line_data[0]))
                 data.append(structure)
             except (IndexError, ValueError) as e:
                 # Tratamento de erro caso a linha não esteja no formato esperado
