@@ -86,11 +86,11 @@ async def lote_form(request: Request):
 async def lote_insert(request: Request,file: UploadFile = File(...)):
     try:
         data = dict(await request.form())
-        tarefas = process_file_to_model(file=file)
     
         # return data
         del data["file"]
         lote_data = await api_backend.post_lote(data=data,token = request.state.token)
+        tarefas = process_file_to_model(file=file,lote=lote_data)
         for tarefa in tarefas:
             tarefa_data = await api_backend.post_tarefa(data={"request_":{'cpf':tarefa.cpf,'matricula':tarefa.matricula,"cpf_cnpj":tarefa.cpf_cnpj},"lote_id":lote_data["id"],"status_id":1},token = request.state.token)
         flash(request, "lote INSERIDA COM SUCESSO!", "alert-success")
@@ -185,11 +185,12 @@ def json_to_csv(tarefas):
 
         return csv_content
 
-def process_file_to_model(file) -> List[Estructure]:
+def process_file_to_model(file,lote) -> List[Estructure]:
     data = []
 
     # Ler o conteúdo do arquivo
     with file.file as buffer:
+        
         for line in buffer:
             # Decodificar a linha, remover espaços em branco extras e dividir por um delimitador
             # Supondo que o arquivo tenha CPF e matrícula separados por vírgula, ex: "12345678901,12345"
@@ -197,17 +198,22 @@ def process_file_to_model(file) -> List[Estructure]:
 
             # Criar uma instância do modelo Estructure a partir dos dados da linha
             try:
-                if "cpf" in line_data and "matricula" in line_data:
+                if "cpf" in line_data or "matricula" in line_data or "cpf_cnpj" in line_data:
+                    controle= line_data[0]
+                elif lote["integracao_grupo"]["tipo"] == "OFFLINE":
+                    if controle=="cpf":
+                        structure = Estructure(cpf=int(line_data[0]), matricula=None)
+                    else:
+                        structure = Estructure(cpf=None, matricula=int(line_data[1]))
+                    data.append(structure)
+                elif lote["integracao_grupo"]["tipo"] == "IN100":
                     structure = Estructure(cpf=int(line_data[0]), matricula=int(line_data[1]))
-                elif "matricula" in line_data:
-                    structure = Estructure(matricula=int(line_data[0]))
-                elif "cpf" in line_data:
-                    structure = Estructure( cpf=int(line_data[0]))
-                elif "cpf_cnpj" in line_data:
+                    data.append(structure)
+                elif lote["integracao_grupo"]["tipo"] == "TELEFONIA":
                     structure = Estructure( cpf_cnpj=int(line_data[0]))
-                else:
-                    structure = Estructure( cpf_cnpj=int(line_data[0]))
-                data.append(structure)
+                    data.append(structure)
+              
+                
             except (IndexError, ValueError) as e:
                 # Tratamento de erro caso a linha não esteja no formato esperado
                 logging.error(f"Erro ao processar linha: {line}. Detalhes: {e}")
