@@ -13,7 +13,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>HISTORICO CAIXA</h4>
+                <h4>RELATORIO DE CONSUMO POR INTEGRAÇÃO</h4>
                 <div class="card-header-form">
                     <form method="get" action="#">
                         <div class="input-group">     
@@ -38,6 +38,7 @@
                         <tr>
                             <th>EMPRESA</th>
                             <th>INTEGRACAO</th>
+                            <th>GRUPO</th>
                             <th>TOTAL</th>
                             <th>DATA CONSULTA</th>
                         </tr>
@@ -46,12 +47,14 @@
                         <tr>
                             <td>{{ relatorio.empresa.name_fantasy }}</td>
                             <td>
+                                {{ relatorio.integracao.nome }}
                                 {% if request.cookies.get('_is')=="_isA@4aDsd34fM@+.213.crm"%} 
                                     {{ relatorio.integracao.nome }}
                                 {% else %}
                                     {{ relatorio.integracao.pseudonimo }}
                                 {% endif %}
                             </td>
+                            <td>{{ relatorio.integracao.integracao_grupo.nome }}</td>
                             <td><div class="badge badge-primary">{{ relatorio.total }}</div></td>
                             <td>{{ relatorio.create_at }}</td>                           
                         </tr>

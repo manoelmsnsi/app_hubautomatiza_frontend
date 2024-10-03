@@ -46,8 +46,10 @@ async def dash(request: Request):
     # data_calendar = await api_backend.get_google_calendar(filters={"calendar_id":"manoelmsnsi@gmail.com","size":10})
     filters={}
     if request.query_params.get("start_data","") != "":
-        filters = {"start_data":request.query_params.get("start_data",datetime.now().date()),
-               "end_data":request.query_params.get("end_data",datetime.now().date())}
+        filters = {
+                "start_data":request.query_params.get("start_data",datetime.now().date()),
+               "end_data":request.query_params.get("end_data",datetime.now().date())
+               }
     data = await api_backend.get_realtorio_consumo_integracao(filters=filters,token = request.state.token)
     
     data_calendar = [
