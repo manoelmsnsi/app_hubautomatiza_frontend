@@ -1506,7 +1506,7 @@ class ApiBackend():
     async def get_realtorio_consumo_integracao(self,filters:dict,token = None):
         try:
             # self.auth()
-            url = f"{self.BASE_URL}/consumo_integracao"
+            url = f"{self.BASE_URL}/relatorio/consumo_integracao"
             headers={"Authorization":token}
             payload=filters
             

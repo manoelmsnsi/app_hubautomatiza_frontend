@@ -204,7 +204,7 @@ def process_file_to_model(file,lote) -> List[Estructure]:
                     if controle=="cpf":
                         structure = Estructure(cpf=int(line_data[0]), matricula=None)
                     else:
-                        structure = Estructure(cpf=None, matricula=int(line_data[1]))
+                        structure = Estructure(cpf=None, matricula=int(line_data[0]))
                     data.append(structure)
                 elif lote["integracao_grupo"]["tipo"] == "IN100":
                     structure = Estructure(cpf=int(line_data[0]), matricula=int(line_data[1]))

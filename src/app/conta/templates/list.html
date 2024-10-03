@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
 <div class="section-header">
     
     <div class="section-header-breadcrumb">
-      <div class="breadcrumb-item active"><a href="/conta">CONTA</a></div>
-      <div class="breadcrumb-item">LISTAGEM</div>
+        <div class="breadcrumb-item active"><a href="/conta">CONTA</a></div>
+        <div class="breadcrumb-item">LISTAGEM</div>
     </div>
-  </div>
+</div>
+{% set list = namespace(receita_total=0, despesa_total=0) %}
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -15,19 +15,30 @@
                 <h4>CONTA</h4>
                 <div class="card-header-form">
                     <form method="get" action="/conta">
+                        
                         <div class="input-group">      
-                            <!-- <div class=" d-inline mr-2">
-                                <select class="btn btn-primary"name="filter" >
+                                <input type="hidden" name="start_data" id="start_data">
+                                <input type="hidden" name="end_data" id="end_data">
+                                <a href="javascript:;" class="btn btn-primary daterange-btn icon-left btn-icon mr-2">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="dateRangeText">SELECIONE A DATA</span>
+                                </a>
+                     
+                            
+                            <div class=" btn btn-primary d-inline mr-2">
+                                <i class="fas fa-calendar"></i>
+                                <select class=" btn btn-primary"name="filter" style="box-shadow:0 0 0 #acb5f6">
                                     <a class="dropdown-item" ><option  selected value="pessoa">NOME</option></a>
+                                    <a class="dropdown-item" ><option  selected value="empresa">EMPRESA</option></a>
                                     <a class="dropdown-item " ><option  value="cpf">CPF/CNPJ</option></a>
                                     <a class="dropdown-item " ><option  value="conta_tipo">TIPO</option></a>
-                                </select>                            
-                            </div> -->
+                                </select>
+                            </div> 
                             <input name="value" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
-                            <div class="input-group-btn">
+                            <div class="input-group-btn mr-2">
                                 <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                             </div>
-                            <a  class="btn btn-primary" href="/conta/form"><i class="fas fa-plus"></i></a>
+                            <a class="btn btn-primary " href="/conta/form"><i class="fas fa-plus"></i></a>
                         </div>
                     </form>
                 </div>
@@ -56,44 +67,81 @@
                             </tr>
                         </thead> 
                         {% for conta in data['items'] %}
-                        <tr>                
-                            <td>{{ conta["id"] }}</td>
-                            <td>{{ conta["descricao"] }}</td>
-                            <td>{{ conta["pessoa"]["name"] }}</td>
-                            <td>{{ conta["pessoa"]["cpf_cnpj"] }}</td>
-                            <td> 
-                                {% if conta['conta_tipo_id'] == 1 %}
-                                    <div class="badge badge-primary">
-                                        {{ conta["conta_tipo"]["description"] }}
-                                    </div>
-                                {% elif conta['conta_tipo_id'] == 2 %}
-                                    <div class="badge badge-danger">
-                                        {{ conta["conta_tipo"]["description"] }}
-                                    </div>
-                                {% endif %}
-                            </td>
-                            <td>{{ conta["controle"]}}</td>
-                            <td>{{ conta["documento_tipo"]["description"] }}</td>
-                            <td>{{ conta["pagamento_tipo"]["description"] }}</td>
-                            <td>{{ conta["valor_total"] | round(2) }}</td>
-                            <td>{{ conta["valor_parcela"] | round(2) }}</td>
-                            <td>{{ conta["pagamento_tipo"]["amout"] }} / {{ conta["parcela"]}}</td>
-                            <td>{{ conta["empresa"]["name_fantasy"] }}</td>
-                            <td>
-                                <div class="badge badge-warning">
-                                    {{ conta["status"]["description"] }}
-                                </div>
-                            </td>
-                            <td>{{ conta["data_vencimento"]}}</td>
-                            
-                            <td>
-                                <a href="/caixa/form_processar?conta_id={{conta['id']}}" class="btn btn-primary">Processar</a>
-                                <a href="/conta/form?id={{conta.id}}" class="btn btn-light">Editar</a>
-                                <a href="/em_contrucao" class="btn btn-danger">Deletar</a>
-                            </td>
-                        </tr>
+                                <tr>                
+                                    <td>{{ conta["id"] }}</td>
+                                    <td>{{ conta["descricao"] }}</td>
+                                    <td>{{ conta["pessoa"]["name"] }}</td>
+                                    <td>{{ conta["pessoa"]["cpf_cnpj"] }}</td>
+                                    <td> 
+                                        {% if conta['conta_tipo_id'] == 1 %}
+                                            <div class="badge badge-primary">
+                                                {{ conta["conta_tipo"]["description"] }}
+                                                {% set list.receita_total = list.receita_total + conta.valor_parcela  %}
+                                            </div>
+                                        {% elif conta['conta_tipo_id'] == 2 %}
+                                            <div class="badge badge-danger">
+                                                {{ conta["conta_tipo"]["description"] }}
+                                                {% set list.despesa_total = list.despesa_total + conta.valor_parcela  %}
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ conta["controle"]}}</td>
+                                    <td>{{ conta["documento_tipo"]["description"] }}</td>
+                                    <td>{{ conta["pagamento_tipo"]["description"] }}</td>
+                                    <td>{{ conta["valor_total"] | round(2) }}</td>
+                                    <td>{{ conta["valor_parcela"] | round(2) }}</td>
+                                    <td>{{ conta["pagamento_tipo"]["amout"] }} / {{ conta["parcela"]}}</td>
+                                    <td>{{ conta["empresa"]["name_fantasy"] }}</td>
+                                    <td>
+                                        <div class="badge badge-warning">
+                                            {{ conta["status"]["description"] }}
+                                        </div>
+                                    </td>
+                                    <td>{{ conta["data_vencimento"]}}</td>
+                                    
+                                    <td>
+                                        <a href="/caixa/form_processar?conta_id={{conta['id']}}" class="btn btn-primary">Processar</a>
+                                        <a href="/conta/form?id={{conta.id}}" class="btn btn-light">Editar</a>
+                                        <a href="/em_contrucao" class="btn btn-danger">Deletar</a>
+                                    </td>
+                                </tr>                       
                         {% endfor %}              
-                    </table>              
+                        <div class="row col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card card-statistic-2">
+                                        
+                                        <div class="card-icon shadow-primary bg-primary">          
+                                            <i class="fas fa-arrow-circle-up	"></i>
+                                        </div>
+                                        <div class="card-wrap">
+                                            <div class="card-header">
+                                                <h4 class="text-success">A RECEBER</h4>
+                                            </div>
+                                            <div class="card-body text-success">
+                                                R$ {{ list.receita_total | round(2)}}
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="card card-statistic-2">
+                                    
+                                        <div class="card-icon shadow-primary bg-primary">
+                                            <i class="fas fa-arrow-circle-down	"></i>
+                                        </div>
+                                        <div class="card-wrap">
+                                            <div class="card-header ">
+                                                <h4 class="text-danger">A PAGAR</h4>
+                                            </div>
+                                            <div class="card-body text-danger">
+                                                R$ {{ list.despesa_total | round(2) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                    </table>      
                     <div class="card-footer text-right">
                         <nav class="d-inline-block">
                         <ul class="pagination mb-0">
@@ -134,6 +182,51 @@
             }
         });
         });
+        $(document).ready(function() {
+            // Configuração do daterangepicker
+            $('.daterange-btn').daterangepicker({
+                ranges: {
+                    'Hoje': [moment(), moment().add(1, 'days')],
+                    'A 1 Dia': [moment().subtract(1, 'days'), moment().add(1, 'days')],
+                    'Ultimos 7 Dias': [moment().subtract(6, 'days'), moment().add(1, 'days')],
+                    'Ultimos 30 Dias': [moment().subtract(29, 'days'), moment().add(1, 'days')],
+                    'Ultimo Mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                    'Este Mês': [moment().startOf('month'), moment().endOf('month')]
+                },
+                startDate: moment().startOf('month'),  // Corrigido para startDate
+                endDate: moment().endOf('month')       // Corrigido para endDate
+            }, function (start, end) {
+                // Atualiza os campos ocultos do formulário quando o usuário interage
+                $('#start_data').val(start.format('YYYY-MM-DD'));
+                $('#end_data').val(end.format('YYYY-MM-DD'));
+                
+                // Atualiza o texto da tag <a>
+                $('#dateRangeText').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            });
+        
+            // Atribuição automática ao carregar a página
+            let start_data = moment().startOf('month').format('YYYY-MM-DD');
+            let end_data = moment().endOf('month').format('YYYY-MM-DD');
+            
+            // Atualiza os campos ocultos do formulário ao carregar a página
+            $('#start_data').val(start_data);
+            $('#end_data').val(end_data);
+        
+            // Atualiza o texto da tag <a> ao carregar a página
+            $('#dateRangeText').html(moment().startOf('month').format('MMMM D, YYYY') + ' - ' + moment().endOf('month').format('MMMM D, YYYY'));
+            
+            // Verificação antes de enviar o formulário
+            $('#dateRangeForm').on('submit', function(event) {
+                let start_data = $('#start_data').val();
+                let end_data = $('#end_data').val();
+        
+                if (!start_data || !end_data) {
+                    event.preventDefault(); // Impede o envio se os campos estiverem vazios
+                    alert('Por favor, selecione um intervalo de datas.');
+                }
+            });
+        });
+        
     </script>
 
 {% endblock %}

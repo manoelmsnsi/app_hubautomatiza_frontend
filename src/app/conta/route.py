@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request,status
 
 from src.system.core.flash import flash, get_flashed_messages
 from src.system.integration.api_crm import ApiBackend
+from datetime import datetime, timedelta
 
 
 
@@ -29,8 +30,21 @@ api_backend = ApiBackend()
 async def conta_list(request: Request):
     try:
         filters={}
+        now = datetime.now()
+        start_data = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
+        if now.month == 12: 
+            end_data = start_data.replace(year=now.year + 1, month=1) - timedelta(seconds=1)
+        else:
+            end_data = start_data.replace(month=now.month + 1) - timedelta(seconds=1)
+            
+        filters["start_data"] = request.query_params.get("start_data",start_data.date())
+        filters["end_data"] = request.query_params.get("end_data",end_data.date())
+        
+
         if len(request.query_params)!=0:
-            filters = {request.query_params.get("filter"):request.query_params.get("value")}
+            filters[request.query_params.get("filter")] = request.query_params.get("value",None)
+            
         filters["status_id"]=1
         data = await api_backend.get_conta(filters=filters,token = request.state.token)
         return templates.TemplateResponse("list.html",{"request": request,"data":data})
