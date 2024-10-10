@@ -94,7 +94,7 @@ async def organizar_dados(dados: List[Dict]) -> Dict:
         "datasets": [{
             "data": [],
             "backgroundColor": [
-                "#C06C84", "#20c997", "#17a2b8", "#343a40", "#235e7b"
+                "#C06C84", "#20c997", "#17a2b8", "#343a40", "#232222"
             ],
             "label": "Totais"
         }],
