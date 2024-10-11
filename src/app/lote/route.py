@@ -209,6 +209,9 @@ def process_file_to_model(file,lote) -> List[Estructure]:
                 elif lote["integracao_grupo"]["tipo"] == "IN100":
                     structure = Estructure(cpf=int(line_data[0]), matricula=int(line_data[1]))
                     data.append(structure)
+                elif lote["integracao_grupo"]["tipo"] == "ONLINE":
+                    structure = Estructure( matricula=int(line_data[0]))
+                    data.append(structure)
                 elif lote["integracao_grupo"]["tipo"] == "TELEFONIA":
                     structure = Estructure( cpf_cnpj=int(line_data[0]))
                     data.append(structure)
