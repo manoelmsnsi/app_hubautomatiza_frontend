@@ -23,6 +23,13 @@
                                 <i class="fas fa-calendar"></i>
                                 <span id="dateRangeText">Selecione a Data</span>
                             </a>
+                            <div class=" btn btn-primary d-inline mr-2">
+                                <i class="fas fa-calendar"></i>
+                                <select class=" btn btn-primary"name="filter" style="box-shadow:0 0 0 #acb5f6">
+                                    <a class="dropdown-item" ><option  selected value="empresa_nome">EMPRESA</option></a>
+                                </select>
+                            </div> 
+                            <input name="value" type="text" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" class="form-control" placeholder="Search">
                             <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
@@ -70,57 +77,67 @@
 
 {% endblock %}
 {% block scripts %}    
-    <script>
-        $(document).ready(function() {
-            $('#table-1').DataTable({
-                "searching": false,   // Desativa a barra de pesquisa
-                "paging": false,      // Desativa a paginação
-                "responsive": true,   // Torna a tabela responsiva
-                "columnDefs": [],
-                "language": {
-            "sEmptyTable": "Nenhum dado disponível na tabela",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
-            }
-        });
-        });
-
+<script>
+    $(document).ready(function() {
+        $('#table-1').DataTable({
+            "searching": false,   // Desativa a barra de pesquisa
+            "paging": false,      // Desativa a paginação
+            "responsive": true,   // Torna a tabela responsiva
+            "columnDefs": [],
+            "language": {
+        "sEmptyTable": "Nenhum dado disponível na tabela",
+        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+        "sInfoFiltered": "(Filtrado de _MAX_ registros no total)",
+        }
+    });
+    });
+    $(document).ready(function() {
+        // Configuração do daterangepicker
         $('.daterange-btn').daterangepicker({
             ranges: {
                 'Hoje': [moment(), moment().add(1, 'days')],
                 'A 1 Dia': [moment().subtract(1, 'days'), moment().add(1, 'days')],
                 'Ultimos 7 Dias': [moment().subtract(6, 'days'), moment().add(1, 'days')],
                 'Ultimos 30 Dias': [moment().subtract(29, 'days'), moment().add(1, 'days')],
-                'Ultimo Mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Ultimo Mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Este Mês': [moment().startOf('month'), moment().endOf('month')]
             },
-            start_data: moment(),
-            end_data: moment()
+            startDate: moment().startOf('month'),  // Corrigido para startDate
+            endDate: moment().endOf('month')       // Corrigido para endDate
         }, function (start, end) {
-            let start_data = start.format('YYYY-MM-DD');
-            let end_data = end.format('YYYY-MM-DD');
-        
-            // Atualiza os campos ocultos do formulário
-            $('#start_data').val(start_data);
-            $('#end_data').val(end_data);
-        
+            // Atualiza os campos ocultos do formulário quando o usuário interage
+            $('#start_data').val(start.format('YYYY-MM-DD'));
+            $('#end_data').val(end.format('YYYY-MM-DD'));
+            
             // Atualiza o texto da tag <a>
             $('#dateRangeText').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         });
+    
+        // Atribuição automática ao carregar a página
+        let start_data = moment().startOf('month').format('YYYY-MM-DD');
+        let end_data = moment().endOf('month').format('YYYY-MM-DD');
         
-        // Adiciona um evento de submit para verificar se os campos estão preenchidos
+        // Atualiza os campos ocultos do formulário ao carregar a página
+        $('#start_data').val(start_data);
+        $('#end_data').val(end_data);
+    
+        // Atualiza o texto da tag <a> ao carregar a página
+        $('#dateRangeText').html(moment().startOf('month').format('MMMM D, YYYY') + ' - ' + moment().endOf('month').format('MMMM D, YYYY'));
+        
+        // Verificação antes de enviar o formulário
         $('#dateRangeForm').on('submit', function(event) {
             let start_data = $('#start_data').val();
             let end_data = $('#end_data').val();
-        
+    
             if (!start_data || !end_data) {
                 event.preventDefault(); // Impede o envio se os campos estiverem vazios
                 alert('Por favor, selecione um intervalo de datas.');
             }
         });
-        
-          
-    </script>
+    });
+    
+</script>
 {% endblock %}
 
 
